@@ -1,5 +1,5 @@
 import {UserEntity} from './user.entity';
-import {ArticleCommentEntity} from './article-comment.entity';
+import {ArticleEntity} from './article.entity';
 import {
   Column,
   Entity,
@@ -8,13 +8,19 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
 } from 'typeorm';
 
-@Entity('imagine_articles')
-export class ArticleEntity {
+@Entity('imagine_article_comments')
+export class ArticleCommentEntity {
   @PrimaryGeneratedColumn()
   id?: number;
+
+  @Column({name: 'article_id'})
+  articleID!: number;
+
+  @ManyToOne(() => ArticleEntity, article => article.comments)
+  @JoinColumn({name: 'article_id'})
+  article?: ArticleEntity;
 
   @Column({name: 'user_id'})
   userID!: number;
@@ -24,23 +30,11 @@ export class ArticleEntity {
   user?: UserEntity;
 
   @Column()
-  name!: string;
-
-  @Column()
-  description!: string;
-
-  @Column()
-  content!: string;
-
-  @Column({name: 'image_url'})
-  image!: string;
+  comment!: string;
 
   @CreateDateColumn({name: 'created_at'})
   createdAt?: string;
 
   @UpdateDateColumn({name: 'updated_at'})
   updatedAt?: string;
-
-  @OneToMany(() => ArticleCommentEntity, articleComment => articleComment.article)
-  comments?: ArticleCommentEntity[];
 }
