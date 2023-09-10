@@ -1,14 +1,20 @@
-import {Field, InputType} from '@nestjs/graphql';
 import {Max} from 'class-validator';
+import {Field, InputType} from '@nestjs/graphql';
 import {GLOBAL_MAX_RESOURCE_LIMIT} from '../imagine.constant';
 
 @InputType()
-export class GroupFilterManyInput {
+export class SupportTicketFilterManyInput {
   @Field(() => [Number], {nullable: true})
   ids?: number[];
 
   @Field(() => [Number], {nullable: true})
-  userIDs?: number[];
+  reportingUserIDs?: number[];
+
+  @Field(() => [Number], {nullable: true})
+  offendingUserIDs?: number[];
+
+  @Field(() => [Number], {nullable: true})
+  staffUserIDs?: number[];
 
   @Field(() => Number, {nullable: true})
   @Max(GLOBAL_MAX_RESOURCE_LIMIT)
@@ -16,7 +22,4 @@ export class GroupFilterManyInput {
 }
 
 @InputType()
-export class GroupFilterOneInput {
-  @Field(() => Number)
-  id!: number;
-}
+export class SupportTicketFilterOneInput {}
