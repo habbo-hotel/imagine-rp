@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import {RoomEntity} from './room.entity';
 
-@Entity('camera_web')
+@Entity('cms_user_photos')
 export class PhotoEntity implements PhotoWire {
   @PrimaryGeneratedColumn()
   id!: number;

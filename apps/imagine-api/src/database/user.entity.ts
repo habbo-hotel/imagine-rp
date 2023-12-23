@@ -41,10 +41,10 @@ export class UserEntity {
   @Column()
   credits: number = IMAGINE_DEFAULT_CREDITS;
 
-  @Column({name: 'points'})
+  @Column({name: 'vip_points'})
   vipPoints: number = IMAGINE_DEFAULT_VIP_POINTS;
 
-  @Column({name: 'pixels'})
+  @Column({name: 'activity_points'})
   activityPoints: number = IMAGINE_DEFAULT_ACTIVITY_POINTS;
 
   @Column()
@@ -65,10 +65,10 @@ export class UserEntity {
   @Column({name: 'last_online'})
   lastOnlineAt!: number;
 
-  @Column({name: 'ip_current'})
+  @Column({name: 'ip_last'})
   ipLast!: string;
 
-  @Column({name: 'ip_register'})
+  @Column({name: 'ip_reg'})
   ipRegistered!: string;
 
   @Column({name: 'machine_id', nullable: true})
@@ -80,10 +80,10 @@ export class UserEntity {
   @Column({name: 'google_id', type: 'varchar', nullable: true})
   googleID?: string;
 
-  @Column({name: 'fb_id', type: 'varchar', nullable: true})
+  @Column({name: 'facebook_id', type: 'varchar', nullable: true})
   facebookID?: string;
 
-  @Column({name: 'discord_id', type: 'varchar', nullable: true})
+  @Column({name: 'discord_user_id', type: 'varchar', nullable: true})
   discordID?: string;
 
   @Column({name: 'lang', type: 'varchar', nullable: true})
