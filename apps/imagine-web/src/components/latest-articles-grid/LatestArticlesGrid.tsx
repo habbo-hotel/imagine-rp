@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ButtonNoBorder } from '../button/Button.remix';
 import { useArticleFetchMany } from '@imagine-cms/client';
-import { GridLarge, GridMedium } from '../grid/Grid.remix';
+import { GridLarge } from '../grid/Grid.remix';
 import { LatestArticlesGridProps } from './LatestArticlesGrid.types';
 import { LatestArticleContainer } from '../latest-article-grid-container/LatestArticleGridContainer';
 import { LatestArticleContainerMock } from '../latest-article-grid-container/LatestArticleContainer.mock';
@@ -42,7 +42,7 @@ export function LatestArticlesGrid({ showHeader = true }: LatestArticlesGridProp
             <h2>Page {page + 1}</h2>}
         </div>
       )}
-      <GridMedium>
+      <GridLarge>
         {
           fetchArticles.loading && (
             <>
@@ -62,7 +62,7 @@ export function LatestArticlesGrid({ showHeader = true }: LatestArticlesGridProp
             <LatestArticleContainer article={_} key={`latest_article_${_.id}`} />
           ))
         }
-      </GridMedium>
+      </GridLarge>
       <GridLarge style={{ marginTop: 16 }}>
         {canGoDown ?
           <ButtonNoBorder onClick={goBackOnePage}>

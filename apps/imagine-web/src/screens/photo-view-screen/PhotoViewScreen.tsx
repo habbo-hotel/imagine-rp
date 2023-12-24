@@ -7,8 +7,7 @@ import { PhotoCommentsCard } from './photo-comments-card/PhotoCommentsCard';
 import { PhotoCreateCommentCard } from './photo-create-comment-card/PhotoCreateCommentCard';
 import { SmallUserProfileContainer } from '../../components/small-user-profile-container/SmallUserProfileContainer';
 import { SmallUserProfileContainerMock } from '../../components/small-user-profile-container/SmallUserProfileContainerMock';
-import { Grid } from '../../components/grid/Grid';
-import { GridMedium, GridSmallLarge } from '../../components/grid/Grid.remix';
+import { GridLarge } from '../../components/grid/Grid.remix';
 
 export function PhotoViewScreen() {
   const [key, setKey] = useState(0);
@@ -31,7 +30,7 @@ export function PhotoViewScreen() {
       <br />
       {
         data && (
-          <GridMedium>
+          <GridLarge>
             <div>
               <PhotoViewScreenImagePreview src={data.photoURL} />
               {data.user ? <SmallUserProfileContainer user={data.user as any} /> : <SmallUserProfileContainerMock />}
@@ -40,7 +39,7 @@ export function PhotoViewScreen() {
               <PhotoCommentsCard photo={data} />
             </div>
             <PhotoCreateCommentCard photoID={data.id} onCreation={bumpKey} />
-          </GridMedium>
+          </GridLarge>
         )
       }
     </>

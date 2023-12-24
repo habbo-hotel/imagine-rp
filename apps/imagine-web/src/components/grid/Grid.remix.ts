@@ -8,6 +8,14 @@ export const GridLarge = styled(Grid)`
     }
   `}
 `
+export const GridMedium = styled(Grid)`
+  ${({ theme }) => `
+    @media (min-width: ${theme.breakPoints.desktop}) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  `}
+`
+
 export const GridLargeSmall = styled(Grid)`
   ${({ theme }) => `
     @media (min-width: ${theme.breakPoints.desktop}) {
@@ -20,13 +28,6 @@ export const GridSmallLarge = styled(Grid)`
   ${({ theme }) => `
     @media (min-width: ${theme.breakPoints.desktop}) {
       grid-template-columns: 1fr 2fr;
-    }
-  `}
-`
-export const GridMedium = styled(Grid)`
-  ${({ theme }) => `
-    @media (min-width: ${theme.breakPoints.desktop}) {
-      grid-template-columns: 1fr 1fr 1fr;
     }
   `}
 `

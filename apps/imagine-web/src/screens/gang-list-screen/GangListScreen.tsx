@@ -1,8 +1,8 @@
 import { useGangFetchMany } from '@imagine-cms/client';
 import React, { useEffect } from 'react';
-import { Grid } from '../../components/grid/Grid';
 import { GangGridContainerMock } from '../../components/gang-grid-container/GangGridContainer.mock';
 import { GangGridContainer } from '../../components/gang-grid-container/GangGridContainer';
+import { GridMedium } from '../../components/grid/Grid.remix';
 
 export function GangListScreen() {
   const gangFetchMany = useGangFetchMany();
@@ -14,7 +14,7 @@ export function GangListScreen() {
   return (
     <>
       <h1>Gangs</h1>
-      <Grid>
+      <GridMedium>
         {
           gangFetchMany.loading && (
             <>
@@ -30,7 +30,7 @@ export function GangListScreen() {
             <GangGridContainer gang={_} key={`gang_grid_container_${_.id}`} />
           ))
         }
-      </Grid>
+      </GridMedium>
     </>
   )
 }

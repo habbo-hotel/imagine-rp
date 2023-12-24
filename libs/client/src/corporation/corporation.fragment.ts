@@ -5,6 +5,7 @@ export const CORPORATION_FRAGMENT: any = gql`
     id
     name
     description
+    badgeCode
   }
 `
 
@@ -12,4 +13,5 @@ export interface CorporationFragment {
   id: number;
   name: string;
   description: string;
+  badgeCode: string;
 }

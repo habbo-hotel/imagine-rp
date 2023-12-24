@@ -1,8 +1,8 @@
 import { useCorporationFetchMany } from '@imagine-cms/client';
 import React, { useEffect } from 'react';
-import { Grid } from '../../components/grid/Grid';
 import { CorpGridContainerMock } from '../../components/corp-grid-container/CorpGridContainer.mock';
 import { CorpGridContainer } from '../../components/corp-grid-container/CorpGridContainer';
+import { GridMedium } from '../../components/grid/Grid.remix';
 
 export function CorpListcreen() {
   const corpFetchMany = useCorporationFetchMany();
@@ -14,7 +14,7 @@ export function CorpListcreen() {
   return (
     <>
       <h1>Corporations</h1>
-      <Grid>
+      <GridMedium>
         {
           corpFetchMany.loading && (
             <>
@@ -30,7 +30,7 @@ export function CorpListcreen() {
             <CorpGridContainer corporation={_} key={`corp_grid_container_${_.id}`} />
           ))
         }
-      </Grid>
+      </GridMedium>
     </>
   )
 }
