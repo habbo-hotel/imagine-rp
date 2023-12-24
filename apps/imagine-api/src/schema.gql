@@ -477,12 +477,16 @@ type GangModel {
   id: Float
   name: String
   description: String
+  badgeCode: String
+  userID: Float
 }
 
 type CorporationModel {
   id: Float
   name: String
   description: String
+  badgeCode: String
+  userID: Float
 }
 
 type Query {
@@ -553,10 +557,10 @@ type Query {
   userFurnitures(filter: UserFurnitureFilterManyInput): [UserFurnitureModel!]!
   storePackage(filter: StorePackageFilterOneInput!): StorePackageModel!
   storePackages(filter: StorePackageFilterManyInput): [StorePackageModel!]!
-  Gangs: [GangModel!]!
-  Gang: GangModel!
-  corporations: [CorporationModel!]!
-  corporation: CorporationModel!
+  gangs(filter: GangFilterManyInput!): [GangModel!]!
+  gang(filter: GangFilterOneInput!): GangModel!
+  corporations(filter: CorporationFilterManyInput!): [CorporationModel!]!
+  corporation(filter: CorporationFilterOneInput!): CorporationModel!
 }
 
 input ExtraArgs {
@@ -852,6 +856,28 @@ input StorePackageFilterManyInput {
   limit: Float
 }
 
+input GangFilterManyInput {
+  ids: [Float!]
+  nameContains: String
+  skip: Float
+  limit: Float
+}
+
+input GangFilterOneInput {
+  id: Float!
+}
+
+input CorporationFilterManyInput {
+  ids: [Float!]
+  nameContains: String
+  skip: Float
+  limit: Float
+}
+
+input CorporationFilterOneInput {
+  id: Float!
+}
+
 type Mutation {
   sessionCreate(username: String!, password: String!): SessionCreatedModel!
   sessionUpdateEmail(input: SessionUpdateEmailInput!): SessionUpdateEmailModel!
@@ -915,12 +941,12 @@ type Mutation {
   bugReportOpen(filter: BugReportFilterOneInput!): Boolean!
   bugReportDelete(filter: BugReportFilterOneInput!): Boolean!
   storePackageCreate(input: StorePackageCreateInput!): StorePackageModel!
-  GangCreate: GangModel!
-  GangUpdate: Boolean!
-  GangDelete: Boolean!
-  corporationCreate: CorporationModel!
-  corporationUpdate: Boolean!
-  corporationDelete: Boolean!
+  gangCreate(filter: GangCreateInput!): GangModel!
+  gangUpdate(filter: GangUpdateInput!): Boolean!
+  gangDelete(filter: GangFilterOneInput!): Boolean!
+  corporationCreate(filter: CorporationCreateInput!): CorporationModel!
+  corporationUpdate(filter: CorporationUpdateInput!): Boolean!
+  corporationDelete(filter: CorporationFilterOneInput!): Boolean!
 }
 
 input SessionUpdateEmailInput {
@@ -1156,4 +1182,28 @@ input StorePackageBenefitsInput {
   rankID: Float!
   itemIDs: [Float!]!
   badgeCodes: [String!]
+}
+
+input GangCreateInput {
+  name: String!
+  description: String!
+  badgeCode: String!
+}
+
+input GangUpdateInput {
+  name: String
+  description: String
+  badgeCode: String
+}
+
+input CorporationCreateInput {
+  name: String!
+  description: String!
+  badgeCode: String!
+}
+
+input CorporationUpdateInput {
+  name: String
+  description: String
+  badgeCode: String
 }

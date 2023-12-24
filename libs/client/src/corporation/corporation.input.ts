@@ -1,11 +1,11 @@
-export interface CorporationFetchManyInput {
+export interface CorporationFilterManyInput {
   ids?: number[];
   searchName?: string;
   skip?: number;
   limit?: number;
 }
 
-export interface CorporationFetchOneInput {
+export interface CorporationFilterOneInput {
   id: number;
 }
 

@@ -10,7 +10,7 @@ export class GangFilterOneInput {
 
 @InputType()
 export class GangFilterManyInput {
-  @Field(() => [Number, {nullable: true}])
+  @Field(() => [Number], {nullable: true})
   ids?: number[];
 
   @Field(() => String, {nullable: true})
@@ -25,7 +25,25 @@ export class GangFilterManyInput {
 }
 
 @InputType()
-export class GangCreateInput {}
+export class GangCreateInput {
+  @Field(() => String)
+  name!: string;
+
+  @Field(() => String)
+  description!: string;
+
+  @Field(() => String)
+  badgeCode!: string;
+}
 
 @InputType()
-export class GangUpdateInput implements Partial<GangCreateInput> {}
+export class GangUpdateInput implements Partial<GangCreateInput> {
+  @Field(() => String, {nullable: true})
+  name?: string;
+
+  @Field(() => String, {nullable: true})
+  description?: string;
+
+  @Field(() => String, {nullable: true})
+  badgeCode?: string;
+}

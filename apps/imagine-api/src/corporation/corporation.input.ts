@@ -10,7 +10,7 @@ export class CorporationFilterOneInput {
 
 @InputType()
 export class CorporationFilterManyInput {
-  @Field(() => [Number, {nullable: true}])
+  @Field(() => [Number], {nullable: true})
   ids?: number[];
 
   @Field(() => String, {nullable: true})
@@ -25,8 +25,25 @@ export class CorporationFilterManyInput {
 }
 
 @InputType()
-export class CorporationCreateInput {}
+export class CorporationCreateInput {
+  @Field(() => String)
+  name!: string;
+
+  @Field(() => String)
+  description!: string;
+
+  @Field(() => String)
+  badgeCode!: string;
+}
 
 @InputType()
-export class CorporationUpdateInput
-  implements Partial<CorporationCreateInput> {}
+export class CorporationUpdateInput implements Partial<CorporationCreateInput> {
+  @Field(() => String, {nullable: true})
+  name?: string;
+
+  @Field(() => String, {nullable: true})
+  description?: string;
+
+  @Field(() => String, {nullable: true})
+  badgeCode?: string;
+}

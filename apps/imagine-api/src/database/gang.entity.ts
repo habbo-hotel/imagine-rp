@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity('rp_gangs')
 export class GangEntity {
@@ -6,17 +6,17 @@ export class GangEntity {
   id?: number;
 
   @Column()
-  name!: string
+  name!: string;
 
-  @Column({ name: 'desc' })
+  @Column({name: 'desc'})
   description!: string;
 
-  @Column({ name: 'badge' })
+  @Column({name: 'badge'})
   badgeCode!: string;
 
-  @Column({ name: 'owner_id' })
+  @Column({name: 'owner_id'})
   userID!: number;
 
-  @Column({ name: 'created' })
+  @Column({name: 'created'})
   createdAt!: number;
 }

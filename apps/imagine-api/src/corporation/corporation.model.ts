@@ -1,4 +1,5 @@
 import {Field, ObjectType} from '@nestjs/graphql';
+import {CorporationEntity} from '../database/corporation.entity';
 
 @ObjectType()
 export class CorporationModel {
@@ -10,4 +11,20 @@ export class CorporationModel {
 
   @Field(() => String, {nullable: true})
   description!: string;
+
+  @Field(() => String, {nullable: true})
+  badgeCode!: string;
+
+  @Field(() => Number, {nullable: true})
+  userID!: number;
+
+  static fromEntity(entity: CorporationEntity): CorporationModel {
+    return {
+      id: entity.id!,
+      name: entity.name,
+      description: entity.description,
+      badgeCode: entity.badgeCode,
+      userID: entity.userID,
+    };
+  }
 }
