@@ -5,7 +5,9 @@ import { RankListContainer } from '../../components/rank-list-container/RankList
 import { RankListContainerMock } from '../../components/rank-list-container/RankListContainer.mock';
 
 export function RankListScreen() {
-  const { data, fetch, loading } = useRankFetchMany();
+  const { data, fetch, loading, error } = useRankFetchMany();
+
+  console.log(error)
 
   useEffect(() => {
     fetch({ staffOnly: true })

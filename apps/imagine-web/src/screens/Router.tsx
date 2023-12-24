@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'wouter';
-import { UserGuard } from '@imagine-cms/web';
+import { GuestGuard, UserGuard } from '@imagine-cms/web';
 import { MeScreen } from './me-screen/MeScreen';
 import { LoginScreen } from './login-screen/LoginScreen';
 import { LogoutScreen } from './logout-screen/LogoutScreen';
@@ -46,39 +46,75 @@ const SITE_ROUTES: Array<{ path: string, view: any, }> = [
   },
   {
     path: '/login',
-    view: LoginScreen,
+    view: (
+      <GuestGuard redirect>
+        <LoginScreen />
+      </GuestGuard>
+    ),
   },
   {
     path: '/login/discord',
-    view: LoginWithDiscordScreen,
+    view: (
+      <GuestGuard redirect>
+        <LoginWithDiscordScreen />
+      </GuestGuard>
+    ),
   },
   {
     path: '/login/facebook',
-    view: LoginWithFacebookScreen,
+    view: (
+      <GuestGuard redirect>
+        <LoginWithFacebookScreen />
+      </GuestGuard>
+    ),
   },
   {
     path: '/login/google',
-    view: LoginWithGoogleScreen,
+    view: (
+      <GuestGuard redirect>
+        <LoginWithGoogleScreen />
+      </GuestGuard>
+    ),
   },
   {
     path: '/register',
-    view: RegisterScreen,
+    view: (
+      <GuestGuard redirect>
+        <RegisterScreen />
+      </GuestGuard>
+    ),
   },
   {
     path: '/forgot-password',
-    view: ForgotPasswordScreen,
+    view: (
+      <GuestGuard redirect>
+        <ForgotPasswordScreen />
+      </GuestGuard>
+    ),
   },
   {
     path: '/forgot-password/confirmation',
-    view: ForgotPasswordLinkSentScreen,
+    view: (
+      <GuestGuard redirect>
+        <ForgotPasswordLinkSentScreen />
+      </GuestGuard>
+    ),
   },
   {
     path: '/forgot-password/redeem/:requestCode',
-    view: ForgotPasswordRedeemCodeScreen,
+    view: (
+      <GuestGuard redirect>
+        <ForgotPasswordRedeemCodeScreen />
+      </GuestGuard>
+    ),
   },
   {
     path: '/logout',
-    view: LogoutScreen,
+    view: (
+      <UserGuard redirect>
+        <LogoutScreen />
+      </UserGuard>
+    ),
   },
   {
     path: '/me',

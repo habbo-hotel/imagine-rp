@@ -167,8 +167,6 @@ type PhotoModel {
   id: Float
   userID: Float
   user: UserModel
-  roomID: Float
-  room: RoomModel
   photoURL: String
   createdAt: Float
 }

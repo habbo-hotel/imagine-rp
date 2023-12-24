@@ -4,6 +4,8 @@ import { CorpGridContainerMock } from '../../components/corp-grid-container/Corp
 import { CorpGridContainer } from '../../components/corp-grid-container/CorpGridContainer';
 import { GridMedium } from '../../components/grid/Grid.remix';
 
+const MOCK_CORPORATIONS = Array(9).fill(null).map((_, i) => <CorpGridContainerMock key={`corp_grid_mock_${i}`} />)
+
 export function CorpListcreen() {
   const corpFetchMany = useCorporationFetchMany();
 
@@ -16,15 +18,7 @@ export function CorpListcreen() {
       <h1>Corporations</h1>
       <GridMedium>
         {
-          corpFetchMany.loading && (
-            <>
-              <CorpGridContainerMock />
-              <CorpGridContainerMock />
-              <CorpGridContainerMock />
-              <CorpGridContainerMock />
-            </>
-          )
-        }
+          corpFetchMany.loading && MOCK_CORPORATIONS}
         {
           corpFetchMany.data?.map(_ => (
             <CorpGridContainer corporation={_} key={`corp_grid_container_${_.id}`} />

@@ -25,7 +25,7 @@ export class RoomEntity {
   @JoinColumn({ name: 'owner' })
   user?: UserEntity;
 
-  @Column({ name: 'users' })
+  @Column({ name: 'users_now' })
   usersNow!: number;
 
   @Column({ name: 'users_max' })
