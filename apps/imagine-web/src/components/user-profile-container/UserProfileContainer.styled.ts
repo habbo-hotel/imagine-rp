@@ -8,7 +8,6 @@ export const UserProfileContainerElement = styled.div`
   color: ${({ theme }) => theme.color.s10};
   display: flex;
   gap: ${({ theme }) => theme.space.twoUnits};
-  height: 100%;
   position: relative;
   width: 100%;
   

@@ -22,7 +22,7 @@ export function ArticleCommentsCard({ articleID }: ArticleCommentsCardProps) {
       {
         articleComments.length === 0 && <p>No comments found, be the first!</p>
       }
-      <div style={{ height: 500, overflowY: 'scroll' }}>
+      <div style={{ height: 275, overflowY: 'scroll' }}>
         {
           articleComments.map(articleComment => (
 

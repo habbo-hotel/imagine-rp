@@ -48,7 +48,7 @@ export function MostActivityPointsGrid() {
         }
         {
           fetchUsers.data?.map(_ => (
-            <SmallUserProfileContainer key={`most_activity_points_${_.id}`} user={_ as any}>
+            <SmallUserProfileContainer key={`most_activity_points_${_.id}`} user={_ as any} showMotto={false} showRank={false}>
               <div style={{ display: 'flex', flex: 1, gap: 8, justifyContent: 'center', alignContent: 'center' }}>
                 <img src="/img/duckets.svg" loading="lazy" width={16} height={16} />
                 <b>{formatNumber(_.activityPoints)}</b>

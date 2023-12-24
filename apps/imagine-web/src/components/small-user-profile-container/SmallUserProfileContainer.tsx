@@ -31,22 +31,19 @@ export function SmallUserProfileContainer({ children, user, showOnlineStatus = t
                 </Link>
               )
             }
-            {showMotto && (
-              <>
-                {user.motto && !children && (
-                  <SmallUserProfileMottoContainer className="notranslate">
-                    "{user.motto}"
-                  </SmallUserProfileMottoContainer>
-                )}
-                {
-                  children && (
-                    <SmallUserProfileMottoContainer>
-                      {children}
-                    </SmallUserProfileMottoContainer>
-                  )
-                }
-              </>
+            {showMotto && user.motto && !children && (
+              <SmallUserProfileMottoContainer className="notranslate">
+                "{user.motto}"
+              </SmallUserProfileMottoContainer>
             )}
+
+            {
+              children && (
+                <SmallUserProfileMottoContainer>
+                  {children}
+                </SmallUserProfileMottoContainer>
+              )
+            }
           </SmallUserProfileContainerInformationContainer>
         </SmallUserProfileContainerUserContainer>
       </Link>

@@ -49,7 +49,7 @@ export function MostCreditsGrid() {
         }
         {
           fetchUsers.data?.map(_ => (
-            <SmallUserProfileContainer key={`most_credits_${_.id}`} user={_ as any}>
+            <SmallUserProfileContainer key={`most_credits_${_.id}`} user={_ as any} showMotto={false} showRank={false}>
               <div style={{ display: 'flex', flex: 1, gap: 8, justifyContent: 'center', alignContent: 'center' }}>
                 <img src="/img/credits.svg" loading="lazy" width={16} height={16} />
                 <b>{formatNumber(_.credits)}</b>
