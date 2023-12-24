@@ -88,7 +88,4 @@ export class UserEntity {
 
   @Column({name: 'lang', type: 'varchar', nullable: true})
   language?: string;
-
-  @Column({name: 'temp_user', default: 1, type: 'tinyint'})
-  tempUser!: 1 | 0;
 }

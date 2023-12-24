@@ -25,12 +25,15 @@ import { HighScoresScreen } from './high-scores-screen/HighScoresScreen';
 import { ArticleViewScreen } from './article-view-screen/ArticleViewScreen';
 import { PageNotFoundScreen } from './page-not-found-screen/PageNotFoundScreen';
 import { ForgotPasswordScreen } from './forgot-password-screen/ForgotPasswordScreen';
-import { LoginWithDeviceScreen } from './login-with-device-screen/LoginWithDeviceScreen';
 import { LoginWithGoogleScreen } from './login-with-google-screen/LoginWithGoogleScreen';
 import { LoginWithDiscordScreen } from './login-with-discord-screen/LoginWithDiscordScreen';
 import { LoginWithFacebookScreen } from './login-with-facebook-screen/LoginWithFacebookScreen';
 import { ForgotPasswordLinkSentScreen } from './forgot-password-link-sent-screen/ForgotPasswordLinkSentScreen';
 import { ForgotPasswordRedeemCodeScreen } from './forgot-password-redeem-code-screen/ForgotPasswordRedeemCodeScreen';
+import { GangListScreen } from './gang-list-screen/GangListScreen';
+import { GangViewScreen } from './gang-view-screen/GangViewScreen';
+import { CorpListcreen } from './corp-list-screen/CorpListScreen';
+import { CorpViewScreen } from './corp-view-screen/CorpViewScreen';
 
 const SITE_ROUTES: Array<{ path: string, view: any, }> = [
   {
@@ -52,10 +55,6 @@ const SITE_ROUTES: Array<{ path: string, view: any, }> = [
   {
     path: '/login/facebook',
     view: LoginWithFacebookScreen,
-  },
-  {
-    path: '/login/device',
-    view: LoginWithDeviceScreen,
   },
   {
     path: '/login/google',
@@ -152,6 +151,22 @@ const SITE_ROUTES: Array<{ path: string, view: any, }> = [
   {
     path: '/badges/:badgeCode',
     view: BadgeViewScreen,
+  },
+  {
+    path: '/gangs',
+    view: GangListScreen,
+  },
+  {
+    path: '/gangs/:gangID',
+    view: GangViewScreen,
+  },
+  {
+    path: '/corps',
+    view: CorpListcreen,
+  },
+  {
+    path: '/corps/:corpID',
+    view: CorpViewScreen,
   },
 ]
 

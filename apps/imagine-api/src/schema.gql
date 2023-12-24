@@ -422,14 +422,6 @@ enum FurnitureValueType {
   LEGENDARY
 }
 
-type UserPinnedFurnitureModel {
-  id: Float
-  userID: Float
-  furnitureID: Float
-  createdAt: Float
-  updatedAt: Float
-}
-
 type FurniturePurchaseLogModel {
   id: Float
   furnitureID: Float
@@ -479,6 +471,18 @@ type StorePackageModel {
   benefits: StorePackageBenefitsModel
   createdAt: Float
   updatedAt: Float
+}
+
+type GangModel {
+  id: Float
+  name: String
+  description: String
+}
+
+type CorporationModel {
+  id: Float
+  name: String
+  description: String
 }
 
 type Query {
@@ -535,8 +539,6 @@ type Query {
   bugReports(filter: BugReportFilterManyInput!): [BugReportModel!]!
   furniture(filter: FurnitureFilterOneInput): FurnitureModel!
   furnitures(filter: FurnitureFilterManyInput): [FurnitureModel!]!
-  userPinnedFurniture(filter: UserPinnedFurnitureFilterOneInput): UserPinnedFurnitureModel!
-  userPinnedFurnitures(filter: UserPinnedFurnitureFilterManyInput): [UserPinnedFurnitureModel!]!
   furniturePurchaseLog(filter: FurniturePurchaseLogFilterOneInput): FurniturePurchaseLogModel!
   furniturePurchaseLogs(filter: FurniturePurchaseLogFilterManyInput): [FurniturePurchaseLogModel!]!
   furniturePurchaseLogsOverviewRecentlyAdded(filter: FurniturePurchaseLogOverviewFilterManyInput): [FurniturePurchaseLogOverviewModel!]!
@@ -551,6 +553,10 @@ type Query {
   userFurnitures(filter: UserFurnitureFilterManyInput): [UserFurnitureModel!]!
   storePackage(filter: StorePackageFilterOneInput!): StorePackageModel!
   storePackages(filter: StorePackageFilterManyInput): [StorePackageModel!]!
+  Gangs: [GangModel!]!
+  Gang: GangModel!
+  corporations: [CorporationModel!]!
+  corporation: CorporationModel!
 }
 
 input ExtraArgs {
@@ -794,17 +800,6 @@ enum FurnitureOrderBy {
   RECENTLY_ADDED
 }
 
-input UserPinnedFurnitureFilterOneInput {
-  id: Float!
-}
-
-input UserPinnedFurnitureFilterManyInput {
-  ids: [Float!]
-  furnitureIDs: [Float!]
-  skip: Float
-  limit: Float
-}
-
 input FurniturePurchaseLogFilterOneInput {
   id: Float!
 }
@@ -919,10 +914,13 @@ type Mutation {
   bugReportResolve(filter: BugReportFilterOneInput!): Boolean!
   bugReportOpen(filter: BugReportFilterOneInput!): Boolean!
   bugReportDelete(filter: BugReportFilterOneInput!): Boolean!
-  tempUserLogin: SessionCreatedModel!
-  userPinnedFurnitureCreate(input: UserPinnedFurnitureCreateInput!): UserPinnedFurnitureModel!
-  userPinnedFurnitureDelete(input: UserPinnedFurnitureFilterOneInput!): Boolean!
   storePackageCreate(input: StorePackageCreateInput!): StorePackageModel!
+  GangCreate: GangModel!
+  GangUpdate: Boolean!
+  GangDelete: Boolean!
+  corporationCreate: CorporationModel!
+  corporationUpdate: Boolean!
+  corporationDelete: Boolean!
 }
 
 input SessionUpdateEmailInput {
@@ -1138,10 +1136,6 @@ input BugReportUpdateInput {
   content: String
   url: String
   severity: Float
-}
-
-input UserPinnedFurnitureCreateInput {
-  furnitureID: Float!
 }
 
 input StorePackageCreateInput {

@@ -37,10 +37,7 @@ import {BetaCodeModule} from './beta-code/beta-code.module';
 import {StaffApplicationModule} from './staff-application/staff-application.module';
 import {RadioRequestModule} from './radio-request/radio-request.module';
 import {BugReportModule} from './bug-report/bug-report.module';
-import {TempUserModule} from './temp-user/temp-user.module';
-import {RareValuesModule} from './rare-values/rare-values.module';
 import {FurnitureModule} from './furniture/furniture.module';
-import {UserPinnedFurnitureModule} from './user-pinned-furniture/user-pinned-furniture.module';
 import {FurniturePurchaseLogModule} from './furniture-purchase-log/furniture-purchase-log.module';
 import {FurnitureCommentModule} from './furniture-comment/furniture-comment.module';
 import {FurnitureReactionModule} from './furniture-reaction/furniture-reaction.module';
@@ -49,6 +46,8 @@ import {DatabaseCleanupModule} from './database-cleanup/database-cleanup.module'
 import {StorePackageModule} from './store-package/store-package.module';
 import {StoreTransactionModule} from './store-transaction/store-transaction.module';
 import {StoreTransactionLogModule} from './store-transaction-log/store-transaction-log.module';
+import {GangModule} from './gang/gang.module';
+import {CorporationModule} from './corporation/corporation.module';
 
 @Module({
   imports: [
@@ -109,10 +108,7 @@ import {StoreTransactionLogModule} from './store-transaction-log/store-transacti
     StaffApplicationModule,
     RadioRequestModule,
     BugReportModule,
-    TempUserModule,
-    RareValuesModule,
     FurnitureModule,
-    UserPinnedFurnitureModule,
     FurniturePurchaseLogModule,
     FurnitureCommentModule,
     FurnitureReactionModule,
@@ -121,6 +117,8 @@ import {StoreTransactionLogModule} from './store-transaction-log/store-transacti
     StorePackageModule,
     StoreTransactionModule,
     StoreTransactionLogModule,
+    GangModule,
+    CorporationModule,
   ],
 })
 export class ImagineModule {}
