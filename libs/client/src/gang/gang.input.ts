@@ -1,11 +1,11 @@
-export interface GangFetchManyInput {
+export interface GangFilterManyInput {
   ids?: number[];
   searchName?: string;
   skip?: number;
   limit?: number;
 }
 
-export interface GangFetchOneInput {
+export interface GangFilterOneInput {
   id: number;
 }
 

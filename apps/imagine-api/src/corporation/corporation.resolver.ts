@@ -1,22 +1,31 @@
-import {Resolver, Query, Mutation, Args} from '@nestjs/graphql';
-import {CorporationModel} from './corporation.model';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
+import { CorporationModel } from './corporation.model';
 import {
   CorporationCreateInput,
   CorporationFilterManyInput,
   CorporationFilterOneInput,
   CorporationUpdateInput,
 } from './corporation.input';
-import {GetUser} from '../session/get-user.decorator';
-import {UserEntity} from '../database/user.entity';
-import {CorporationRepository} from '../database/corporation.repository';
-import {UnauthorizedException} from '@nestjs/common';
-import {ILike, In} from 'typeorm';
-import {CorporationEntity} from '../database/corporation.entity';
+import { GetUser } from '../session/get-user.decorator';
+import { UserEntity } from '../database/user.entity';
+import { CorporationRepository } from '../database/corporation.repository';
+import { UnauthorizedException } from '@nestjs/common';
+import { ILike, In } from 'typeorm';
+import { CorporationEntity } from '../database/corporation.entity';
 import DayJS from 'dayjs';
+import { UserRepository } from '../database/user.repository';
+import { UserModel } from '../user/user.model';
 
 @Resolver(() => CorporationModel)
 export class CorporationResolver {
-  constructor(private readonly corporationRepo: CorporationRepository) {}
+  constructor(private readonly corporationRepo: CorporationRepository, private readonly userRepo: UserRepository) { }
+
+
+  @ResolveField(() => UserModel, { nullable: true })
+  async user(@Parent() parent: CorporationModel): Promise<UserModel> {
+    const matchingUser = await this.userRepo.findOneOrFail({ id: parent.userID });
+    return UserModel.fromEntity(matchingUser);
+  }
 
   @Query(() => [CorporationModel])
   async corporations(
@@ -73,7 +82,7 @@ export class CorporationResolver {
     if (!doesUserOwnCorp) {
       throw new UnauthorizedException();
     }
-    await this.corporationRepo.update({id: matchingCorporation.id}, input);
+    await this.corporationRepo.update({ id: matchingCorporation.id }, input);
     return true;
   }
 

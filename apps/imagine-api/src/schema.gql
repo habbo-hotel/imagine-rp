@@ -479,6 +479,7 @@ type GangModel {
   description: String
   badgeCode: String
   userID: Float
+  user: UserModel
 }
 
 type CorporationModel {
@@ -487,6 +488,7 @@ type CorporationModel {
   description: String
   badgeCode: String
   userID: Float
+  user: UserModel
 }
 
 type Query {
