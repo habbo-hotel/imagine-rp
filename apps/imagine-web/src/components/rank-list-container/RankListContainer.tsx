@@ -51,9 +51,6 @@ export function RankListContainer({ rank, showApplicationsButton = true }: RankL
         fetchRankUsers.loading && (
           <>
             <SmallUserProfileContainerMock />
-            <SmallUserProfileContainerMock />
-            <SmallUserProfileContainerMock />
-            <SmallUserProfileContainerMock />
           </>
         )
       }

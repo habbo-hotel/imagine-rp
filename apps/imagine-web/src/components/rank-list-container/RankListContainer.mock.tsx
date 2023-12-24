@@ -14,8 +14,6 @@ export function RankListContainerMock() {
       </RankListContainerHeader>
       <Grid>
         <SmallUserProfileContainerMock />
-        <SmallUserProfileContainerMock />
-        <SmallUserProfileContainerMock />
       </Grid>
     </Card>
   )
