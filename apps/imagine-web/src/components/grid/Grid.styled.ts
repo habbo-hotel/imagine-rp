@@ -5,6 +5,7 @@ export const GridElement = styled.div <{ $size: GridSizes }>`
   display: grid;
   gap: ${({ theme }) => theme.space.oneUnit};
   grid-template-columns: 1fr;
+  width: 100%;
   ${({ theme }) => `
     @media (min-width: ${theme.breakPoints.tablet}) {
       grid-template-columns: 1fr 1fr;

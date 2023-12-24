@@ -5,7 +5,8 @@ import { UserOrderBy, useUserFetchMany } from '@imagine-cms/client';
 import { SmallUserProfileContainer } from '../../../components/small-user-profile-container/SmallUserProfileContainer';
 import { GridLarge } from '../../../components/grid/Grid.remix';
 import { ButtonNoBorder } from '../../../components/button/Button.remix';
-import { SmallUserProfileContainerMock } from '../../../components/small-user-profile-container/SmallUserProfileContainerMock';
+import { HIGH_SCORE_USERS_MOCK } from '../HighScoresScreen.mock';
+import { formatNumber } from '../../../helpers';
 
 const USER_PAGE_SIZE = 4;
 
@@ -44,25 +45,14 @@ export function MostCreditsGrid() {
     <Card header={<>Most Credits <small>Page {page + 1}</small></>}>
       <Grid>
         {
-          fetchUsers.loading && (
-            <>
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-            </>
-          )
+          fetchUsers.loading && HIGH_SCORE_USERS_MOCK
         }
         {
           fetchUsers.data?.map(_ => (
             <SmallUserProfileContainer key={`most_credits_${_.id}`} user={_ as any}>
               <div style={{ display: 'flex', flex: 1, gap: 8, justifyContent: 'center', alignContent: 'center' }}>
-                <img src="/img/credits.svg" loading="lazy" />
-                <b>{Number(_.credits).toLocaleString()} Credits</b>
+                <img src="/img/credits.svg" loading="lazy" width={16} height={16} />
+                <b>{formatNumber(_.credits)}</b>
               </div>
             </SmallUserProfileContainer>
           ))

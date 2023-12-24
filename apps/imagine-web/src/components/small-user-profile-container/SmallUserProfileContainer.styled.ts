@@ -4,6 +4,8 @@ export const SmallUserProfileContainerUserContainer = styled.div`
   background-color: ${({ theme }) => theme.color.s40};
   border-radius: 2em;
   text-decoration: unset;
+  min-height: 5em;
+  width: 100%;
   color: #000;  
   cursor: pointer;
   opacity: 0.9;

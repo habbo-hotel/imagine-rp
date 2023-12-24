@@ -5,7 +5,8 @@ import { GridLarge } from '../../../components/grid/Grid.remix';
 import { UserOrderBy, useUserFetchMany } from '@imagine-cms/client';
 import { ButtonNoBorder } from '../../../components/button/Button.remix';
 import { SmallUserProfileContainer } from '../../../components/small-user-profile-container/SmallUserProfileContainer';
-import { SmallUserProfileContainerMock } from '../../../components/small-user-profile-container/SmallUserProfileContainerMock';
+import { formatNumber } from '../../../helpers';
+import { HIGH_SCORE_USERS_MOCK } from '../HighScoresScreen.mock';
 
 const USER_PAGE_SIZE = 4;
 
@@ -43,25 +44,14 @@ export function MostActivityPointsGrid() {
     <Card header={<>Most Points <small>Page {page + 1}</small></>}>
       <Grid>
         {
-          fetchUsers.loading && (
-            <>
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-            </>
-          )
+          fetchUsers.loading && HIGH_SCORE_USERS_MOCK
         }
         {
           fetchUsers.data?.map(_ => (
             <SmallUserProfileContainer key={`most_activity_points_${_.id}`} user={_ as any}>
               <div style={{ display: 'flex', flex: 1, gap: 8, justifyContent: 'center', alignContent: 'center' }}>
-                <img src="/img/duckets.svg" loading="lazy" />
-                <b>{Number(_.activityPoints).toLocaleString()} Duckets</b>
+                <img src="/img/duckets.svg" loading="lazy" width={16} height={16} />
+                <b>{formatNumber(_.activityPoints)}</b>
               </div>
             </SmallUserProfileContainer>
           ))
