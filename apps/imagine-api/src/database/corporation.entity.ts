@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('rp_jobs')
 export class CorporationEntity {
@@ -8,15 +8,18 @@ export class CorporationEntity {
   @Column()
   name!: string;
 
-  @Column({name: 'desc'})
+  @Column({ name: 'desc' })
   description!: string;
 
-  @Column({name: 'badge'})
+  @Column({ name: 'badge' })
   badgeCode!: string;
 
-  @Column({name: 'owner_id'})
+  @Column({ name: 'owner_id' })
   userID!: number;
 
-  @Column({name: 'created'})
+  @Column({ name: 'room_id' })
+  roomID!: number;
+
+  @Column({ name: 'created' })
   createdAt!: number;
 }

@@ -1,21 +1,21 @@
-import {Field, ObjectType} from '@nestjs/graphql';
-import {GangEntity} from '../database/gang.entity';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { GangEntity } from '../database/gang.entity';
 
 @ObjectType()
 export class GangModel {
-  @Field(() => Number, {nullable: true})
+  @Field(() => Number, { nullable: true })
   id!: number;
 
-  @Field(() => String, {nullable: true})
+  @Field(() => String, { nullable: true })
   name!: string;
 
-  @Field(() => String, {nullable: true})
+  @Field(() => String, { nullable: true })
   description!: string;
 
-  @Field(() => String, {nullable: true})
+  @Field(() => String, { nullable: true })
   badgeCode!: string;
 
-  @Field(() => Number, {nullable: true})
+  @Field(() => Number, { nullable: true })
   userID!: number;
 
   static fromEntity(entity: GangEntity): GangModel {

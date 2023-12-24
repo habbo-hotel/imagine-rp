@@ -488,7 +488,9 @@ type CorporationModel {
   description: String
   badgeCode: String
   userID: Float
+  roomID: Float
   user: UserModel
+  room: RoomModel
 }
 
 type Query {
@@ -1202,10 +1204,12 @@ input CorporationCreateInput {
   name: String!
   description: String!
   badgeCode: String!
+  roomID: Float!
 }
 
 input CorporationUpdateInput {
   name: String
   description: String
   badgeCode: String
+  roomID: Float
 }

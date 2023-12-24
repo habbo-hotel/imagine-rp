@@ -15,16 +15,24 @@ import { CorporationEntity } from '../database/corporation.entity';
 import DayJS from 'dayjs';
 import { UserRepository } from '../database/user.repository';
 import { UserModel } from '../user/user.model';
+import { RoomRepository } from '../database/room.repository';
+import { RoomModel } from '../room/room.model';
 
 @Resolver(() => CorporationModel)
 export class CorporationResolver {
-  constructor(private readonly corporationRepo: CorporationRepository, private readonly userRepo: UserRepository) { }
+  constructor(private readonly corporationRepo: CorporationRepository, private readonly userRepo: UserRepository, private readonly roomRepo: RoomRepository) { }
 
 
   @ResolveField(() => UserModel, { nullable: true })
   async user(@Parent() parent: CorporationModel): Promise<UserModel> {
     const matchingUser = await this.userRepo.findOneOrFail({ id: parent.userID });
     return UserModel.fromEntity(matchingUser);
+  }
+
+  @ResolveField(() => RoomModel, { nullable: true })
+  async room(@Parent() parent: CorporationModel): Promise<RoomModel> {
+    const matchingRoom = await this.roomRepo.findOneOrFail({ id: parent.roomID });
+    return RoomModel.fromEntity(matchingRoom);
   }
 
   @Query(() => [CorporationModel])
@@ -58,12 +66,14 @@ export class CorporationResolver {
     @Args('filter') input: CorporationCreateInput,
     @GetUser() session: UserEntity
   ): Promise<CorporationModel> {
+    await this.userOwnsRoom(session, input.roomID);
     const createdAt = DayJS().unix();
     const newCorporation = await this.corporationRepo.create({
       userID: session.id!,
       name: input.name,
       description: input.description,
       badgeCode: input.badgeCode,
+      roomID: input.roomID,
       createdAt,
     });
     return CorporationModel.fromEntity(newCorporation);
@@ -75,6 +85,9 @@ export class CorporationResolver {
     @Args('filter') input: CorporationUpdateInput,
     @GetUser() session: UserEntity
   ): Promise<Boolean> {
+    if (input.roomID) {
+      await this.userOwnsRoom(session, input.roomID);
+    }
     const matchingCorporation: CorporationModel = await this.corporation(
       filter
     );
@@ -92,5 +105,12 @@ export class CorporationResolver {
     @GetUser() session: UserEntity
   ): Promise<Boolean> {
     throw new Error('not implemented');
+  }
+
+  private async userOwnsRoom(user: UserEntity, roomID: number) {
+    const matchingRoom = await this.roomRepo.findOneOrFail({ id: roomID });
+    if (matchingRoom.userID !== user.id) {
+      throw new UnauthorizedException();
+    }
   }
 }

@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const SmallUserProfileContainerUserContainer = styled.div`
   background-color: ${({ theme }) => theme.color.s40};
   border-radius: 2em;
-  min-height: 17em;
   text-decoration: unset;
   color: #000;  
   cursor: pointer;

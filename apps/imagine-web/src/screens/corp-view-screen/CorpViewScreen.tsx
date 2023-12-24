@@ -6,6 +6,9 @@ import { configContext } from '@imagine-cms/web';
 import { CorpGridContainerBadge } from '../../components/corp-grid-container/CorpGridContainer.styled';
 import DayJS from 'dayjs';
 import { Card } from '../../components/card/Card';
+import { UserProfileContainer } from '../../components/user-profile-container/UserProfileContainer';
+import { SmallUserProfileContainer } from '../../components/small-user-profile-container/SmallUserProfileContainer';
+import { RoomGridContainer } from '../../components/room-grid-container/RoomGridContainer';
 
 export function CorpViewScreen() {
   const { config } = useContext(configContext);
@@ -42,11 +45,21 @@ export function CorpViewScreen() {
 
             <div>
               <h4>Owned By:</h4>
-              <p>Me</p>
+              <div style={{ maxWidth: 200 }}>
+                {
+                  fetchCorp.data
+                    ? <SmallUserProfileContainer user={fetchCorp.data.user as any} showMotto={false} showRank={false} />
+                    : <i className="fa fa-spinner fa-spin" />
+                }
+              </div>
             </div>
             <div>
               <h4>Based in:</h4>
-              <p>Detroit</p>
+              {
+                fetchCorp.data
+                  ? <RoomGridContainer room={fetchCorp.data.room} />
+                  : <i className="fa fa-spinner fa-spin" />
+              }
             </div>
           </Card>
         </div>
