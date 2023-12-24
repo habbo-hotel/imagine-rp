@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link } from '../../blocks/link/Link';
-import { SITE_URL, ScopeGuard } from '@imagine-cms/web';
+import { SITE_URL, ScopeGuard, UserGuard } from '@imagine-cms/web';
 import { SiteSidebarElement } from './SiteSidebar.styled';
 
 export function SiteSidebar() {
   return (
     <SiteSidebarElement>
-      <div className="logo">
-        <img src="/img/cerberus.png" loading="lazy" />
-      </div>
       <ul>
         <Link href="/dashboard">
           <li>
@@ -29,34 +26,14 @@ export function SiteSidebar() {
             </li>
           </Link>
         </ScopeGuard>
-        <Link href="/catalog">
-          <li>
-            <i className="fa fa-couch" />
-          </li>
-        </Link>
-        <Link href="/web-store">
-          <li>
-            <i className="fa fa-shopping-cart" />
-          </li>
-        </Link>
-        <Link href="/rooms">
-          <li>
-            <i className="fa fa-door-open" />
-          </li>
-        </Link>
-        <ScopeGuard scope="manageStaffApplications" redirect={false}>
+        <ScopeGuard scope="manageRooms" redirect={false}>
 
-          <Link href="/staff-applications">
+          <Link href="/rooms">
             <li>
-              <i className="fa fa-clipboard-user" />
+              <i className="fa fa-door-open" />
             </li>
           </Link>
         </ScopeGuard>
-        <Link href="/radio">
-          <li>
-            <i className="fa fa-radio" />
-          </li>
-        </Link>
         <ScopeGuard scope="manageArticles" redirect={false}>
           <Link href="/articles">
             <li>
@@ -64,11 +41,6 @@ export function SiteSidebar() {
             </li>
           </Link>
         </ScopeGuard>
-        <Link href="/reports">
-          <li>
-            <i className="fa fa-flag" />
-          </li>
-        </Link>
         <ScopeGuard scope="managePermissions" redirect={false}>
           <Link href="/permissions">
             <li>
@@ -76,14 +48,23 @@ export function SiteSidebar() {
             </li>
           </Link>
         </ScopeGuard>
-        <Link href="/configuration">
-          <li>
-            <i className="fa fa-cog" />
-          </li>
-        </Link>
+        <ScopeGuard scope="manageSite" redirect={false}>
+          <Link href="/configuration">
+            <li>
+              <i className="fa fa-cog" />
+            </li>
+          </Link>
+        </ScopeGuard>
       </ul>
       <footer>
         <ul>
+          <UserGuard redirect={false}>
+            <Link href="/logout">
+              <li>
+                <i className="fa fa-sign-out" style={{ color: 'red' }} />
+              </li>
+            </Link>
+          </UserGuard>
           <a href={SITE_URL}>
             <li>
               <i className="fa fa-external-link" />
