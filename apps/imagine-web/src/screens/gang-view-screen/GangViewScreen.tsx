@@ -12,8 +12,6 @@ export function GangViewScreen() {
   const gangID = Number(params!.gangID);
   const fetchGang = useGangFetchOne();
 
-  console.log(fetchGang)
-
   useEffect(() => {
     fetchGang.fetch({ id: gangID });
   }, [gangID]);
@@ -22,12 +20,15 @@ export function GangViewScreen() {
     <>
       <div style={{ display: 'flex', flex: 1, gap: '1.4rem', marginBottom: '2rem' }}>
         <Link to="/gangs">
-          <i className="fa fa-caret-left fa-4x" style={{ cursor: 'pointer' }} />
+          <i className="fa fa-caret-left fa-4x" />
         </Link>
         <div style={{ display: 'flex', flex: 1, gap: '1.4rem', alignItems: 'center' }}>
           <GangGridContainerAvatar>
             {fetchGang.data &&
-              <Avatar look={fetchGang.data.user.look} />}
+
+              <Link to={`/profile/${fetchGang.data.user.username}`}>
+                <Avatar look={fetchGang.data.user.look} style={{ cursor: 'pointer' }} />
+              </Link>}
           </GangGridContainerAvatar>
           <div>
             <h4 style={{ margin: 0 }}>Gangs - Viewing:</h4>

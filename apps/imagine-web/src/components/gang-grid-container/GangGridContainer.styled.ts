@@ -19,6 +19,9 @@ export const GangGridContainerAvatar = styled.div`
   height: 75px;
   width: 64px;
   overflow: hidden;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const GangGridContainerInfo = styled.div`

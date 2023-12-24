@@ -8,9 +8,11 @@ export function GangGridContainer({ gang }: GangGridContainerProps) {
   return (
     <Link to={`/gangs/${gang.id}`}>
       <GangGridContainerElement>
-        <GangGridContainerAvatar>
-          <Avatar look={gang.user.look} />
-        </GangGridContainerAvatar>
+        <Link to={`/profile/${gang.user.username}`}>
+          <GangGridContainerAvatar>
+            <Avatar look={gang.user.look} />
+          </GangGridContainerAvatar>
+        </Link>
         <GangGridContainerInfo>
           <h2>{gang.name}</h2>
           <p>{gang.description}</p>
