@@ -1,28 +1,38 @@
-import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
-import { GangModel } from './gang.model';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
+import {GangModel} from './gang.model';
 import {
   GangCreateInput,
   GangFilterManyInput,
   GangFilterOneInput,
   GangUpdateInput,
 } from './gang.input';
-import { GetUser } from '../session/get-user.decorator';
-import { UserEntity } from '../database/user.entity';
-import { GangRepository } from '../database/gang.repository';
-import { UnauthorizedException } from '@nestjs/common';
-import { ILike, In } from 'typeorm';
-import { GangEntity } from '../database/gang.entity';
+import {GetUser} from '../session/get-user.decorator';
+import {UserEntity} from '../database/user.entity';
+import {GangRepository} from '../database/gang.repository';
+import {UnauthorizedException} from '@nestjs/common';
+import {ILike, In} from 'typeorm';
+import {GangEntity} from '../database/gang.entity';
 import DayJS from 'dayjs';
-import { UserModel } from '../user/user.model';
-import { UserRepository } from '../database/user.repository';
+import {UserModel} from '../user/user.model';
+import {UserRepository} from '../database/user.repository';
 
 @Resolver(() => GangModel)
 export class GangResolver {
-  constructor(private readonly gangRepo: GangRepository, private readonly userRepo: UserRepository) { }
+  constructor(
+    private readonly gangRepo: GangRepository,
+    private readonly userRepo: UserRepository
+  ) {}
 
-  @ResolveField(() => UserModel, { nullable: true })
+  @ResolveField(() => UserModel, {nullable: true})
   async user(@Parent() parent: GangModel): Promise<UserModel> {
-    const matchingUser = await this.userRepo.findOneOrFail({ id: parent.userID });
+    const matchingUser = await this.userRepo.findOneOrFail({id: parent.userID});
     return UserModel.fromEntity(matchingUser);
   }
 
@@ -76,7 +86,7 @@ export class GangResolver {
     if (!doesUserOwnCorp) {
       throw new UnauthorizedException();
     }
-    await this.gangRepo.update({ id: matchingGang.id }, input);
+    await this.gangRepo.update({id: matchingGang.id}, input);
     return true;
   }
 

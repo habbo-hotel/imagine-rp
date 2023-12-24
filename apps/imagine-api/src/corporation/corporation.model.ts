@@ -1,24 +1,24 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { CorporationEntity } from '../database/corporation.entity';
+import {Field, ObjectType} from '@nestjs/graphql';
+import {CorporationEntity} from '../database/corporation.entity';
 
 @ObjectType()
 export class CorporationModel {
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   id!: number;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String, {nullable: true})
   name!: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String, {nullable: true})
   description!: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String, {nullable: true})
   badgeCode!: string;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   userID!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   roomID!: number;
 
   static fromEntity(entity: CorporationEntity): CorporationModel {
