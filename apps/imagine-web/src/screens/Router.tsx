@@ -35,105 +35,80 @@ import { GangViewScreen } from './gang-view-screen/GangViewScreen';
 import { CorpListcreen } from './corp-list-screen/CorpListScreen';
 import { CorpViewScreen } from './corp-view-screen/CorpViewScreen';
 
-const SITE_ROUTES: Array<{ path: string, view: any, }> = [
+const SITE_ROUTES: Array<{ path: string, view: any, guard?: any, }> = [
   {
     path: '/',
+    guard: undefined,
     view: LandingScreen,
   },
   {
     path: '/about',
+    guard: undefined,
     view: ImagineScreen,
   },
   {
     path: '/login',
-    view: (
-      <GuestGuard redirect>
-        <LoginScreen />
-      </GuestGuard>
-    ),
+    guard: GuestGuard,
+    view: LoginScreen,
   },
   {
     path: '/login/discord',
-    view: (
-      <GuestGuard redirect>
-        <LoginWithDiscordScreen />
-      </GuestGuard>
-    ),
+    guard: GuestGuard,
+    view: LoginWithDiscordScreen
   },
   {
     path: '/login/facebook',
-    view: (
-      <GuestGuard redirect>
-        <LoginWithFacebookScreen />
-      </GuestGuard>
-    ),
+    guard: GuestGuard,
+    view: LoginWithFacebookScreen
   },
   {
     path: '/login/google',
-    view: (
-      <GuestGuard redirect>
-        <LoginWithGoogleScreen />
-      </GuestGuard>
-    ),
+    guard: GuestGuard,
+    view: LoginWithGoogleScreen
   },
   {
     path: '/register',
-    view: (
-      <GuestGuard redirect>
-        <RegisterScreen />
-      </GuestGuard>
-    ),
+    guard: GuestGuard,
+    view: RegisterScreen
   },
   {
     path: '/forgot-password',
-    view: (
-      <GuestGuard redirect>
-        <ForgotPasswordScreen />
-      </GuestGuard>
-    ),
+    guard: GuestGuard,
+    view: ForgotPasswordScreen
   },
   {
     path: '/forgot-password/confirmation',
-    view: (
-      <GuestGuard redirect>
-        <ForgotPasswordLinkSentScreen />
-      </GuestGuard>
-    ),
+    guard: GuestGuard,
+    view: ForgotPasswordLinkSentScreen
   },
   {
     path: '/forgot-password/redeem/:requestCode',
-    view: (
-      <GuestGuard redirect>
-        <ForgotPasswordRedeemCodeScreen />
-      </GuestGuard>
-    ),
+    guard: GuestGuard,
+    view: ForgotPasswordRedeemCodeScreen
   },
   {
     path: '/logout',
-    view: (
-      <UserGuard redirect>
-        <LogoutScreen />
-      </UserGuard>
-    ),
+    guard: undefined,
+    view: LogoutScreen,
   },
   {
     path: '/me',
+    guard: undefined,
     view: MeScreen,
   },
   {
     path: '/settings',
-    view: () => (
-      <UserGuard redirect>
-        <SettingsScreen />
-      </UserGuard>
-    ),
+    guard: UserGuard,
+    view: () => SettingsScreen
   },
   {
     path: '/profile/:username',
+    guard: undefined,
     view: ProfileScreen,
   },
   {
     path: '/photos',
+    guard: undefined,
     view: PhotoListScreen,
   },
   {
@@ -142,18 +117,22 @@ const SITE_ROUTES: Array<{ path: string, view: any, }> = [
   },
   {
     path: '/play',
+    guard: undefined,
     view: PlayGameScreen,
   },
   {
     path: '/ranks',
+    guard: undefined,
     view: RankListScreen,
   },
   {
     path: '/ranks/:rankID',
+    guard: undefined,
     view: RankViewScreen,
   },
   {
     path: '/community',
+    guard: undefined,
     view: CommunityScreen,
   },
   {
@@ -162,46 +141,57 @@ const SITE_ROUTES: Array<{ path: string, view: any, }> = [
   },
   {
     path: '/high-scores',
+    guard: undefined,
     view: HighScoresScreen,
   },
   {
     path: '/rooms',
+    guard: undefined,
     view: RoomListScreen,
   },
   {
     path: '/rooms/:roomID',
+    guard: undefined,
     view: RoomViewScreen,
   },
   {
     path: '/groups',
+    guard: undefined,
     view: GroupListScreen,
   },
   {
     path: '/groups/:groupID',
+    guard: undefined,
     view: GroupViewScreen,
   },
   {
     path: '/badges',
+    guard: undefined,
     view: BadgeListScreen,
   },
   {
     path: '/badges/:badgeCode',
+    guard: undefined,
     view: BadgeViewScreen,
   },
   {
     path: '/gangs',
+    guard: undefined,
     view: GangListScreen,
   },
   {
     path: '/gangs/:gangID',
+    guard: undefined,
     view: GangViewScreen,
   },
   {
     path: '/corps',
+    guard: undefined,
     view: CorpListcreen,
   },
   {
     path: '/corps/:corpID',
+    guard: undefined,
     view: CorpViewScreen,
   },
 ]
@@ -211,9 +201,11 @@ export function Router() {
     <Switch>
       <>
         {
-          SITE_ROUTES.map(route => (
-            <Route key={`route_${route.path}`} path={route.path} component={route.view} />
-          ))
+          SITE_ROUTES.map(route => {
+            const Component = route.guard ? <route.guard redirect><route.view /></route.guard> : <route.view />
+
+            return <Route key={`route_${route.path}`} path={route.path} children={Component} />
+          })
         }
       </>
       <Route component={PageNotFoundScreen} />
