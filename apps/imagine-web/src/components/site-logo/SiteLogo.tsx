@@ -4,6 +4,6 @@ import { configContext } from '@imagine-cms/web';
 export function SiteLogo() {
   const { config } = useContext(configContext);
   return (
-    <img src={config!.logoURL} loading="lazy" height={100} />
+    <img src={config!.logoURL} loading="lazy" style={{ maxHeight: 100, objectFit: 'cover' }} />
   )
 }

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { AccordionProps } from './Accordion.types';
 import { AccordionContainer, AccordionContentElement, AccordionElement, AccordionHeaderElement } from './Accordion.styled';
 
-export function Accordion({ children, header }: AccordionProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export function Accordion({ children, header, defaultIsOpen = false }: AccordionProps) {
+  const [isOpen, setIsOpen] = useState(defaultIsOpen);
 
   const onToggle = () => {
     setIsOpen(_ => !_);
@@ -13,7 +13,7 @@ export function Accordion({ children, header }: AccordionProps) {
     <AccordionElement>
       <AccordionHeaderElement $open={isOpen} onClick={onToggle}>
         <AccordionContainer style={{ justifyContent: 'space-between' }}>
-          {header}
+          <b>{header}</b>
           <i className={`fa ${isOpen ? 'fa-caret-down' : 'fa-caret-up'}`} />
         </AccordionContainer>
       </AccordionHeaderElement>
