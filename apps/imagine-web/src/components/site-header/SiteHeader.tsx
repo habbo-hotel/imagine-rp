@@ -44,11 +44,6 @@ export function SiteHeader() {
           <SiteHeaderActions>
             <ToggleThemeButton />
             <UserGuard>
-              <Link to="/bug-reports">
-                <ButtonNoBorder style={{ padding: 0, width: 100 }}>
-                  <i className="fa fa-bug" /> Bugs
-                </ButtonNoBorder>
-              </Link>
               <Link to="/settings">
                 <ButtonNoBorder style={{ padding: 0, width: 100 }}>
                   <i className="fa fa-cog" /> Settings

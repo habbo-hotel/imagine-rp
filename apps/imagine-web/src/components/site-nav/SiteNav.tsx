@@ -40,15 +40,15 @@ export function SiteNav() {
         </Link>
       </li>
       <li>
-        <Link to="/marketplace">
-          <i className="fa fa-store" style={{ marginRight: 8 }} />
-          Marketplace
+        <Link to="/corps">
+          <i className="fa fa-building" style={{ marginRight: 8 }} />
+          Corporations
         </Link>
       </li>
       <li>
-        <Link to="/store">
-          <i className="fa fa-shopping-cart" style={{ marginRight: 8 }} />
-          Store
+        <Link to="/gangs">
+          <i className="fa fa-cannabis" style={{ marginRight: 8 }} />
+          Gangs
         </Link>
       </li>
     </>

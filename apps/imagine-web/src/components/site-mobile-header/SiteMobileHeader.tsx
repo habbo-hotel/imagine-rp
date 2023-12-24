@@ -33,12 +33,6 @@ export function SiteMobileHeader() {
               <SiteNav />
               <GridLarge style={{ marginTop: 16 }}>
                 <UserGuard>
-                  <Link to="/bug-reports">
-                    <ButtonNoBorder>
-                      <i className="fa fa-bug" style={{ marginRight: 8 }} />
-                      Bugs
-                    </ButtonNoBorder>
-                  </Link>
                   <Link to="/settings">
                     <ButtonNoBorder>
                       <i className="fa fa-wrench" style={{ marginRight: 8 }} />

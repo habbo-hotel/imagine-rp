@@ -1,4 +1,4 @@
-import {UserEntity} from './user.entity';
+import { UserEntity } from './user.entity';
 import {
   Column,
   Entity,
@@ -12,22 +12,22 @@ export class RoomEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({name: 'name'})
+  @Column({ name: 'caption' })
   name!: string;
 
   @Column()
   description!: string;
 
-  @Column({name: 'owner_id'})
+  @Column({ name: 'owner' })
   userID!: number;
 
   @ManyToOne(() => UserEntity)
-  @JoinColumn({name: 'owner_id'})
+  @JoinColumn({ name: 'owner' })
   user?: UserEntity;
 
-  @Column({name: 'users'})
+  @Column({ name: 'users' })
   usersNow!: number;
 
-  @Column({name: 'users_max'})
+  @Column({ name: 'users_max' })
   usersMax!: number;
 }
