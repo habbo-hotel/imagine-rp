@@ -4,7 +4,7 @@ import { CorporationFilterManyInput } from "./corporation.input";
 import { CorporationFragment } from "./corporation.fragment";
 
 export interface UseCorporationFilterManyResponse {
-  fetch(filter: CorporationFilterManyInput): Promise<CorporationFragment>;
+  fetch(filter: CorporationFilterManyInput): Promise<CorporationFragment[]>;
   error?: Error;
   loading: boolean;
   data?: CorporationFragment[];
