@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import { CORPORATION_FETCH_ONE_QUERY, CorporationFilterOneQueryResponse, CorporationFilterOneQueryVariables } from "./corporation-fetch-one.query";
 import { CorporationFragment } from "./corporation.fragment";
-import { CorporationFilterOneInput } from "../../../../apps/imagine-api/src/corporation/corporation.input";
+import { CorporationFilterOneInput } from "./corporation.input";
 
 export interface UseCorporationFilterOneResponse {
   fetch(filter: CorporationFilterOneInput): Promise<CorporationFragment>;
