@@ -1,5 +1,6 @@
 import { gql } from 'graphql-tag';
 import { RANK_FRAGMENT, RankFragment } from '../rank/rank.fragment';
+import { RPStatsFragment, RP_STATS_FRAGMENT } from '../rp-stats/rp-stats.fragment';
 
 export interface UserFragment {
   id: number;
@@ -21,10 +22,12 @@ export interface UserFragment {
   language?: string;
   hasBetaCode?: boolean;
   rank: RankFragment;
+  rpStats: RPStatsFragment;
 }
 
 export const USER_FRAGMENT: any = gql`
   ${RANK_FRAGMENT}
+  ${RP_STATS_FRAGMENT}
   fragment UserFragment on UserModel {
     id
     username
@@ -46,5 +49,8 @@ export const USER_FRAGMENT: any = gql`
     hasBetaCode
     rank {
       ...RankFragment
+    }
+    rpStats {
+      ...RPStatsFragment
     }
   }`

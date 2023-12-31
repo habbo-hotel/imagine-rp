@@ -64,6 +64,7 @@ type UserModel {
   facebookID: String
   googleID: String
   language: String
+  rpStats: RPStatsModel
   hasBetaCode: Boolean!
   gameSSO: String
   ipLast: String
@@ -142,6 +143,26 @@ type RankModel {
   scopes: RankScopesModel
   flags: RankFlagsModel
   users: [UserModel!]
+}
+
+type RPStatsModel {
+  userID: Float
+  healthCurrent: Float
+  healthMax: Float
+  hungerCurrent: Float
+  hungerMax: Float
+  energyCurrent: Float
+  energyMax: Float
+  armorCurrent: Float
+  armorMax: Float
+  corporationID: Float
+  corporationRankID: Float
+  gangID: Float
+  gangRankID: Float
+  gang: GangModel
+  gangRank: GangRankModel
+  corporation: CorporationModel
+  corporationRank: CorporationRankModel
 }
 
 type RoomModel {
@@ -513,14 +534,6 @@ type GangMemberModel {
   gangID: Float
   gangRankID: Float
   userID: Float
-}
-
-type RPStatsModel {
-  userID: Float
-  health: Float
-  energy: Float
-  hunger: Float
-  armor: Float
 }
 
 type Query {

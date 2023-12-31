@@ -33,17 +33,19 @@ export function UserProfileContainer({ user }: UserProfileContainerProps) {
                 {user.username}
               </h2>
             </div>
-            {user.motto && <span className="notranslate">"{user.motto}"</span>}
           </div>
           <br />
           <UserBadgeContainerGrid user={user as any} />
         </InformationContainer>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <UserProfileStat>
-            <div>Joined On</div>
-            <b>{joinedOn}</b>
+            <div>Job</div>
+            <b>{user.rpStats.corporation?.name}</b>
           </UserProfileStat>
-
+          <UserProfileStat>
+            <div>Gang</div>
+            <b>{user.rpStats.gang?.name}</b>
+          </UserProfileStat>
           <UserProfileStat>
             <div>Last Visit</div>
             <b>{lastVisit}</b>

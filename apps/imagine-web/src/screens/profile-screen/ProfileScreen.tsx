@@ -39,10 +39,10 @@ export function ProfileScreen() {
               <RPStatsGridContainer userID={fetchUser.data?.id} />
             </div>
             <div>
-              <UserFriendsGrid user={matchingProfile} />
+              <UserRoomsGrid user={matchingProfile} />
             </div>
             <div>
-              <UserRoomsGrid user={matchingProfile} />
+              <UserFriendsGrid user={matchingProfile} />
             </div>
           </GridLarge>
         )
