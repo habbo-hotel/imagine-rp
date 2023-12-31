@@ -1,9 +1,8 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity('rp_stats')
 export class RPStatsEntity {
-
-  @PrimaryColumn({ name: 'id' })
+  @PrimaryColumn({name: 'id'})
   userID!: number;
 
   @Column()
@@ -18,15 +17,15 @@ export class RPStatsEntity {
   @Column()
   armor!: number;
 
-  @Column({ name: 'corporation_id' })
+  @Column({name: 'corporation_id'})
   corporationID!: number;
 
-  @Column({ name: 'corporation_rank_id' })
+  @Column({name: 'corporation_rank_id'})
   corporationRankID!: number;
 
-  @Column({ name: 'gang_id' })
+  @Column({name: 'gang_id'})
   gangID!: number;
 
-  @Column({ name: 'gang_rank_id' })
+  @Column({name: 'gang_rank_id'})
   gangRankID!: number;
 }

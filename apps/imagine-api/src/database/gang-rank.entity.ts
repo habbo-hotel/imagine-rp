@@ -1,15 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity('rp_gangs_ranks')
 export class GangRankEntity {
-
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ name: 'gang' })
+  @Column({name: 'gang'})
   gangID!: number;
 
-  @Column({ name: 'rank' })
+  @Column({name: 'rank'})
   rankPosition!: number;
 
   @Column()

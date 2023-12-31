@@ -1,21 +1,21 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { RoomEnterLogEntity } from '../database/room-enter-log.entity';
+import {Field, ObjectType} from '@nestjs/graphql';
+import {RoomEnterLogEntity} from '../database/room-enter-log.entity';
 
 @ObjectType()
 export class RoomEnterLogModel {
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   id!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   roomID!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   userID!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   enterTimestamp!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   exitTimestamp!: number;
 
   static fromEntity(entity: RoomEnterLogEntity): RoomEnterLogModel {

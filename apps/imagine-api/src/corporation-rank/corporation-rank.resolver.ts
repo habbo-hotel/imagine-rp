@@ -1,8 +1,4 @@
-import {
-  Resolver,
-  Query,
-  Args,
-} from '@nestjs/graphql';
+import { Resolver, Query, Args } from '@nestjs/graphql';
 import { ILike, In } from 'typeorm';
 import { CorporationRankModel } from './corporation-rank.model';
 import { CorporationRankRepository } from '../database/corporation-rank.repository';
@@ -12,7 +8,7 @@ import { CorporationRankEntity } from '../database/corporation-rank.entity';
 @Resolver(() => CorporationRankModel)
 export class CorporationRankResolver {
   constructor(
-    private readonly corporationRankRepo: CorporationRankRepository,
+    private readonly corporationRankRepo: CorporationRankRepository
   ) { }
 
   @Query(() => [CorporationRankModel])
@@ -23,7 +19,7 @@ export class CorporationRankResolver {
       await this.corporationRankRepo.find({
         where: {
           corporationID: filter.corporationIDs && In(filter.corporationIDs),
-          rankPosition: filter.rankPositions && In(filter.rankPositions),
+          corporationRankID: filter.corporationRankID && In(filter.corporationRankID),
           name: filter.nameSearch && ILike(`%${filter.nameSearch}%`),
         },
         skip: filter.skip,

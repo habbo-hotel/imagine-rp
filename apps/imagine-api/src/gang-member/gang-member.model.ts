@@ -1,13 +1,12 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { RPStatsEntity } from '../database/rp-stats.entity';
+import {Field, ObjectType} from '@nestjs/graphql';
+import {RPStatsEntity} from '../database/rp-stats.entity';
 
 @ObjectType()
 export class GangMemberModel {
-
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   gangID!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   userID!: number;
 
   static fromRPStatsEntity(rpStatsEntity: RPStatsEntity): GangMemberModel {

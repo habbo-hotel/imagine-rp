@@ -494,12 +494,13 @@ type CorporationModel {
 type CorporationRankModel {
   id: Float
   corporationID: Float
-  rankPosition: Float
+  corporationRankID: Float
   name: String
 }
 
 type CorporationMemberModel {
   corporationID: Float
+  corporationRankID: Float
   userID: Float
 }
 
@@ -935,7 +936,7 @@ input CorporationFilterOneInput {
 
 input CorporationRankFilterManyInput {
   corporationIDs: [Float!]
-  rankPositions: [Float!]
+  corporationRankID: [Float!]
   nameSearch: String
   skip: Float
   limit: Float
