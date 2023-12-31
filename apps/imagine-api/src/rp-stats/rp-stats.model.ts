@@ -44,7 +44,7 @@ export class RPStatsModel {
 
   static fromEntity(entity: RPStatsEntity): RPStatsModel {
     return {
-      userID: entity.userID,
+      userID: entity.id,
       healthCurrent: entity.healthCurrent,
       healthMax: entity.healthMax,
       hungerCurrent: entity.hungerCurrent,

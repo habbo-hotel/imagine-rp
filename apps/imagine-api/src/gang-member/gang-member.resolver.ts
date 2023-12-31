@@ -14,7 +14,7 @@ export class GangMemberResolver {
   ): Promise<GangMemberModel[]> {
     const matchingUsersByStats = await this.rpStatsRepo.find({
       where: {
-        userID: filter.userIDs && In(filter.userIDs),
+        id: filter.userIDs && In(filter.userIDs),
         gangID: filter.gangIDs && In(filter.gangIDs),
       },
     });

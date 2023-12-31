@@ -18,7 +18,7 @@ export class CorporationMemberModel {
     return {
       corporationID: rpStatsEntity.corporationID!,
       corporationRankID: rpStatsEntity.corporationRankID!,
-      userID: rpStatsEntity.userID,
+      userID: rpStatsEntity.id,
     };
   }
 }

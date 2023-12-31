@@ -1,6 +1,6 @@
 import {now} from 'lodash';
 import {UserModel} from './user.model';
-import {FindOptionsOrder, In} from 'typeorm';
+import {FindOptionsOrder, In, IsNull} from 'typeorm';
 import {RankModel} from '../rank/rank.model';
 import {BadRequestException} from '@nestjs/common';
 import {UserEntity} from '../database/user.entity';
@@ -10,7 +10,7 @@ import {GetUser} from '../session/get-user.decorator';
 import {UserRepository} from '../database/user.repository';
 import {RankRepository} from '../database/rank.repository';
 import {HasSession} from '../session/has-session.decorator';
-import {BetaCodeEntity} from '../database/beta-code.entity';
+import DayJS from 'dayjs';
 import {ConfigRepository} from '../database/config.repository';
 import {BetaCodeRepository} from '../database/beta-code.repository';
 import {
@@ -43,7 +43,7 @@ export class UserResolver {
 
   @ResolveField(() => RPStatsModel, {nullable: true})
   async rpStats(@Parent() {id}: UserEntity): Promise<RPStatsModel> {
-    const matchingRPStats = await this.rpStatsRepo.findOneOrFail({userID: id});
+    const matchingRPStats = await this.rpStatsRepo.findOneOrFail({id: id});
     return RPStatsModel.fromEntity(matchingRPStats);
   }
 
@@ -205,33 +205,47 @@ export class UserResolver {
   async userCreate(
     @Args('newUser') userCreateInput: UserCreateInput
   ): Promise<UserEntity> {
-    const config = await this.configRepo.findOneOrFail();
+    const config = await this.configRepo.findOneOrFail({});
 
-    let matchingBetaCode: BetaCodeEntity;
-
-    if (config.betaCodesRequired) {
-      matchingBetaCode = await this.betaCodeRepo.findOneOrFail({
-        betaCode: userCreateInput.betaCode,
-      });
-    }
-
-    const secondsSinceEpoch = parseInt(`${now() / 1000}`);
     const newUser = await this.userRepo.create({
       ...DEFAULT_USER_VALUES,
       ...userCreateInput,
       gameSSO: '',
-      accountCreatedAt: secondsSinceEpoch,
+      accountCreatedAt: DayJS().unix(),
       ipLast: '', // TODO: Add support for IPs,
       ipRegistered: '', // TODO: Add support for IPs
       machineAddress: '', // TODO: Add support for machine addresses
     });
 
     if (config.betaCodesRequired) {
+      const matchingBetaCode = await this.betaCodeRepo.findOne({
+        where: {
+          betaCode: userCreateInput.betaCode,
+          userID: IsNull(),
+        },
+      });
+      if (!matchingBetaCode) {
+        await this.userRepo.delete({id: newUser.id!});
+        throw new BadRequestException('invalid beta code');
+      }
       await this.betaCodeRepo.update(
         {id: matchingBetaCode!.id!},
         {userID: newUser.id!}
       );
     }
+
+    await this.rpStatsRepo.create({
+      id: newUser.id!,
+      healthCurrent: 100,
+      healthMax: 100,
+      energyCurrent: 100,
+      energyMax: 100,
+      armorCurrent: 0,
+      armorMax: 0,
+      hungerCurrent: 100,
+      hungerMax: 100,
+    } as any);
+
     return newUser;
   }
 

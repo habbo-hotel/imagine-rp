@@ -7,18 +7,7 @@ const CREATE_NEW_USER = gql`
     userCreate(newUser: {email: $email, username: $username, password: $password, betaCode: $betaCode, gender: $gender, look: $look}) {
       id
       username
-      email
       rankID
-      credits
-      vipPoints
-      activityPoints
-      look
-      gender
-      motto
-      accountCreatedAt
-      onlineStatus
-      ipRegisteredWith
-      homeRoomID
     }
   }
 `;

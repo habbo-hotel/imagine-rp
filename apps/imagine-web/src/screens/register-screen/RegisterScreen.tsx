@@ -24,11 +24,11 @@ export function RegisterScreen() {
     }
   }, [createUser?.data?.userCreate?.id]);
 
-  const betaCodeRequiredAndIsMissing = config?.betaCodesRequired ? !betaCode : false;
+  const betaCodeRequirementsMet = config?.betaCodesRequired ? !!betaCode : true;
 
   const isLoading = createUser.loading;
 
-  const canCreateUser = email !== '' && username !== '' && password !== '' && passwordAgain === password && betaCodeRequiredAndIsMissing && !isLoading;
+  const canCreateUser = email !== '' && username !== '' && password !== '' && passwordAgain === password && betaCodeRequirementsMet && !isLoading;
 
   const onCreateUser = (event: SyntheticEvent) => {
     event.preventDefault();

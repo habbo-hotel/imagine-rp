@@ -66,7 +66,7 @@ export class RPStatsResolver {
     @Args('filter') filter: RPStatsFilterOneInput
   ): Promise<RPStatsModel> {
     const matchingRPStat: RPStatsEntity = await this.rpStatsRepo.findOneOrFail({
-      userID: filter.userID,
+      id: filter.userID,
     });
     return RPStatsModel.fromEntity(matchingRPStat);
   }
@@ -77,7 +77,7 @@ export class RPStatsResolver {
   ): Promise<RPStatsModel[]> {
     const matchingRPStats: RPStatsEntity[] = await this.rpStatsRepo.find({
       where: {
-        userID: filter.userIDs && In(filter.userIDs),
+        id: filter.userIDs && In(filter.userIDs),
       },
       skip: filter.skip,
       take: filter.limit,

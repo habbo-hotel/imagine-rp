@@ -55,16 +55,6 @@ const SITE_ROUTES: Array<{ path: string, view: any, guard?: any, }> = [
     view: LoginWithDiscordScreen
   },
   {
-    path: '/login/facebook',
-    guard: GuestGuard,
-    view: LoginWithFacebookScreen
-  },
-  {
-    path: '/login/google',
-    guard: GuestGuard,
-    view: LoginWithGoogleScreen
-  },
-  {
     path: '/register',
     guard: GuestGuard,
     view: RegisterScreen

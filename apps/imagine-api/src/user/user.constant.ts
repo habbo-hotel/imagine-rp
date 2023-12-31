@@ -8,8 +8,7 @@ import {
   IMAGINE_DEFAULT_VIP_POINTS,
 } from '../imagine.constant';
 import {UserGender, UserOnlineStatus} from '@imagine-cms/types';
-
-const currentTime = +new Date();
+import DayJS from 'dayjs';
 
 export const DEFAULT_USER_VALUES = {
   gameSSO: '',
@@ -22,5 +21,5 @@ export const DEFAULT_USER_VALUES = {
   motto: IMAGINE_DEFAULT_MOTTO,
   onlineStatus: UserOnlineStatus.Offline,
   homeRoomID: IMAGINE_DEFAULT_HOME_ROOM,
-  lastOnlineAt: currentTime,
+  lastOnlineAt: DayJS().unix(),
 };

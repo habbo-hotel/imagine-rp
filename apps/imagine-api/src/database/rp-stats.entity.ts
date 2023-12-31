@@ -2,8 +2,8 @@ import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity('rp_stats')
 export class RPStatsEntity {
-  @PrimaryColumn({name: 'id'})
-  userID!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   @Column({name: 'health_current'})
   healthCurrent!: number;

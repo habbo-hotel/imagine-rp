@@ -15,7 +15,7 @@ export class CorporationMemberResolver {
     console.log(filter);
     const matchingUsersByStats = await this.rpStatsRepo.find({
       where: {
-        userID: filter.userIDs && In(filter.userIDs),
+        id: filter.userIDs && In(filter.userIDs),
         corporationID: filter.corporationIDs && In(filter.corporationIDs),
       },
     });
