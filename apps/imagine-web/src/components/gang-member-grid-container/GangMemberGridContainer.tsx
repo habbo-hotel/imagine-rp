@@ -29,6 +29,11 @@ export function GangMemberGridContainer({ gangID }: GangMemberGridContainerProps
           <SmallUserProfileContainerLazy key={`gang_member_${gangID}_${_.userID}`} userID={_.userID} showMotto={false} showRank={false} />
         ))
       }
+      {
+        !fetchGangMembers.loading && fetchGangMembers.data?.length === 0 && (
+          <p>No members found</p>
+        )
+      }
     </div>
   )
 }

@@ -29,6 +29,11 @@ export function CorpMemberGridContainer({ corpID }: CorpMemberGridContainerProps
           <SmallUserProfileContainerLazy key={`corp_member_${corpID}_${_.userID}`} userID={_.userID} showMotto={false} showRank={false} />
         ))
       }
+      {
+        !fetchCorpMembers.loading && fetchCorpMembers.data?.length === 0 && (
+          <p>No members found</p>
+        )
+      }
     </div>
   )
 }
