@@ -33,7 +33,7 @@ export function ProfileScreen() {
         <div>
           {matchingProfile ? <UserProfileContainer user={matchingProfile} /> : <UserProfileContainerMock />}
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <UserStatsGrid user={matchingProfile} />
           <RPStatsGridContainer userID={fetchUser.data?.id} />
         </div>
