@@ -15,13 +15,13 @@ export function useRPStatsFetchOne(): UseRPStatsFetchOneResponse {
 
   const onFetchRPStats = async (filter: RPStatsFilterOneInput): Promise<RPStatsFragment> => {
     const matchingRPStats = await getRPStats({ fetchPolicy: "network-only", variables: { filter } })
-    return matchingRPStats.data!.rpStats;
+    return matchingRPStats.data!.rpStat;
   }
 
   return {
     fetch: onFetchRPStats,
     error,
     loading,
-    data: data?.rpStats,
+    data: data?.rpStat,
   }
 }

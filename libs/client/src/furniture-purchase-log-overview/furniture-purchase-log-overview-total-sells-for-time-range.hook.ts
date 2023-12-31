@@ -14,7 +14,6 @@ export function usefurniturePurchaseLogsOverviewTotalSellsForTimeRange(): Usefur
 
   const onFetchFurniturePurchaseLogOverviews = async (filter: FurniturePurchaseLogOverviewAverageSellsForTimeRangeInput): Promise<number> => {
     const matchingFurniturePurchaseLogOverviews = await getFurniturePurchaseLogOverviews({ fetchPolicy: "network-only", variables: { filter } })
-    console.log(matchingFurniturePurchaseLogOverviews)
     return matchingFurniturePurchaseLogOverviews.data!.furniturePurchaseLogOverviewTotalSellsForTimeRange;
   }
 

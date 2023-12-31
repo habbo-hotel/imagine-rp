@@ -30,8 +30,6 @@ export function LoginWithDiscordScreen() {
     }
   }
 
-  console.log(discordAuthCode)
-
   useEffect(() => {
     if (!discordAuthCode) {
       return;

@@ -13,8 +13,6 @@ export function GangListScreen() {
     gangFetchMany.fetch({});
   }, []);
 
-  console.log(gangFetchMany)
-
   return (
     <>
       <h1>Gangs</h1>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { ProgressProps } from './Progress.types';
-import { ProgressElement } from './Progress.styled';
+import { ProgressContainer, ProgressElement } from './Progress.styled';
 
 export function Progress({ ...props }: ProgressProps) {
   return (
-    <>
-      <ProgressElement {...props} />
-    </>
+    <ProgressContainer>
+      <ProgressElement style={{ width: `${props.percent}%` }} {...props} />
+    </ProgressContainer>
   )
 }

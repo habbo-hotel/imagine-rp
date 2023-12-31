@@ -12,14 +12,12 @@ export class CorporationMemberResolver {
   async corporationMembers(
     @Args('filter') filter: CorporationMemberFilterManyInput
   ): Promise<CorporationMemberModel[]> {
-    console.log(filter);
     const matchingUsersByStats = await this.rpStatsRepo.find({
       where: {
         id: filter.userIDs && In(filter.userIDs),
         corporationID: filter.corporationIDs && In(filter.corporationIDs),
       },
     });
-    console.log(matchingUsersByStats);
     return matchingUsersByStats.map(CorporationMemberModel.fromRPStatsEntity);
   }
 }
