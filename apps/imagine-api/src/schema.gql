@@ -491,6 +491,38 @@ type CorporationModel {
   room: RoomModel
 }
 
+type CorporationRankModel {
+  id: Float
+  corporationID: Float
+  rankPosition: Float
+  name: String
+}
+
+type CorporationMemberModel {
+  corporationID: Float
+  userID: Float
+}
+
+type GangRankModel {
+  id: Float
+  gangID: Float
+  rankPosition: Float
+  name: String
+}
+
+type GangMemberModel {
+  gangID: Float
+  userID: Float
+}
+
+type RPStatsModel {
+  userID: Float
+  health: Float
+  energy: Float
+  hunger: Float
+  armor: Float
+}
+
 type Query {
   sessionSSOCreate: SessionSSOModel!
   sessionByJWT(jwt: String!): SessionModel!
@@ -561,8 +593,14 @@ type Query {
   storePackages(filter: StorePackageFilterManyInput): [StorePackageModel!]!
   gangs(filter: GangFilterManyInput!): [GangModel!]!
   gang(filter: GangFilterOneInput!): GangModel!
+  gangRanks(filter: GangRankFilterManyInput!): [GangRankModel!]!
+  gangMembers(filter: GangMemberFilterManyInput!): [GangMemberModel!]!
   corporations(filter: CorporationFilterManyInput!): [CorporationModel!]!
   corporation(filter: CorporationFilterOneInput!): CorporationModel!
+  corporationRanks(filter: CorporationRankFilterManyInput!): [CorporationRankModel!]!
+  corporationMembers(filter: CorporationMemberFilterManyInput!): [CorporationMemberModel!]!
+  rpStat(filter: RPStatsFilterOneInput!): RPStatsModel!
+  rpStats(filter: RPStatsFilterManyInput!): [RPStatsModel!]!
 }
 
 input ExtraArgs {
@@ -869,6 +907,21 @@ input GangFilterOneInput {
   id: Float!
 }
 
+input GangRankFilterManyInput {
+  gangIDs: [Float!]
+  rankPositions: [Float!]
+  nameSearch: String
+  skip: Float
+  limit: Float
+}
+
+input GangMemberFilterManyInput {
+  gangIDs: [Float!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
 input CorporationFilterManyInput {
   ids: [Float!]
   nameContains: String
@@ -878,6 +931,31 @@ input CorporationFilterManyInput {
 
 input CorporationFilterOneInput {
   id: Float!
+}
+
+input CorporationRankFilterManyInput {
+  corporationIDs: [Float!]
+  rankPositions: [Float!]
+  nameSearch: String
+  skip: Float
+  limit: Float
+}
+
+input CorporationMemberFilterManyInput {
+  corporationIDs: [Float!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input RPStatsFilterOneInput {
+  userID: Float!
+}
+
+input RPStatsFilterManyInput {
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
 }
 
 type Mutation {

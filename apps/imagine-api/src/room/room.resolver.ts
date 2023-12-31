@@ -1,11 +1,11 @@
-import {In} from 'typeorm';
-import {RoomModel} from './room.model';
-import {UserModel} from '../user/user.model';
-import {Inject, forwardRef} from '@nestjs/common';
-import {ArticleEntity} from '../database/article.entity';
-import {UserRepository} from '../database/user.repository';
-import {RoomRepository} from '../database/room.repository';
-import {RoomFilterManyInput, RoomFilterOneInput} from './room.input';
+import { In } from 'typeorm';
+import { RoomModel } from './room.model';
+import { UserModel } from '../user/user.model';
+import { Inject, forwardRef } from '@nestjs/common';
+import { ArticleEntity } from '../database/article.entity';
+import { UserRepository } from '../database/user.repository';
+import { RoomRepository } from '../database/room.repository';
+import { RoomFilterManyInput, RoomFilterOneInput } from './room.input';
 import {
   Args,
   Mutation,
@@ -14,7 +14,7 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
-import {HasScope} from '../session/has-scope.decorator';
+import { HasScope } from '../session/has-scope.decorator';
 
 @Resolver(() => RoomModel)
 export class RoomResolver {
@@ -22,10 +22,10 @@ export class RoomResolver {
     @Inject(forwardRef(() => UserRepository))
     private readonly userRepo: UserRepository,
     private readonly roomRepo: RoomRepository
-  ) {}
+  ) { }
 
-  @ResolveField(() => UserModel, {nullable: true})
-  user(@Parent() {userID}: ArticleEntity): Promise<UserModel | null> {
+  @ResolveField(() => UserModel, { nullable: true })
+  user(@Parent() { userID }: ArticleEntity): Promise<UserModel | null> {
     return this.userRepo.findOne({
       where: {
         id: userID,
@@ -35,7 +35,7 @@ export class RoomResolver {
 
   @Query(() => RoomModel)
   async room(@Args('filter') filter: RoomFilterOneInput): Promise<RoomModel> {
-    const matchingRoom = await this.roomRepo.findOneOrFail({id: filter.id});
+    const matchingRoom = await this.roomRepo.findOneOrFail({ id: filter.id });
     return RoomModel.fromEntity(matchingRoom);
   }
 
@@ -57,7 +57,7 @@ export class RoomResolver {
   @Mutation(() => Boolean)
   @HasScope('manageRooms')
   async roomDelete(@Args('id') id: number) {
-    await this.roomRepo.delete({id});
+    await this.roomRepo.delete({ id });
     return true;
   }
 }

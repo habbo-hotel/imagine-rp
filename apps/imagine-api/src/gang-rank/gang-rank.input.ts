@@ -3,23 +3,21 @@ import { Max } from 'class-validator';
 import { GLOBAL_MAX_RESOURCE_LIMIT } from '../imagine.constant';
 
 @InputType()
-export class RoomEnterLogFilterOneInput {
-  @Field(() => Number)
-  id!: number;
-}
-
-@InputType()
-export class RoomEnterLogFilterManyInput {
+export class GangRankFilterManyInput {
   @Field(() => [Number], { nullable: true })
-  ids?: number[];
+  gangIDs?: number[];
 
   @Field(() => [Number], { nullable: true })
-  userIDs?: number[];
+  rankPositions?: number[];
 
-  @Field(() => [Number], { nullable: true })
-  roomIDs?: number[];
+  @Field(() => String, { nullable: true })
+  nameSearch?: string;
+
+  @Field(() => Number, { nullable: true })
+  skip?: number;
 
   @Field(() => Number, { nullable: true })
   @Max(GLOBAL_MAX_RESOURCE_LIMIT)
   limit?: number;
 }
+

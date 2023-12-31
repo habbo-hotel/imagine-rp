@@ -1,9 +1,9 @@
-import {In} from 'typeorm';
-import {UserModel} from '../user/user.model';
-import {RoomEnterLogModel} from './room-enter-log.model';
-import {UserRepository} from '../database/user.repository';
-import {Args, Parent, Query, ResolveField, Resolver} from '@nestjs/graphql';
-import {RoomEnterLogRepository} from '../database/room-enter-log.repository';
+import { In } from 'typeorm';
+import { UserModel } from '../user/user.model';
+import { RoomEnterLogModel } from './room-enter-log.model';
+import { UserRepository } from '../database/user.repository';
+import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { RoomEnterLogRepository } from '../database/room-enter-log.repository';
 import {
   RoomEnterLogFilterOneInput,
   RoomEnterLogFilterManyInput,
@@ -14,7 +14,7 @@ export class RoomEnterLogResolver {
   constructor(
     private readonly roomEnterLogRepo: RoomEnterLogRepository,
     private readonly userRepo: UserRepository
-  ) {}
+  ) { }
 
   @ResolveField(() => UserModel)
   user(@Parent() roomEnterLog: RoomEnterLogModel): Promise<UserModel | null> {
@@ -27,7 +27,7 @@ export class RoomEnterLogResolver {
 
   @Query(() => RoomEnterLogModel)
   async roomEnterLog(
-    @Args({name: 'filter', type: () => RoomEnterLogFilterOneInput})
+    @Args({ name: 'filter', type: () => RoomEnterLogFilterOneInput })
     filter: RoomEnterLogFilterOneInput
   ): Promise<RoomEnterLogModel> {
     const matchingRoomEnterLog = await this.roomEnterLogRepo.findOneOrFail({
@@ -38,7 +38,7 @@ export class RoomEnterLogResolver {
 
   @Query(() => [RoomEnterLogModel])
   async roomEnterLogs(
-    @Args({name: 'filter', type: () => RoomEnterLogFilterManyInput})
+    @Args({ name: 'filter', type: () => RoomEnterLogFilterManyInput })
     filter: RoomEnterLogFilterManyInput
   ): Promise<RoomEnterLogModel[]> {
     const matchingRoomEnterLogs = await this.roomEnterLogRepo.find({
