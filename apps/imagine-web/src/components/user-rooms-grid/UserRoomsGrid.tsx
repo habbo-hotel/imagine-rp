@@ -1,5 +1,4 @@
 import { Card } from '../card/Card';
-import { Grid } from '../grid/Grid';
 import { GridLarge } from '../grid/Grid.remix';
 import React, { useEffect, useState } from 'react';
 import { ButtonNoBorder } from '../button/Button.remix';
@@ -37,7 +36,10 @@ export function UserRoomsGrid({ user }: UserRoomsGridProps) {
   }, [user.id, page]);
 
   return (
-    <Card header={<>My Rooms {page > 0 && <small>Page {page + 1}</small>}</>} headerImage='/img/room-icon.png'>
+    <Card header={<>Properties {page > 0 && <small>Page {page + 1}</small>}</>} headerImage='/img/room-icon.png'>
+      {
+        fetchRooms.data?.length === 0 && <p>You don't own any property</p>
+      }
       <GridLarge>
         {
           fetchRooms.loading && (
@@ -45,9 +47,6 @@ export function UserRoomsGrid({ user }: UserRoomsGridProps) {
               <RoomGridContainerMock />
             </>
           )
-        }
-        {
-          fetchRooms.data?.length === 0 && <p>You don't own any rooms</p>
         }
 
         {

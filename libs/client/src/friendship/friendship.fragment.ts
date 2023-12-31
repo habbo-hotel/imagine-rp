@@ -15,4 +15,5 @@ export const FRIENDSHIP_FRAGMENT: any = gql`
 export interface FriendshipFragment {
   userID: number;
   friendID: number;
+  friend: UserFragment;
 }

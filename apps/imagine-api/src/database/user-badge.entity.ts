@@ -1,6 +1,6 @@
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
-@Entity('users_badges')
+@Entity('user_badges')
 export class UserBadgeEntity {
   @PrimaryGeneratedColumn()
   id?: number;
@@ -8,9 +8,9 @@ export class UserBadgeEntity {
   @Column({name: 'user_id'})
   userID!: number;
 
-  @Column({name: 'slot_id'})
+  @Column({name: 'badge_slot'})
   slotID!: number;
 
-  @Column({name: 'badge_code'})
+  @Column({name: 'badge_id'})
   badgeCode!: string;
 }

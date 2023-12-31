@@ -38,12 +38,11 @@ export function UserFriendsGrid({ user }: UserFriendsGridProps) {
   }, [user.id, page]);
 
   return (
-    <Card header={<>My Friends {page > 0 && <small>Page {page + 1}</small>}</>} headerImage="/img/friend-icon.png">
+    <Card header={<>Friends {page > 0 && <small>Page {page + 1}</small>}</>} headerImage="/img/friend-icon.png">
+      {
+        friendshipFetch.data?.length === 0 && <p>You don't have any friends</p>
+      }
       <Grid>
-        {
-          friendshipFetch.data?.length === 0 && <p>You don't have any friends</p>
-        }
-
         {
           friendshipFetch.loading && (
             <>

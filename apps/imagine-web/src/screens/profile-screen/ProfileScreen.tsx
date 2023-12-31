@@ -4,9 +4,9 @@ import { useUserFetchOne } from '@imagine-cms/client';
 import { GridLarge } from '../../components/grid/Grid.remix';
 import { UserRoomsGrid } from '../../components/user-rooms-grid/UserRoomsGrid';
 import { UserStatsGrid } from '../../components/user-stats-grid/UserStatsGrid';
-import { UserGroupsGrid } from '../../components/user-groups-grid/UserGroupGrid';
 import { UserFriendsGrid } from '../../components/user-friends-grid/UserFriendsGrid';
 import { UserProfileContainer } from '../../components/user-profile-container/UserProfileContainer';
+import { RPStatsGridContainer } from '../../components/rp-stats-grid-container/RPStatsGridContainer';
 
 export function ProfileScreen() {
   const [_, params] = useRoute<{ username: string }>('/profile/:username');
@@ -31,18 +31,20 @@ export function ProfileScreen() {
       }
       {
         matchingProfile && (
-          <>
-
-            <UserProfileContainer user={matchingProfile} />
-            <br />
-            <UserStatsGrid user={matchingProfile} />
-            <br />
-            <GridLarge>
+          <GridLarge>
+            <div><UserProfileContainer user={matchingProfile} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <UserStatsGrid user={matchingProfile} />
+              <RPStatsGridContainer userID={fetchUser.data?.id} />
+            </div>
+            <div>
               <UserFriendsGrid user={matchingProfile} />
-              <UserGroupsGrid user={matchingProfile} />
+            </div>
+            <div>
               <UserRoomsGrid user={matchingProfile} />
-            </GridLarge>
-          </>
+            </div>
+          </GridLarge>
         )
       }
     </>
