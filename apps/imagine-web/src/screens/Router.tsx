@@ -17,10 +17,8 @@ import { RoomListScreen } from './room-list-screen/RoomListScreen';
 import { CommunityScreen } from './community-screen/CommunityScreen';
 import { PhotoViewScreen } from './photo-view-screen/PhotoViewScreen';
 import { PhotoListScreen } from './photo-list-screen/PhotoListScreen';
-import { GroupViewScreen } from './group-view-screen/GroupViewScreen';
 import { BadgeListScreen } from './badge-list-screen/BadgeListScreen';
 import { BadgeViewScreen } from './badge-view-screen/BadgeViewScreen';
-import { GroupListScreen } from './group-list-screen/GroupListScreen';
 import { HighScoresScreen } from './high-scores-screen/HighScoresScreen';
 import { ArticleViewScreen } from './article-view-screen/ArticleViewScreen';
 import { PageNotFoundScreen } from './page-not-found-screen/PageNotFoundScreen';
@@ -153,16 +151,6 @@ const SITE_ROUTES: Array<{ path: string, view: any, guard?: any, }> = [
     path: '/rooms/:roomID',
     guard: undefined,
     view: RoomViewScreen,
-  },
-  {
-    path: '/groups',
-    guard: undefined,
-    view: GroupListScreen,
-  },
-  {
-    path: '/groups/:groupID',
-    guard: undefined,
-    view: GroupViewScreen,
   },
   {
     path: '/badges',

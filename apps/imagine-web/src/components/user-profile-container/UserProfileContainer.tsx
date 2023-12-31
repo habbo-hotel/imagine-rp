@@ -51,11 +51,24 @@ export function UserProfileContainer({ user }: UserProfileContainerProps) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <UserProfileStat>
             <div>Job</div>
-            <b>{user.rpStats.corporationID ? corporationFetchOne.data?.name : 'No job'}</b>
+            {user.rpStats.corporationID
+              ? (
+                <Link to={`/corps/${user.rpStats.corporationID}`}>
+                  <b style={{ cursor: 'pointer' }}>{corporationFetchOne.data?.name}</b>
+                </Link>
+              )
+              : 'No job'}
+
           </UserProfileStat>
           <UserProfileStat>
             <div>Gang</div>
-            <b>{user.rpStats.gangID ? gangFetchOne.data?.name : 'No gang'}</b>
+            {user.rpStats.gangID
+              ? (
+                <Link to={`/gangs/${user.rpStats.gangID}`}>
+                  <b style={{ cursor: 'pointer' }}>{gangFetchOne.data?.name}</b>
+                </Link>
+              )
+              : 'No gang'}
           </UserProfileStat>
           <UserProfileStat>
             <div>Last Visit</div>

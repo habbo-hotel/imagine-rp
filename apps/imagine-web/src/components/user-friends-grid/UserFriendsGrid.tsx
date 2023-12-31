@@ -46,16 +46,16 @@ export function UserFriendsGrid({ user }: UserFriendsGridProps) {
         {
           friendshipFetch.loading && (
             <>
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
+              <SmallUserProfileContainerMock showMotto={false} showRank={false} />
+              <SmallUserProfileContainerMock showMotto={false} showRank={false} />
+              <SmallUserProfileContainerMock showMotto={false} showRank={false} />
+              <SmallUserProfileContainerMock showMotto={false} showRank={false} />
             </>
           )
         }
         {
           friendshipFetch.data?.map(_ => (
-            <SmallUserProfileContainer key={`friendship_${_.friendID}`} user={_.friend as any} />
+            <SmallUserProfileContainer key={`friendship_${_.friendID}`} user={_.friend as any} showMotto={false} showRank={false} />
           ))
         }
       </Grid>

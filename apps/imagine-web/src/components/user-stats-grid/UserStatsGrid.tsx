@@ -11,25 +11,25 @@ export function UserStatsGrid({ user }: UserStatsGridProps) {
       <Link to="/store/currency">
         <CreditStatsContainerElement>
           <img src="/img/credits.svg" loading="lazy" />
-          <b>{user.credits?.toLocaleString()}</b>
+          <b>{user?.credits?.toLocaleString() ?? '-'}</b>
         </CreditStatsContainerElement>
       </Link>
       <Link to="/store/currency">
         <DiamondStatsContainerElement>
           <img src="/img/diamonds.svg" loading="lazy" />
-          <b>{user.vipPoints?.toLocaleString()}</b>
+          <b>{user?.vipPoints?.toLocaleString() ?? '-'}</b>
         </DiamondStatsContainerElement>
       </Link>
       <Link to="/store/currency">
         <PixelStatsContainerElement>
           <img src="/img/duckets.svg" loading="lazy" />
-          <b> {user.activityPoints?.toLocaleString()}</b>
+          <b> {user?.activityPoints?.toLocaleString() ?? '-'}</b>
         </PixelStatsContainerElement>
       </Link>
-      <Link to={`/ranks/${user.rank?.id}`}>
-        <HabboClubStatsContainerElement style={{ background: user.rank.backgroundColor }}>
-          <Badge badge={{ code: user.rank?.badgeCode }} />
-          <b>{user.rank?.name}</b>
+      <Link to={`/ranks/${user?.rank?.id}`}>
+        <HabboClubStatsContainerElement style={{ background: user?.rank.backgroundColor }}>
+          <Badge badge={{ code: user?.rank?.badgeCode ?? 'FAN' }} />
+          <b>{user?.rank?.name ?? '-'}</b>
         </HabboClubStatsContainerElement>
       </Link>
     </GridLarge>
