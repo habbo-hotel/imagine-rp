@@ -9,6 +9,7 @@ import { Card } from '../../components/card/Card';
 import { UserProfileContainer } from '../../components/user-profile-container/UserProfileContainer';
 import { SmallUserProfileContainer } from '../../components/small-user-profile-container/SmallUserProfileContainer';
 import { RoomGridContainer } from '../../components/room-grid-container/RoomGridContainer';
+import { CorpMemberGridContainer } from '../../components/corp-member-grid-container/CorpMemberGridContainer';
 
 export function CorpViewScreen() {
   const { config } = useContext(configContext);
@@ -65,6 +66,7 @@ export function CorpViewScreen() {
         </div>
         <div style={{ flex: 1 }}>
           <h2>Members</h2>
+          <CorpMemberGridContainer corpID={corpID} />
         </div>
       </GridLarge>
     </>

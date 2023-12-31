@@ -10,7 +10,7 @@ export class GangRankModel {
   gangID!: number;
 
   @Field(() => Number, {nullable: true})
-  rankPosition!: number;
+  gangRankID!: number;
 
   @Field(() => String, {nullable: true})
   name!: string;
@@ -19,7 +19,7 @@ export class GangRankModel {
     return {
       id: entity.id!,
       gangID: entity.gangID,
-      rankPosition: entity.rankPosition,
+      gangRankID: entity.gangRankID,
       name: entity.name,
     };
   }

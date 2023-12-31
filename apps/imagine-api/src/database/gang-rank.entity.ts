@@ -9,7 +9,7 @@ export class GangRankEntity {
   gangID!: number;
 
   @Column({name: 'rank'})
-  rankPosition!: number;
+  gangRankID!: number;
 
   @Column()
   name!: string;

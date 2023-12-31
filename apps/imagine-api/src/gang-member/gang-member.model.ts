@@ -7,11 +7,15 @@ export class GangMemberModel {
   gangID!: number;
 
   @Field(() => Number, {nullable: true})
+  gangRankID!: number;
+
+  @Field(() => Number, {nullable: true})
   userID!: number;
 
   static fromRPStatsEntity(rpStatsEntity: RPStatsEntity): GangMemberModel {
     return {
       gangID: rpStatsEntity.gangID,
+      gangRankID: rpStatsEntity.gangRankID,
       userID: rpStatsEntity.userID,
     };
   }

@@ -8,7 +8,7 @@ export class GangRankFilterManyInput {
   gangIDs?: number[];
 
   @Field(() => [Number], {nullable: true})
-  rankPositions?: number[];
+  gangRankIDs?: number[];
 
   @Field(() => String, {nullable: true})
   nameSearch?: string;

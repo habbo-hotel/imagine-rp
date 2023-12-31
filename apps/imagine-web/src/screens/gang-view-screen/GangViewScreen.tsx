@@ -7,6 +7,7 @@ import { useGangFetchOne } from '@imagine-cms/client';
 import { GangGridContainerAvatar } from '../../components/gang-grid-container/GangGridContainer.styled';
 import { Avatar } from '../../components/avatar/Avatar';
 import { SmallUserProfileContainer } from '../../components/small-user-profile-container/SmallUserProfileContainer';
+import { GangMemberGridContainer } from '../../components/gang-member-grid-container/GangMemberGridContainer';
 
 export function GangViewScreen() {
   const [, params] = useRoute<{ gangID: string }>('/gangs/:gangID');
@@ -60,6 +61,7 @@ export function GangViewScreen() {
         </div>
         <div style={{ flex: 1 }}>
           <h2>Members</h2>
+          <GangMemberGridContainer gangID={gangID} />
         </div>
       </GridLarge>
     </>

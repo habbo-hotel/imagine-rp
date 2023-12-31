@@ -1,8 +1,9 @@
 import gql from "graphql-tag";
-import { CorporationRankFragment } from "./corporation-rank.fragment";
+import { CORPORATION_RANK_FRAGMENT, CorporationRankFragment } from "./corporation-rank.fragment";
 import { CorporationRankFilterManyInput } from "./corporation-rank.input";
 
 export const CORPORATION_RANK_FETCH_MANY_QUERY: any = gql`
+  ${CORPORATION_RANK_FRAGMENT}
   query($filter: CorporationRankFilterManyInput!) {
     corporationRanks(filter: $filter) {
       ...CorporationRankFragment

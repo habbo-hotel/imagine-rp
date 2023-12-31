@@ -293,8 +293,6 @@ type FacebookAuthModel {
 type FriendshipModel {
   userID: Float
   friendID: Float
-  relation: Float
-  createdAt: Float
   friend: UserModel
 }
 
@@ -507,12 +505,13 @@ type CorporationMemberModel {
 type GangRankModel {
   id: Float
   gangID: Float
-  rankPosition: Float
+  gangRankID: Float
   name: String
 }
 
 type GangMemberModel {
   gangID: Float
+  gangRankID: Float
   userID: Float
 }
 
@@ -910,7 +909,7 @@ input GangFilterOneInput {
 
 input GangRankFilterManyInput {
   gangIDs: [Float!]
-  rankPositions: [Float!]
+  gangRankIDs: [Float!]
   nameSearch: String
   skip: Float
   limit: Float

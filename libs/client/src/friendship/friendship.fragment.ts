@@ -9,15 +9,10 @@ export const FRIENDSHIP_FRAGMENT: any = gql`
     friend {
       ...UserFragment
     }
-    relation
-    createdAt
   }
 `
 
 export interface FriendshipFragment {
   userID: number;
   friendID: number;
-  friend: UserFragment;
-  relation: number;
-  createdAt: number;
 }

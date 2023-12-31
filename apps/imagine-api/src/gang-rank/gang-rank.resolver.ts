@@ -16,7 +16,7 @@ export class GangRankResolver {
     const matchingGangRanks: GangRankEntity[] = await this.gangRankRepo.find({
       where: {
         gangID: filter.gangIDs && In(filter.gangIDs),
-        rankPosition: filter.rankPositions && In(filter.rankPositions),
+        gangRankID: filter.gangRankIDs && In(filter.gangRankIDs),
         name: filter.nameSearch && ILike(`%${filter.nameSearch}%`),
       },
       skip: filter.skip,

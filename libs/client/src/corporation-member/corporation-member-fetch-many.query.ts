@@ -1,8 +1,9 @@
 import gql from "graphql-tag";
-import { CorporationMemberFragment } from "./corporation-member.fragment";
+import { CORPORATION_MEMBER_FRAGMENT, CorporationMemberFragment } from "./corporation-member.fragment";
 import { CorporationMemberFilterManyInput } from "./corporation-member.input";
 
 export const CORPORATION_MEMBER_FETCH_MANY_QUERY: any = gql`
+  ${CORPORATION_MEMBER_FRAGMENT}
   query($filter: CorporationMemberFilterManyInput!) {
     corporationMembers(filter: $filter) {
       ...CorporationMemberFragment
