@@ -30,6 +30,8 @@ import {
 } from '@nestjs/graphql';
 import {RPStatsRepository} from '../database/rp-stats.repository';
 import {RPStatsModel} from '../rp-stats/rp-stats.model';
+import {SessionCreatedModel} from '../session/session.model';
+import {SessionService} from '../session/session.service';
 
 @Resolver(() => UserModel)
 export class UserResolver {
@@ -38,7 +40,8 @@ export class UserResolver {
     private readonly rankRepo: RankRepository,
     private readonly rpStatsRepo: RPStatsRepository,
     private readonly configRepo: ConfigRepository,
-    private readonly betaCodeRepo: BetaCodeRepository
+    private readonly betaCodeRepo: BetaCodeRepository,
+    private readonly sessionService: SessionService
   ) {}
 
   @ResolveField(() => RPStatsModel, {nullable: true})
@@ -201,15 +204,15 @@ export class UserResolver {
     });
   }
 
-  @Mutation(() => UserModel)
+  @Mutation(() => SessionCreatedModel)
   async userCreate(
-    @Args('newUser') userCreateInput: UserCreateInput
-  ): Promise<UserEntity> {
+    @Args('input') input: UserCreateInput
+  ): Promise<SessionCreatedModel> {
     const config = await this.configRepo.findOneOrFail({});
 
     const newUser = await this.userRepo.create({
       ...DEFAULT_USER_VALUES,
-      ...userCreateInput,
+      ...input,
       gameSSO: '',
       accountCreatedAt: DayJS().unix(),
       ipLast: '', // TODO: Add support for IPs,
@@ -220,7 +223,7 @@ export class UserResolver {
     if (config.betaCodesRequired) {
       const matchingBetaCode = await this.betaCodeRepo.findOne({
         where: {
-          betaCode: userCreateInput.betaCode,
+          betaCode: input.betaCode,
           userID: IsNull(),
         },
       });
@@ -246,7 +249,13 @@ export class UserResolver {
       hungerMax: 100,
     } as any);
 
-    return newUser;
+    const newSession = await this.sessionService.generateSession(newUser.id!);
+
+    return {
+      id: newSession.session.id!,
+      userID: newUser.id!,
+      accessToken: newSession.accessToken,
+    };
   }
 
   @Mutation(() => Boolean)

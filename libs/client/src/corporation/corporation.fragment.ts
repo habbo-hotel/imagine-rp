@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { USER_FRAGMENT, UserFragment } from "../user/user.fragment";
+import { USER_FRAGMENT, UserFragment } from "../rp-stats/user/user.fragment";
 import { ROOM_FRAGMENT, RoomFragment } from "../room/room.fragment";
 
 export const CORPORATION_FRAGMENT: any = gql`

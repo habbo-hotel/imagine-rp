@@ -979,7 +979,7 @@ type Mutation {
   sessionDisconnectDiscord(input: SessionDisconnectAccountInput!): SessionDisconnectAccountModel!
   sessionDisconnectFacebook(input: SessionDisconnectAccountInput!): SessionDisconnectAccountModel!
   sessionDisconnectGoogle(input: SessionDisconnectAccountInput!): SessionDisconnectAccountModel!
-  userCreate(newUser: UserCreateInput!): UserModel!
+  userCreate(input: UserCreateInput!): SessionCreatedModel!
   userUpdate(id: Float!, userChanges: UserUpdateInput!): Boolean!
   userDelete(id: Float!): Boolean!
   rankCreate(newRank: RankCreateInput!): RankModel!

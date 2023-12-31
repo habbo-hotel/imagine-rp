@@ -22,3 +22,19 @@ export interface UserFilterOneInput {
   id?: number;
   username?: string;
 }
+
+
+export enum UserGender {
+  Male = 'M',
+  Female = 'F',
+}
+
+
+export interface UserCreateInput {
+  username: string;
+  password: string;
+  email: string;
+  betaCode?: string;
+  gender?: UserGender;
+  look?: string;
+}

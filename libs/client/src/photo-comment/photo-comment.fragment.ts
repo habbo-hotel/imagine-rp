@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { USER_FRAGMENT, UserFragment } from '../user/user.fragment';
+import { USER_FRAGMENT, UserFragment } from '../rp-stats/user/user.fragment';
 
 export const PHOTO_COMMENT_FRAGMENT: any = gql`
   ${USER_FRAGMENT}

@@ -18,47 +18,27 @@ export function RPStatsGridContainer({ userID }: RPStatsGridContainerProps) {
     refresh();
   }, [userID]);
 
-  const [currHealth, maxHealth] = [
-    fetchRPStats.data?.health ?? 0,
-    100
-  ]
-
-  const [currEnergy, maxEnergy] = [
-    fetchRPStats.data?.energy ?? 0,
-    100,
-  ]
-
-  const [currHunger, maxHunger] = [
-    fetchRPStats.data?.energy ?? 0,
-    100,
-  ]
-
-  const [currArmor, maxArmor] = [
-    fetchRPStats.data?.energy ?? 0,
-    100,
-  ]
-
   return (
     <GridLarge>
       <div style={{ width: '100%' }}>
         <label>Health</label>
         <br />
-        <HealthProgress value={currEnergy} max={maxEnergy}> {currEnergy}% </HealthProgress>
+        <HealthProgress value={fetchRPStats.data?.healthCurrent ?? 0} max={fetchRPStats.data?.healthMax ?? 0}> {fetchRPStats.data?.healthCurrent ?? 0}% </HealthProgress>
       </div>
       <div>
         <label>Energy</label>
         <br />
-        <EnergyProgress value={currEnergy} max={maxEnergy}> {currEnergy}% </EnergyProgress>
+        <EnergyProgress value={fetchRPStats.data?.energyCurrent ?? 0} max={fetchRPStats.data?.energyMax ?? 0}> {fetchRPStats.data?.energyCurrent ?? 0}% </EnergyProgress>
       </div>
       <div>
         <label>Hunger</label>
         <br />
-        <HungerProgress value={currHunger} max={maxHunger}> {currHunger}% </HungerProgress>
+        <HungerProgress value={fetchRPStats.data?.hungerCurrent ?? 0} max={fetchRPStats.data?.hungerMax ?? 0}> {fetchRPStats.data?.healthCurrent ?? 0}% </HungerProgress>
       </div>
       <div>
         <label>Armor</label>
         <br />
-        <ArmorProgress value={currArmor} max={maxArmor}> {currArmor}% </ArmorProgress>
+        <ArmorProgress value={fetchRPStats.data?.armorCurrent ?? 0} max={fetchRPStats.data?.armorMax ?? 0}> {fetchRPStats.data?.armorCurrent ?? 0}% </ArmorProgress>
       </div>
     </GridLarge>
   )

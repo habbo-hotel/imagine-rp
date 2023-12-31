@@ -1,60 +1,73 @@
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { Form } from '../../components/form/Form';
 import { Input } from '../../components/input/Input';
 import { Button } from '../../components/button/Button';
 import { ButtonBrand } from '../../components/button/Button.remix';
-import React, { SyntheticEvent, useContext, useEffect, useState } from 'react';
+import React, { SyntheticEvent, useContext, useState } from 'react';
 import { GuestContainer } from '../../components/guest-container/GuestContainer';
-import { configContext, useSignInWithUsernameAndPassword, useUserCreateMutation } from '@imagine-cms/web';
+import { configContext, localStorageService, sessionContext } from '@imagine-cms/web';
+import { UserCreateInput, UserGender, useUserCreate, useUserFetchOne } from '@imagine-cms/client';
+import { toast } from 'react-toastify';
 
 export function RegisterScreen() {
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [betaCode, setBetaCode] = useState('');
+  const createUser = useUserCreate();
+  const fetchUser = useUserFetchOne();
+  const [, setLocation] = useLocation();
   const { config } = useContext(configContext);
-  const [passwordAgain, setPasswordAgain] = useState('');
-  const createUser = useUserCreateMutation(username, email, password, betaCode);
-  const { tryLogin } = useSignInWithUsernameAndPassword(username, password);
+  const { setSession } = useContext(sessionContext);
+  const [userCreateInput, setUserCreateInput] = useState<UserCreateInput>({
+    username: '',
+    email: '',
+    password: '',
+    gender: UserGender.Male,
+    betaCode: '',
+  })
 
-  // When user is created, attempt to login
-  useEffect(() => {
-    if (createUser?.data?.userCreate?.id) {
-      tryLogin();
-    }
-  }, [createUser?.data?.userCreate?.id]);
 
-  const betaCodeRequirementsMet = config?.betaCodesRequired ? !!betaCode : true;
+  const betaCodeRequirementsMet = config?.betaCodesRequired ? !!userCreateInput.betaCode : true;
 
   const isLoading = createUser.loading;
 
-  const canCreateUser = email !== '' && username !== '' && password !== '' && passwordAgain === password && betaCodeRequirementsMet && !isLoading;
+  const canCreateUser = userCreateInput.email !== '' && userCreateInput.username !== '' && userCreateInput.password !== '' && betaCodeRequirementsMet && !isLoading;
 
-  const onCreateUser = (event: SyntheticEvent) => {
-    event.preventDefault();
-    if (!canCreateUser) {
-      return;
-    }
-    createUser.runMutation();
+  function onChanges(changes: Partial<UserCreateInput>) {
+    setUserCreateInput(_ => ({
+      ..._,
+      ...changes,
+    }))
   }
+
+  async function onCreateUser(event: SyntheticEvent) {
+    event.preventDefault();
+    try {
+      const newSession = await createUser.execute(userCreateInput)
+      localStorageService.set('SESSION', newSession.accessToken);
+      const matchingUser = await fetchUser.fetch({ id: newSession.userID });
+      setSession(matchingUser as any);
+      toast.success(`Welcome back, ${matchingUser.username}`)
+      setLocation('/me');
+    } catch (e: any) {
+      toast.error(`Failed to create user`);
+      throw e;
+    }
+  }
+
 
   return (
     <GuestContainer>
       <Form onSubmit={onCreateUser}>
-        <label htmlFor="username">Username</label>
-        <Input type="text" name="username" value={username} onChange={e => setUsername(e?.currentTarget?.value ?? '')} id="username" placeholder="Username" />
-        <label htmlFor="email">Email</label>
-        <Input type="text" name="email" value={email} onChange={e => setEmail(e?.currentTarget?.value ?? '')} id="email" placeholder="Email" />
-        <label htmlFor="password">Password</label>
-        <Input type="password" name="password" value={password} onChange={e => setPassword(e?.currentTarget?.value ?? '')} placeholder="Password" id="password" />
-        <label htmlFor="password-confirmation">Confirm Password</label>
-        <Input type="password" name="password_confirmation" value={passwordAgain} onChange={e => setPasswordAgain(e?.currentTarget?.value ?? '')} id="password-confirmation" placeholder="Password again" />
+        <label>Username</label>
+        <Input type="text" name="username" value={userCreateInput.username} onChange={e => onChanges({ username: e.currentTarget?.value ?? '' })} placeholder="Username" />
+        <label>Email</label>
+        <Input type="text" name="email" value={userCreateInput.email} onChange={e => onChanges({ email: e.currentTarget?.value ?? '' })} placeholder="Email" />
+        <label>Password</label>
+        <Input type="password" name="password" value={userCreateInput.password} onChange={e => onChanges({ password: e.currentTarget?.value ?? '' })} placeholder="Password" id="password" />
         {
           config?.betaCodesRequired && (
             <>
 
-              <label htmlFor="username">Beta Code</label>
-              <Input type="text" name="betaCode" value={betaCode} onChange={e => setBetaCode(e?.currentTarget?.value ?? '')} id="betaCode" placeholder="Beta Code" />
+              <label>Beta Code</label>
+              <Input type="text" name="betaCode" value={userCreateInput.betaCode} onChange={e => onChanges({ betaCode: e.currentTarget?.value ?? '' })} placeholder="Beta Code" />
             </>
           )
         }
@@ -62,7 +75,11 @@ export function RegisterScreen() {
           <Link to="/login">
             <ButtonBrand>Login</ButtonBrand>
           </Link>
-          <Button className="btn btn-primary btn-block" disabled={!canCreateUser} type="submit">Join now</Button>
+          <Button className="btn btn-primary btn-block" disabled={!canCreateUser} type="submit">
+            {
+              createUser.loading ? <><i className="fa fa-spinner fa-spin" style={{ marginRight: 4 }} /> Joining...</> : 'Join now'
+            }
+          </Button>
         </div>
       </Form>
     </GuestContainer>
