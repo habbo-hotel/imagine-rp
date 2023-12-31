@@ -11,9 +11,9 @@ export function SiteFooter() {
       <Link to="/about">
         <h2 style={{ letterSpacing: 1.6, margin: 0 }}>imagine</h2>
       </Link>
-      <Link to="/about">
+      <a href="https://github.com/habbo-hotel" target="_blank" style={{ cursor: 'pointer' }} className="lechris">
         <h4 style={{ margin: 0 }}>LeChris</h4>
-      </Link>
+      </a>
     </SiteFooterElement >
   )
 }

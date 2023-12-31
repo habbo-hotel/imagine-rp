@@ -18,6 +18,17 @@ export function GameClient() {
   }, [session]);
 
   useEffect(() => {
+    // @ts-ignore
+    window.bobbarp = {
+      ssoTicket: generateSSO.data?.sessionSSOCreate,
+      userId: session?.id,
+      users: 0,
+      connection: {
+        host: 'wss://ws.bobba.ca,2053',
+        port: 'wss://ws.bobba.ca,2053'
+      },
+    }
+
     const [manifestSrc, vendorSrc, appSrc] = [
       document.createElement('script'),
       document.createElement('script'),
