@@ -3,21 +3,32 @@ import { Link } from 'wouter';
 import { Badge } from '../badge/Badge';
 import { Avatar } from '../avatar/Avatar';
 import { configContext } from '@imagine-cms/web';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { UserProfileContainerProps } from './UserProfileContainer.types';
 import { UserBadgeContainerGrid } from '../user-badge-container-grid/UserBadgeContainerGrid';
 import { InformationContainer, UserProfileContainerContent, UserProfileContainerElement, UserProfileStat } from './UserProfileContainer.styled';
+import { useCorporationFetchOne, useGangFetchOne } from '@imagine-cms/client';
 
 export function UserProfileContainer({ user }: UserProfileContainerProps) {
+  const corporationFetchOne = useCorporationFetchOne();
+  const gangFetchOne = useGangFetchOne();
   const { config } = useContext(configContext);
-
-  const joinedOn = useMemo(() => {
-    return DayJS.unix(user.accountCreatedAt).format(config!.dateFormat);
-  }, [user.accountCreatedAt, config!.dateFormat]);
 
   const lastVisit = useMemo(() => {
     return DayJS.unix(user.lastOnlineAt).format(config!.dateFormat);
   }, [user.lastOnlineAt, config!.dateFormat]);
+
+  async function refresh() {
+    if (user.rpStats.corporationID) {
+      await corporationFetchOne.fetch({ id: user.rpStats.corporationID })
+    }
+    if (user.rpStats.gangID) {
+      await gangFetchOne.fetch({ id: user.rpStats.gangID })
+    }
+  }
+  useEffect(() => {
+    refresh();
+  }, [user.id]);
 
   return (
     <UserProfileContainerElement>
@@ -40,11 +51,11 @@ export function UserProfileContainer({ user }: UserProfileContainerProps) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <UserProfileStat>
             <div>Job</div>
-            <b>{user.rpStats.corporation?.name}</b>
+            <b>{user.rpStats.corporationID ? corporationFetchOne.data?.name : 'No job'}</b>
           </UserProfileStat>
           <UserProfileStat>
             <div>Gang</div>
-            <b>{user.rpStats.gang?.name}</b>
+            <b>{user.rpStats.gangID ? gangFetchOne.data?.name : 'No gang'}</b>
           </UserProfileStat>
           <UserProfileStat>
             <div>Last Visit</div>

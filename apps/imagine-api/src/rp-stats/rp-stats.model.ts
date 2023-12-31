@@ -1,48 +1,46 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { RPStatsEntity } from '../database/rp-stats.entity';
+import {Field, ObjectType} from '@nestjs/graphql';
+import {RPStatsEntity} from '../database/rp-stats.entity';
 
 @ObjectType()
 export class RPStatsModel {
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   userID!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   healthCurrent!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   healthMax!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   hungerCurrent!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   hungerMax!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   energyCurrent!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   energyMax!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   armorCurrent!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   armorMax!: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   corporationID?: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   corporationRankID?: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   gangID?: number;
 
-  @Field(() => Number, { nullable: true })
+  @Field(() => Number, {nullable: true})
   gangRankID?: number;
-
-
 
   static fromEntity(entity: RPStatsEntity): RPStatsModel {
     return {
