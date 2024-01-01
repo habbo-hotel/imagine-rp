@@ -5,7 +5,6 @@ import { HighScoresContainer } from '../../components/high-scores-container/High
 export function HighScoresEconomyScreen() {
   return (
     <HighScoresContainer>
-      <h1>High Scores - Economy</h1>
       <Accordion header="Cash on hand">
         coming soon
       </Accordion>

@@ -7,7 +7,6 @@ import { RPStatsOrderBy } from '@imagine-cms/client';
 export function HighScoresRoleplayScreen() {
   return (
     <HighScoresContainer>
-      <h1>High Scores - Roleplay</h1>
       <Accordion header="Kill death ratio">
         <HighScoresByRPStatsGrid orderBy={RPStatsOrderBy.killDeathRatio}>
           kdr

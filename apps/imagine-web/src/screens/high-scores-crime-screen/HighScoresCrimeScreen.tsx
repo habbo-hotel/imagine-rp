@@ -7,8 +7,6 @@ import { HighScoresByRPStatsGrid } from '../../components/high-scores-by-rp-stat
 export function HighScoresCrimeScreen() {
   return (
     <HighScoresContainer>
-      <h1>High Scores - Crime</h1>
-      <br />
       <Accordion header="Arrests">
         <HighScoresByRPStatsGrid orderBy={RPStatsOrderBy.arrestsTotal}>
           arrests
