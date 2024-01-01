@@ -74,7 +74,7 @@ export function SiteSidebar() {
         <div className="notranslate">
           <b>Cerberus</b>
           <div>
-            by&nbsp;<a href="https://github.com/habbo-hotel" target="_blank" style={{ cursor: 'pointer' }} className="lechris"><b>LeChris</b></a>
+            by&nbsp;<a href="https://github.com/habbo-hotel" target="_blank" style={{ cursor: 'pointer' }} className="lechris" rel="noreferrer"><b>LeChris</b></a>
           </div>
         </div>
       </footer>

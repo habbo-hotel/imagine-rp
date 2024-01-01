@@ -8,17 +8,31 @@ export const DialogBackdrop = styled.div`
   height: 100%;
   background: ${({ theme }) => theme.color.s20};
   opacity: 0.5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 10;
 `;
 
 export const DialogContainer = styled.div`
-  background: ${({ theme }) => theme.color.s30};
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 100;
-  opacity: 1;
-`;
+`
+
+export const DialogContent = styled.div`
+  background: ${({ theme }) => theme.color.s30};
+  border-radius: ${({ theme }) => theme.radius.oneUnit};
+  border: ${({ theme }) => `2px solid ${theme.color.s50}`};
+  cursor: initial;
+  font-size: ${({ theme }) => theme.fontSize.oneUnit};
+  gap: ${({ theme }) => theme.space.twoUnits};
+  min-width: 800px;
+  min-height: 450px;
+  padding: ${({ theme }) => theme.space.oneUnit};
+  z-index: 100;
+`

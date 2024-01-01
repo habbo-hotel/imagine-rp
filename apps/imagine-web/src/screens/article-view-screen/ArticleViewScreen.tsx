@@ -11,7 +11,6 @@ export function ArticleViewScreen() {
   const [_, params] = useRoute<{ articleID: string }>('/articles/:articleID');
   const articleID = Number(params!.articleID);
 
-
   useEffect(() => {
     fetchArticle.fetch({ id: articleID });
   }, [articleID]);
