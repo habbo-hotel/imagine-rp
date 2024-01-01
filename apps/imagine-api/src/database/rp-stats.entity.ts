@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity('view_rp_stats')
 export class RPStatsEntity {
@@ -41,7 +41,7 @@ export class RPStatsEntity {
   @Column({name: 'gang_rank_id'})
   gangRankID!: number;
 
-  @Column({name: 'kill_death_radio'})
+  @Column({name: 'kill_death_ratio'})
   killDeathRatio!: number;
 
   @Column({name: 'kills_total'})
@@ -53,7 +53,7 @@ export class RPStatsEntity {
   @Column({name: 'kills_melee'})
   killsMeleeTotal!: number;
 
-  @Column({name: 'kills_boms'})
+  @Column({name: 'kills_bomb'})
   killsBombTotal!: number;
 
   @Column({name: 'kills_gun'})

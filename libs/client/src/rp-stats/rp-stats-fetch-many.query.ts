@@ -15,5 +15,5 @@ export interface RPStatsFetchManyQueryVariables {
   filter: RPStatsFilterManyInput;
 }
 export interface RPStatsFetchManyQueryResponse {
-  rooms: RPStatsFragment[];
+  rpStats: RPStatsFragment[];
 }

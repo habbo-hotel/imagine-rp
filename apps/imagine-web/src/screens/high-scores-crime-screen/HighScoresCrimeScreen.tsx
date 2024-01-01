@@ -1,26 +1,33 @@
 import React from 'react';
-import { GridLarge } from '../../components/grid/Grid.remix';
 import { Accordion } from '../../components/accordion/Accordion';
+import { HighScoresContainer } from '../../components/high-scores-container/HighScoresContainer';
+import { RPStatsOrderBy } from '@imagine-cms/client';
+import { HighScoresByRPStatsGrid } from '../../components/high-scores-by-rp-stats-grid/HighScoresByRPStatsGrid';
 
 export function HighScoresCrimeScreen() {
   return (
-    <>
+    <HighScoresContainer>
       <h1>High Scores - Crime</h1>
-
       <br />
       <Accordion header="Arrests">
-        coming soon
+        <HighScoresByRPStatsGrid orderBy={RPStatsOrderBy.arrestsTotal}>
+          arrests
+        </HighScoresByRPStatsGrid>
       </Accordion>
       <br />
       <Accordion header="Times arrested">
-        coming soon
+        <HighScoresByRPStatsGrid orderBy={RPStatsOrderBy.timesArrestedTotal}>
+          times arrested
+        </HighScoresByRPStatsGrid>
       </Accordion>
       <br />
       <Accordion header="Successful evasions">
-        coming soon
+        <HighScoresByRPStatsGrid orderBy={RPStatsOrderBy.successfulEvasionsTotal}>
+          evasions
+        </HighScoresByRPStatsGrid>
       </Accordion>
 
 
-    </>
+    </HighScoresContainer>
   )
 }

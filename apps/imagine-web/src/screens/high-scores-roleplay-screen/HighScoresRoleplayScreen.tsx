@@ -1,21 +1,30 @@
 import React from 'react';
 import { Accordion } from '../../components/accordion/Accordion';
+import { HighScoresContainer } from '../../components/high-scores-container/HighScoresContainer';
+import { HighScoresByRPStatsGrid } from '../../components/high-scores-by-rp-stats-grid/HighScoresByRPStatsGrid';
+import { RPStatsOrderBy } from '@imagine-cms/client';
 
 export function HighScoresRoleplayScreen() {
   return (
-    <>
+    <HighScoresContainer>
       <h1>High Scores - Roleplay</h1>
       <Accordion header="Kill death ratio">
-        coming soon
+        <HighScoresByRPStatsGrid orderBy={RPStatsOrderBy.killDeathRatio}>
+          kdr
+        </HighScoresByRPStatsGrid>
       </Accordion>
       <br />
       <Accordion header="Kills">
-        coming soon
+        <HighScoresByRPStatsGrid orderBy={RPStatsOrderBy.killsTotal}>
+          kills
+        </HighScoresByRPStatsGrid>
       </Accordion>
       <br />
       <Accordion header="Deaths">
-        coming soon
+        <HighScoresByRPStatsGrid orderBy={RPStatsOrderBy.deathsTotal}>
+          deaths
+        </HighScoresByRPStatsGrid>
       </Accordion>
-    </>
+    </HighScoresContainer>
   )
 }

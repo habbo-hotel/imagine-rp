@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import { RPStatsFetchManyQueryResponse, RPStatsFetchManyQueryVariables, RP_STATS_FETCH_MANY_QUERY } from "./rp-stats-fetch-many.query";
-import { RPStatsFilterManyInput } from "../../../../apps/imagine-api/src/rp-stats/rp-stats.input";
 import { RPStatsFragment } from "./rp-stats.fragment";
+import { RPStatsFilterManyInput } from "./rp-stats.input";
 
 export interface UseRPStatsFetchManyResponse {
   fetch(filter: RPStatsFilterManyInput): Promise<RPStatsFragment[]>;
@@ -15,13 +15,13 @@ export function useRPStatsFetchMany(): UseRPStatsFetchManyResponse {
 
   const onFetchRPStatss = async (filter: RPStatsFilterManyInput): Promise<RPStatsFragment[]> => {
     const matchingRPStatss = await getRPStatss({ fetchPolicy: "network-only", variables: { filter } })
-    return matchingRPStatss.data!.rooms;
+    return matchingRPStatss.data!.rpStats;
   }
 
   return {
     fetch: onFetchRPStatss,
     error,
     loading,
-    data: data?.rooms,
+    data: data?.rpStats,
   }
 }

@@ -983,15 +983,16 @@ input RPStatsFilterManyInput {
 }
 
 enum RPStatsOrderBy {
-  KILLS_TOTAL
-  KILLS_FIST_TOTAL
-  KILLS_MELEE_TOTAL
-  KILLS_BOMB_TOTAL
-  KILLS_GUNG_TOTAL
-  DEATHS_TOTAL
-  TIMES_ARRESTED_TOTAL
-  ARRESTS_TOTAL
-  SUCCESSFUL_EVASIONS_TOTAL
+  killDeathRatio
+  killsTotal
+  killsFistTotal
+  killsMeleeTotal
+  killsBombTotal
+  killsGunTotal
+  deathsTotal
+  timesArrestedTotal
+  arrestsTotal
+  successfulEvasionsTotal
 }
 
 type Mutation {
