@@ -9,8 +9,10 @@ export const ProgressContainer = styled.div`
 `
 
 export const ProgressElement = styled.progress`
-  background: red !important;
+  background: red;
   &&[value]::-webkit-progress-value {
-    background: red !important;
+    background: red;
   }
+  padding-left: ${({ theme }) => theme.space.halfUnit};
+  padding-right: ${({ theme }) => theme.space.halfUnit};
 `

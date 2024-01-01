@@ -2,29 +2,29 @@ import styled from "styled-components";
 import { Progress } from "../progress/Progress";
 
 export const HealthProgress = styled(Progress)`
-  background: #a82234 !important;
+  background: #C62828;
   &&[value]::-webkit-progress-value {
-    background: #a82234 !important;
+    background: #C62828;
   }
 `
 
 export const EnergyProgress = styled(Progress)`
-  background: #22a83f !important;
+  background: #2E7D32;
   &&[value]::-webkit-progress-value {
-    background: #22a83f !important;
+    background: #2E7D32;
   }
 `
 
 export const HungerProgress = styled(Progress)`
-  background: #22a83f !important;
+  background: #FFC107;
   &&[value]::-webkit-progress-value {
-    background: #22a83f !important;
+    background: #FFC107;
   }
 `
 
 export const ArmorProgress = styled(Progress)`
-  background: #a86022 !important;
+  background: #0277BD;
   &&[value]::-webkit-progress-value {
-    background: #a86022 !important;
+    background: #0277BD;
   }
 `
