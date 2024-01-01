@@ -7,7 +7,7 @@ import { HighScoresByRPStatsGrid } from '../../components/high-scores-by-rp-stat
 export function HighScoresCrimeScreen() {
   return (
     <HighScoresContainer>
-      <Accordion header="Arrests">
+      <Accordion defaultIsOpen header="Arrests">
         <HighScoresByRPStatsGrid orderBy={RPStatsOrderBy.arrestsTotal}>
           arrests
         </HighScoresByRPStatsGrid>

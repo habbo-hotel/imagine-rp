@@ -43,18 +43,25 @@ export function HighScoresByRPStatsGrid({ children, orderBy }: HighScoresByRPSta
         {
           rpStatsFetchMany.loading && (
             <SmallUserProfileContainerMock showMotto={false} showRank={false}>
-              0.00
+              -
               {children}
             </SmallUserProfileContainerMock>
           )
         }
         {
-          rpStatsFetchMany.data?.map(_ => (
-            <SmallUserProfileContainerLazy userID={_.userID} showMotto={false} showRank={false}>
-              {_[orderBy]}&nbsp;
-              {children}
-            </SmallUserProfileContainerLazy>
-          ))
+          rpStatsFetchMany.data?.map((_, i) => {
+            const leaderboardRanking = (i + 1) + (page * HIGH_SCORES_PAGE_SIZE);
+            return (
+              <SmallUserProfileContainerLazy userID={_.userID} showMotto={false} showRank={false}>
+                <div>
+                  <div>
+                    {_[orderBy]}&nbsp;{children}
+                  </div>
+                  <b>#{leaderboardRanking}</b>
+                </div>
+              </SmallUserProfileContainerLazy>
+            )
+          })
         }
       </Grid>
       <br />

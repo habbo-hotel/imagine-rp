@@ -5,7 +5,7 @@ import { HighScoresContainer } from '../../components/high-scores-container/High
 export function HighScoresEconomyScreen() {
   return (
     <HighScoresContainer>
-      <Accordion header="Cash on hand">
+      <Accordion defaultIsOpen header="Cash on hand">
         coming soon
       </Accordion>
       <br />

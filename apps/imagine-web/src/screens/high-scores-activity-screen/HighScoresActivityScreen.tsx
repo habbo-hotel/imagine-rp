@@ -5,7 +5,7 @@ import { HighScoresContainer } from '../../components/high-scores-container/High
 export function HighScoresActivityScreen() {
   return (
     <HighScoresContainer>
-      <Accordion header="Online Time">
+      <Accordion defaultIsOpen header="Online Time">
         coming soon
       </Accordion>
     </HighScoresContainer>
