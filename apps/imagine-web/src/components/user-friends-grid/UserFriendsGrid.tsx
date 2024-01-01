@@ -38,7 +38,11 @@ export function UserFriendsGrid({ user }: UserFriendsGridProps) {
   }, [user.id, page]);
 
   return (
-    <Card header={<>Friends {page > 0 && <small>Page {page + 1}</small>}</>} headerImage="/img/friend-icon.png">
+    <>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h2 style={{ margin: 0 }}>Friends</h2>
+        {page > 0 && <h6 style={{ margin: 0 }}>Page {page + 1}</h6>}
+      </div>
       {
         friendshipFetch.data?.length === 0 && <p>You don't have any friends</p>
       }
@@ -46,9 +50,6 @@ export function UserFriendsGrid({ user }: UserFriendsGridProps) {
         {
           friendshipFetch.loading && (
             <>
-              <SmallUserProfileContainerMock showMotto={false} showRank={false} />
-              <SmallUserProfileContainerMock showMotto={false} showRank={false} />
-              <SmallUserProfileContainerMock showMotto={false} showRank={false} />
               <SmallUserProfileContainerMock showMotto={false} showRank={false} />
             </>
           )
@@ -59,6 +60,7 @@ export function UserFriendsGrid({ user }: UserFriendsGridProps) {
           ))
         }
       </Grid>
+      <br />
       <GridLarge>
         {canGoDown ?
           <ButtonNoBorder onClick={goBackOnePage}>
@@ -73,6 +75,6 @@ export function UserFriendsGrid({ user }: UserFriendsGridProps) {
           )
         }
       </GridLarge>
-    </Card>
+    </>
   )
 }

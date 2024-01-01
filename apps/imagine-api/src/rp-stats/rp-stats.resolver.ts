@@ -79,6 +79,9 @@ export class RPStatsResolver {
       where: {
         id: filter.userIDs && In(filter.userIDs),
       },
+      order: {
+        [filter.orderBy ?? 'id']: 'DESC',
+      },
       skip: filter.skip,
       take: filter.limit,
     });

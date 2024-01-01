@@ -55,6 +55,10 @@ export const SiteHeaderNav = styled.div`
     gap: ${({ theme }) => theme.space.twoUnits};
     list-style-type: none;
     width: 100%;
+    
+    .active a{
+        color: ${({ theme }) => theme.color.brand};
+    }
 
     li, a {
       color: ${({ theme }) => theme.color.s60};

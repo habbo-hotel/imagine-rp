@@ -42,6 +42,36 @@ export class RPStatsModel {
   @Field(() => Number, {nullable: true})
   gangRankID?: number;
 
+  @Field(() => Number, {nullable: true})
+  killDeathRatio!: number;
+
+  @Field(() => Number, {nullable: true})
+  killsTotal!: number;
+
+  @Field(() => Number, {nullable: true})
+  killsFistTotal!: number;
+
+  @Field(() => Number, {nullable: true})
+  killsMeleeTotal!: number;
+
+  @Field(() => Number, {nullable: true})
+  killsBombTotal!: number;
+
+  @Field(() => Number, {nullable: true})
+  killsGunTotal!: number;
+
+  @Field(() => Number, {nullable: true})
+  deathsTotal!: number;
+
+  @Field(() => Number, {nullable: true})
+  timesArrestedTotal!: number;
+
+  @Field(() => Number, {nullable: true})
+  arrestsTotal!: number;
+
+  @Field(() => Number, {nullable: true})
+  successfulEvasionsTotal!: number;
+
   static fromEntity(entity: RPStatsEntity): RPStatsModel {
     return {
       userID: entity.id,
@@ -53,10 +83,20 @@ export class RPStatsModel {
       energyMax: entity.energyMax,
       armorCurrent: entity.armorCurrent,
       armorMax: entity.armorMax,
-      corporationID: entity.corporationID,
+      corporationID: entity.corporationID!,
       corporationRankID: entity.corporationRankID,
       gangID: entity.gangID,
       gangRankID: entity.gangRankID,
+      killDeathRatio: entity.killDeathRatio,
+      killsTotal: entity.killsTotal,
+      killsFistTotal: entity.killsFistTotal,
+      killsMeleeTotal: entity.killsMeleeTotal,
+      killsGunTotal: entity.killsGunTotal,
+      killsBombTotal: entity.killsBombTotal,
+      deathsTotal: entity.deathsTotal,
+      timesArrestedTotal: entity.timesArrestedTotal,
+      arrestsTotal: entity.timesArrestedTotal,
+      successfulEvasionsTotal: entity.successfulEvasionsTotal,
     };
   }
 }

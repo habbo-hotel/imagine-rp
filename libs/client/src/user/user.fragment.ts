@@ -1,6 +1,6 @@
 import { gql } from 'graphql-tag';
-import { RANK_FRAGMENT, RankFragment } from '../../rank/rank.fragment';
-import { RPStatsFragment, RP_STATS_FRAGMENT } from '../rp-stats.fragment';
+import { RPStatsFragment, RP_STATS_FRAGMENT } from '../rp-stats/rp-stats.fragment';
+import { RANK_FRAGMENT, RankFragment } from '../rank/rank.fragment';
 
 export interface UserFragment {
   id: number;

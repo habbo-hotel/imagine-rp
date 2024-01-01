@@ -264,6 +264,8 @@ export * from './room-enter-log/room-enter-log.fragment';
 export * from './room-enter-log/room-enter-log.input';
 
 // RP Stats
+export * from './rp-stats/rp-stats-fetch-many.hook';
+export * from './rp-stats/rp-stats-fetch-many.query';
 export * from './rp-stats/rp-stats-fetch-one.hook';
 export * from './rp-stats/rp-stats-fetch-one.query';
 export * from './rp-stats/rp-stats.fragment';
@@ -300,16 +302,16 @@ export * from './staff-application/staff-application.fragment';
 export * from './staff-application/staff-application.input';
 
 // User
-export * from './rp-stats/user/user-create.hook';
-export * from './rp-stats/user/user-create.mutation';
-export * from './rp-stats/user/use-fetch-one.query';
-export * from './rp-stats/user/user-fetch-many.hook';
-export * from './rp-stats/user/user-fetch-many.query';
-export * from './rp-stats/user/user-fetch-one.hook';
-export * from './rp-stats/user/user.fragment';
-export * from './rp-stats/user/user.input';
-export * from './rp-stats/user/users-online-count.hook';
-export * from './rp-stats/user/users-online-count.query';
+export * from './user/user-create.hook';
+export * from './user/user-create.mutation';
+export * from './user/use-fetch-one.query';
+export * from './user/user-fetch-many.hook';
+export * from './user/user-fetch-many.query';
+export * from './user/user-fetch-one.hook';
+export * from './user/user.fragment';
+export * from './user/user.input';
+export * from './user/users-online-count.hook';
+export * from './user/users-online-count.query';
 
 // User Badge
 export * from './user-badge/user-badge-fetch-many.hook';

@@ -40,24 +40,13 @@ export function OnlinePlayersCard() {
         {
           loading && (
             <>
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
-              <SmallUserProfileContainerMock />
+              <SmallUserProfileContainerMock showMotto={false} showRank={false} />
             </>
           )
         }
         {
           data?.map(user => (
-            <SmallUserProfileContainer key={`online_user_${user.id}`} user={user as any} showOnlineStatus={false} />
+            <SmallUserProfileContainer key={`online_user_${user.id}`} user={user as any} showMotto={false} showRank={false} showOnlineStatus={false} />
           ))
         }
       </Grid>

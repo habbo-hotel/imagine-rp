@@ -6,6 +6,8 @@ import { UserStatsGrid } from '../../components/user-stats-grid/UserStatsGrid';
 import { LatestArticlesGrid } from '../../components/latest-articles-grid/LatestArticlesGrid';
 import { UserProfileContainer } from '../../components/user-profile-container/UserProfileContainer';
 import { RPStatsGridContainer } from '../../components/rp-stats-grid-container/RPStatsGridContainer';
+import { UserRoomsGrid } from '../../components/user-rooms-grid/UserRoomsGrid';
+import { UserFriendsGrid } from '../../components/user-friends-grid/UserFriendsGrid';
 
 export function MeScreen() {
   const { session } = useContext(sessionContext);
@@ -22,8 +24,16 @@ export function MeScreen() {
           <UserStatsGrid user={user} />
           <RPStatsGridContainer userID={user.id} />
         </div>
+        <div>
+          <UserFriendsGrid user={user} />
+        </div>
+        <div>
+          <UserRoomsGrid user={user} />
+        </div>
+        <div>
+          <LatestArticlesGrid />
+        </div>
       </GridLarge>
-      <LatestArticlesGrid />
     </>
   )
 }

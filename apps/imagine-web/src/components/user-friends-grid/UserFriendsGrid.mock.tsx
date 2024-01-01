@@ -5,11 +5,12 @@ import { SmallUserProfileContainerMock } from '../small-user-profile-container/S
 
 export function UserFriendsGridMock() {
   return (
-    <Card header="Friends" headerImage='/img/room-icon.png'>
+    <>
+      <h2>Friends</h2>
       <GridLarge>
         <SmallUserProfileContainerMock showMotto={false} showRank={false} />
       </GridLarge>
       <GridLarge>&nbsp;</GridLarge>
-    </Card>
+    </>
   )
 }

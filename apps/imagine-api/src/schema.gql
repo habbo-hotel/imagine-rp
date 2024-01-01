@@ -159,6 +159,16 @@ type RPStatsModel {
   corporationRankID: Float
   gangID: Float
   gangRankID: Float
+  killDeathRatio: Float
+  killsTotal: Float
+  killsFistTotal: Float
+  killsMeleeTotal: Float
+  killsBombTotal: Float
+  killsGunTotal: Float
+  deathsTotal: Float
+  timesArrestedTotal: Float
+  arrestsTotal: Float
+  successfulEvasionsTotal: Float
   gang: GangModel
   gangRank: GangRankModel
   corporation: CorporationModel
@@ -969,6 +979,19 @@ input RPStatsFilterManyInput {
   userIDs: [Float!]
   skip: Float
   limit: Float
+  orderBy: RPStatsOrderBy
+}
+
+enum RPStatsOrderBy {
+  KILLS_TOTAL
+  KILLS_FIST_TOTAL
+  KILLS_MELEE_TOTAL
+  KILLS_BOMB_TOTAL
+  KILLS_GUNG_TOTAL
+  DEATHS_TOTAL
+  TIMES_ARRESTED_TOTAL
+  ARRESTS_TOTAL
+  SUCCESSFUL_EVASIONS_TOTAL
 }
 
 type Mutation {

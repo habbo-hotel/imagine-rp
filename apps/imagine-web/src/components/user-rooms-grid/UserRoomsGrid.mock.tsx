@@ -5,11 +5,12 @@ import { RoomGridContainerMock } from '../room-grid-container/RoomGridContainerM
 
 export function UserRoomsGridMock() {
   return (
-    <Card header="Properties" headerImage='/img/room-icon.png'>
+    <>
+      <h2>Properties</h2>
       <GridLarge>
         <RoomGridContainerMock />
       </GridLarge>
       <GridLarge>&nbsp;</GridLarge>
-    </Card>
+    </>
   )
 }

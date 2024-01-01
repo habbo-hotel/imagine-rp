@@ -16,7 +16,7 @@ export const SmallUserProfileContainerUserContainer = styled.div`
 `
 
 export const SmallUserProfileContainerBanner = styled.div`
-  height: 5em;
+  height: 6em;
   border-radius: 2em 2em 0 0;
   background: url(/img/user-header.png);
   background-size: auto;

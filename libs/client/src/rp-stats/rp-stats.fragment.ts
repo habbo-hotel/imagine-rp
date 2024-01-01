@@ -14,6 +14,16 @@ export const RP_STATS_FRAGMENT: any = gql`
     corporationRankID
     gangID
     gangRankID
+    killDeathRatio
+    killsTotal
+    killsFistTotal
+    killsMeleeTotal
+    killsBombTotal
+    killsGunTotal
+    deathsTotal
+    timesArrestedTotal
+    arrestsTotal
+    successfulEvasionsTotal
   }
 `
 
@@ -31,4 +41,14 @@ export interface RPStatsFragment {
   corporationRankID?: number;
   gangID?: number;
   gangRankID?: number;
+  killDeathRatio: number;
+  killsTotal: number;
+  killsFistTotal: number;
+  killsMeleeTotal: number;
+  killsBombTotal: number;
+  killsGunTotal: number;
+  deathsTotal: number;
+  timesArrestedTotal: number;
+  arrestsTotal: number;
+  successfulEvasionsTotal: number;
 }

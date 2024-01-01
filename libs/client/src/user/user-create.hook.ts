@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { USER_CREATE_MUTATION, UserCreateMutationResponse } from "./user-create.mutation";
-import { SessionCreatedFragment } from "../../session/session.fragment";
 import { UserCreateInput } from './user.input';
+import { SessionCreatedFragment } from "../session/session.fragment";
 
 export interface UseUserCreateResponse {
   execute(input: UserCreateInput): Promise<SessionCreatedFragment>;

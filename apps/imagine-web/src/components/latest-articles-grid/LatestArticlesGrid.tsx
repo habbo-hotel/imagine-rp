@@ -47,13 +47,6 @@ export function LatestArticlesGrid({ showHeader = true }: LatestArticlesGridProp
           fetchArticles.loading && (
             <>
               <LatestArticleContainerMock />
-              <LatestArticleContainerMock />
-              <LatestArticleContainerMock />
-              <LatestArticleContainerMock />
-              <LatestArticleContainerMock />
-              <LatestArticleContainerMock />
-              <LatestArticleContainerMock />
-              <LatestArticleContainerMock />
             </>
           )
         }

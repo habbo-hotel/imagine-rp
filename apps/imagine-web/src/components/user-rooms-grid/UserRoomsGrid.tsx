@@ -36,7 +36,11 @@ export function UserRoomsGrid({ user }: UserRoomsGridProps) {
   }, [user.id, page]);
 
   return (
-    <Card header={<>Properties {page > 0 && <small>Page {page + 1}</small>}</>} headerImage='/img/room-icon.png'>
+    <>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h2 style={{ margin: 0 }}>Properties</h2>
+        {page > 0 && <h6 style={{ margin: 0 }}>Page {page + 1}</h6>}
+      </div>
       {
         fetchRooms.data?.length === 0 && <p>You don't own any property</p>
       }
@@ -55,6 +59,7 @@ export function UserRoomsGrid({ user }: UserRoomsGridProps) {
           ))
         }
       </GridLarge>
+      <br />
       <GridLarge>
         {canGoDown ?
           <ButtonNoBorder onClick={goBackOnePage}>
@@ -69,6 +74,6 @@ export function UserRoomsGrid({ user }: UserRoomsGridProps) {
           )
         }
       </GridLarge>
-    </Card>
+    </>
   )
 }

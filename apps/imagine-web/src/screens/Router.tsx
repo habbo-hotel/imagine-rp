@@ -19,7 +19,6 @@ import { PhotoViewScreen } from './photo-view-screen/PhotoViewScreen';
 import { PhotoListScreen } from './photo-list-screen/PhotoListScreen';
 import { BadgeListScreen } from './badge-list-screen/BadgeListScreen';
 import { BadgeViewScreen } from './badge-view-screen/BadgeViewScreen';
-import { HighScoresScreen } from './high-scores-screen/HighScoresScreen';
 import { ArticleViewScreen } from './article-view-screen/ArticleViewScreen';
 import { PageNotFoundScreen } from './page-not-found-screen/PageNotFoundScreen';
 import { ForgotPasswordScreen } from './forgot-password-screen/ForgotPasswordScreen';
@@ -30,6 +29,10 @@ import { GangListScreen } from './gang-list-screen/GangListScreen';
 import { GangViewScreen } from './gang-view-screen/GangViewScreen';
 import { CorpListcreen } from './corp-list-screen/CorpListScreen';
 import { CorpViewScreen } from './corp-view-screen/CorpViewScreen';
+import { HighScoresActivityScreen } from './high-scores-activity-screen/HighScoresActivityScreen';
+import { HighScoresCrimeScreen } from './high-scores-crime-screen/HighScoresCrimeScreen';
+import { HighScoresEconomyScreen } from './high-scores-economy-screen/HighScoresEconomyScreen';
+import { HighScoresRoleplayScreen } from './high-scores-roleplay-screen/HighScoresRoleplayScreen';
 
 const SITE_ROUTES: Array<{ path: string, view: any, guard?: any, }> = [
   {
@@ -126,9 +129,24 @@ const SITE_ROUTES: Array<{ path: string, view: any, guard?: any, }> = [
     view: ArticleViewScreen,
   },
   {
-    path: '/high-scores',
+    path: '/high-scores/activity',
     guard: undefined,
-    view: HighScoresScreen,
+    view: HighScoresActivityScreen,
+  },
+  {
+    path: '/high-scores/crime',
+    guard: undefined,
+    view: HighScoresCrimeScreen,
+  },
+  {
+    path: '/high-scores/economy',
+    guard: undefined,
+    view: HighScoresEconomyScreen,
+  },
+  {
+    path: '/high-scores/roleplay',
+    guard: undefined,
+    view: HighScoresRoleplayScreen,
   },
   {
     path: '/rooms',

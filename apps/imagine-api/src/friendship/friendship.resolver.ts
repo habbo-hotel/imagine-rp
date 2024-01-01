@@ -22,9 +22,11 @@ export class FriendshipResolver {
     @Args('filter') filter: FriendshipFilterManyInput
   ): Promise<FriendshipModel[]> {
     const matchingFriendships = await this.friendshipRepo.find({
-      where: {
-        userID: filter.userID,
-      },
+      where: [
+        {
+          userID: filter.userID,
+        },
+      ],
       skip: filter?.skip,
       take: filter?.limit ?? 25,
     });
