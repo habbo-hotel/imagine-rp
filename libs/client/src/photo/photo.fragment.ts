@@ -5,7 +5,6 @@ export interface PhotoFragment {
   id: number;
   userID: number;
   user: UserFragment;
-  roomID: number;
   photoURL: string;
   createdAt: number;
 }
@@ -18,7 +17,6 @@ export const PHOTO_FRAGMENT: any = gql`
     user {
       ...UserFragment
     }
-    roomID
     photoURL
     createdAt
   }`

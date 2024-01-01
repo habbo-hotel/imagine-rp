@@ -5,6 +5,7 @@ export const SmallUserProfileContainerUserContainer = styled.div`
   border-radius: 2em;
   text-decoration: unset;
   min-height: 5em;
+  min-width: 200px;
   width: 100%;
   color: #000;  
   cursor: pointer;
