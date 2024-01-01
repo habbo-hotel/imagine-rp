@@ -13,7 +13,7 @@ export function Accordion({ children, header, defaultIsOpen = false }: Accordion
     <AccordionElement>
       <AccordionHeaderElement $open={isOpen} onClick={onToggle}>
         <AccordionContainer style={{ justifyContent: 'space-between' }}>
-          <b>{header}</b>
+          <div style={{ fontWeight: 'bold', width: '100%' }}>{header}</div>
           <i className={`fa ${isOpen ? 'fa-caret-down' : 'fa-caret-up'}`} />
         </AccordionContainer>
       </AccordionHeaderElement>

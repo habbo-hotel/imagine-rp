@@ -1,4 +1,4 @@
-import { useCorporationFetchOne } from '@imagine-cms/client';
+import { useCorporationFetchOne, useCorporationRankFetchMany } from '@imagine-cms/client';
 import React, { useContext, useEffect } from 'react';
 import { Link, useRoute } from 'wouter';
 import { GridLarge } from '../../components/grid/Grid.remix';
@@ -6,19 +6,24 @@ import { configContext } from '@imagine-cms/web';
 import { CorpGridContainerBadge } from '../../components/corp-grid-container/CorpGridContainer.styled';
 import DayJS from 'dayjs';
 import { Card } from '../../components/card/Card';
-import { UserProfileContainer } from '../../components/user-profile-container/UserProfileContainer';
 import { SmallUserProfileContainer } from '../../components/small-user-profile-container/SmallUserProfileContainer';
 import { RoomGridContainer } from '../../components/room-grid-container/RoomGridContainer';
-import { CorpMemberGridContainer } from '../../components/corp-member-grid-container/CorpMemberGridContainer';
+import { CorpRankGridContainer } from '../../components/corp-rank-grid-container/CorpRankGridContainer';
 
 export function CorpViewScreen() {
   const { config } = useContext(configContext);
   const [, params] = useRoute<{ corpID: string }>('/corps/:corpID');
   const corpID = Number(params!.corpID);
   const fetchCorp = useCorporationFetchOne();
+  const fetchCorpRanks = useCorporationRankFetchMany();
+
+  async function refresh() {
+    await fetchCorp.fetch({ id: corpID });
+    await fetchCorpRanks.fetch({ corporationIDs: [corpID] });
+  }
 
   useEffect(() => {
-    fetchCorp.fetch({ id: corpID });
+    refresh();
   }, [corpID]);
 
   return (
@@ -65,8 +70,14 @@ export function CorpViewScreen() {
           </Card>
         </div>
         <div style={{ flex: 1 }}>
-          <h2>Members</h2>
-          <CorpMemberGridContainer corpID={corpID} />
+          <h2>Ranks</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', maxHeight: 500, overflowY: 'auto', gap: 16 }}>
+            {
+              fetchCorp.data && fetchCorpRanks.data?.map(_ => (
+                <CorpRankGridContainer key={`corp_rank_${_.corporationRankID}`} corporation={fetchCorp.data!} rank={_} />
+              ))
+            }
+          </div>
         </div>
       </GridLarge>
     </>

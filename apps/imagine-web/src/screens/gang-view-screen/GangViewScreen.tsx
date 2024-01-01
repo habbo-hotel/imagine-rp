@@ -3,19 +3,25 @@ import { Link, useRoute } from 'wouter';
 import { GridLarge } from '../../components/grid/Grid.remix';
 import DayJS from 'dayjs';
 import { Card } from '../../components/card/Card';
-import { useGangFetchOne } from '@imagine-cms/client';
+import { useGangFetchOne, useGangRankFetchMany } from '@imagine-cms/client';
 import { GangGridContainerAvatar } from '../../components/gang-grid-container/GangGridContainer.styled';
 import { Avatar } from '../../components/avatar/Avatar';
 import { SmallUserProfileContainer } from '../../components/small-user-profile-container/SmallUserProfileContainer';
-import { GangMemberGridContainer } from '../../components/gang-member-grid-container/GangMemberGridContainer';
+import { GangRankGridContainer } from '../../components/gang-rank-grid-container/GangRankGridContainer';
 
 export function GangViewScreen() {
   const [, params] = useRoute<{ gangID: string }>('/gangs/:gangID');
   const gangID = Number(params!.gangID);
   const fetchGang = useGangFetchOne();
+  const fetchGangRanks = useGangRankFetchMany();
+
+  async function refresh() {
+    await fetchGang.fetch({ id: gangID });
+    await fetchGangRanks.fetch({ gangIDs: [gangID] });
+  }
 
   useEffect(() => {
-    fetchGang.fetch({ id: gangID });
+    refresh();
   }, [gangID]);
 
   return (
@@ -60,8 +66,14 @@ export function GangViewScreen() {
           </Card>
         </div>
         <div style={{ flex: 1 }}>
-          <h2>Members</h2>
-          <GangMemberGridContainer gangID={gangID} />
+          <h2>Ranks</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', maxHeight: 500, overflowY: 'auto', gap: 16 }}>
+            {
+              fetchGangRanks.data && fetchGangRanks.data?.map(_ => (
+                <GangRankGridContainer key={`gang_rank_${_.gangRankID}`} gang={fetchGang.data!} rank={_} />
+              ))
+            }
+          </div>
         </div>
       </GridLarge>
     </>

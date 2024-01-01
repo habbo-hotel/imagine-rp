@@ -5,7 +5,7 @@ export class CorporationRankEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({name: 'gang'})
+  @Column({name: 'job'})
   corporationID!: number;
 
   @Column({name: 'rank'})
