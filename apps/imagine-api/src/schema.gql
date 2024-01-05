@@ -251,6 +251,7 @@ type ConfigModel {
   siteName: String
   logoURL: String
   nitroURL: String
+  websocketURL: String
   badgeURL: String
   badgeEXT: String
   figureURL: String
@@ -1170,6 +1171,7 @@ input ConfigUpdateInput {
   siteName: String
   logoURL: String
   nitroURL: String
+  websocketURL: String
   badgeURL: String
   badgeEXT: String
   figureURL: String

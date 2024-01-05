@@ -12,11 +12,14 @@
       "@imagine-cms/imagine-web": [
         "apps/imagine-web/src"
       ],
-      "@imagine-cms/types": [
-        "libs/types/src"
+      "@imagine-cms/websocket": [
+        "libs/websocket/src"
       ],
       "@imagine-cms/client": [
         "libs/client/src"
+      ],
+      "@imagine-cms/types": [
+        "libs/types/src"
       ],
       "@imagine-cms/web": [
         "libs/web/src"

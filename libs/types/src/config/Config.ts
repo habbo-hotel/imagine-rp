@@ -2,6 +2,7 @@ export interface ConfigWire {
   siteName: string;
   logoURL: string;
   nitroURL: string;
+  websocketURL: string;
   badgeURL: string;
   badgeEXT: string;
   figureURL: string;

@@ -1,61 +1,64 @@
-import {ConfigWire} from '@imagine-cms/types';
-import {Field, ObjectType} from '@nestjs/graphql';
-import {ConfigEntity} from '../database/config.entity';
+import { ConfigWire } from '@imagine-cms/types';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { ConfigEntity } from '../database/config.entity';
 
 @ObjectType()
 export class ConfigModel implements ConfigWire {
-  @Field({nullable: true})
+  @Field({ nullable: true })
   siteName!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   logoURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   nitroURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
+  websocketURL!: string;
+
+  @Field({ nullable: true })
   badgeURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   badgeEXT!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   figureURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   groupBadgeURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   discordURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   discordWidget!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   facebookURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   instagramURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   twitterURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   snapchatURL!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   dateFormat!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   softwareVersion!: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   defaultLanguage!: string;
 
-  @Field(() => [String!], {nullable: true})
+  @Field(() => [String!], { nullable: true })
   allowedLanguages!: string[];
 
-  @Field(() => Boolean, {nullable: true})
+  @Field(() => Boolean, { nullable: true })
   betaCodesRequired!: boolean;
 
   static fromEntity(
@@ -67,6 +70,7 @@ export class ConfigModel implements ConfigWire {
       siteName: entity.siteName,
       logoURL: entity.logoURL,
       nitroURL: entity.nitroURL,
+      websocketURL: entity.websocketURL,
       badgeURL: entity.badgeURL,
       badgeEXT: entity.badgeEXT,
       figureURL: entity.figureURL,

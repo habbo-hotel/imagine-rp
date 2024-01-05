@@ -28,7 +28,8 @@
     "query-string": "8.1.0",
     "@imagine-cms/types": "*",
     "@imagine-cms/web": "*",
-    "@imagine-cms/client": "*"
+    "@imagine-cms/client": "*",
+    "@imagine-cms/websocket": "*"
   },
   "devDependencies": {
     "@types/node": "20.6.2",

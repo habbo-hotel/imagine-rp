@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from './theme/ThemeProvider';
 import { ImagineContextProviders } from '@imagine-cms/web';
+import { WebSocketContextProvider } from '@imagine-cms/websocket';
 import { SiteContainer } from './components/site-container/SiteContainer';
 import { LoadingMessage } from './components/loading-message/LoadingMessage';
 
@@ -18,9 +19,11 @@ export function ImagineWeb() {
 
   return (
     <ImagineContextProviders loadingScreen={<LoadingScreen />}>
-      <ThemeProvider>
-        <SiteContainer />
-      </ThemeProvider >
+      <WebSocketContextProvider>
+        <ThemeProvider>
+          <SiteContainer />
+        </ThemeProvider >
+      </WebSocketContextProvider>
     </ImagineContextProviders>
   )
 }

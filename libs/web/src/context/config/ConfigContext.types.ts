@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 import { ConfigWire } from '@imagine-cms/types';
 
 export interface ConfigContext {
-  config?: ConfigWire;
+  config: ConfigWire;
   setConfig(updatedConfigWire?: ConfigWire): void;
 }
 
 export const defaultConfigContext: ConfigContext = {
-  config: undefined,
+  config: {} as any,
   setConfig(updatedConfigWire?: ConfigWire) { },
 };
 
