@@ -11,6 +11,7 @@ export const PhotoViewScreenImagePreview = styled.img`
   border-radius:  ${({ theme }) => theme.radius.oneUnit};
   height: 480px;
   width: 100%;
+  object-fit: contain;
 `
 
 export const PhotoViewScreenInfoContainer = styled.div`
