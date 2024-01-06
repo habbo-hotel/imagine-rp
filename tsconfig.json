@@ -12,8 +12,8 @@
       "@imagine-cms/imagine-web": [
         "apps/imagine-web/src"
       ],
-      "@imagine-cms/websocket": [
-        "libs/websocket/src"
+      "@imagine-cms/game-ui": [
+        "libs/game-ui/src"
       ],
       "@imagine-cms/client": [
         "libs/client/src"
@@ -23,7 +23,10 @@
       ],
       "@imagine-cms/web": [
         "libs/web/src"
-      ]
+      ],
+      "@imagine-cms/websocket": [
+        "libs/websocket/src"
+      ],
     },
     "noEmit": true
   },

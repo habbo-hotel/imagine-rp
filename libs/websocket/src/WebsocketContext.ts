@@ -1,4 +1,6 @@
 import React, { createContext } from 'react';
-import { WebSocketContext, defaultWebsocketContext } from './WebsocketContext.types';
+import { WebsocketContext, defaultWebsocketContextInterface } from './WebsocketContext.types';
 
-export const websocketContext = createContext<WebSocketContext>(defaultWebsocketContext);
+export const websocketContext = createContext<WebsocketContext>(
+  defaultWebsocketContextInterface
+);

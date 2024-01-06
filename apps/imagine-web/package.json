@@ -29,7 +29,7 @@
     "@imagine-cms/types": "*",
     "@imagine-cms/web": "*",
     "@imagine-cms/client": "*",
-    "@imagine-cms/websocket": "*"
+    "@imagine-cms/game-ui": "*"
   },
   "devDependencies": {
     "@types/node": "20.6.2",

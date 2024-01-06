@@ -3,7 +3,7 @@ import { GameClientElement } from './GameClient.styled';
 import React, { useContext, useEffect, useState } from 'react';
 import { GameClientActions } from './game-client-actions/GameClientActions';
 import { configContext, sessionContext, themeContext, useSSOCreate } from '@imagine-cms/web';
-import { GameClientUI } from '../game-client-ui/GameClientUI';
+import { GameUI } from '@imagine-cms/game-ui';
 
 export function GameClient() {
   const generateSSO = useSSOCreate();
@@ -24,7 +24,7 @@ export function GameClient() {
 
   return (
     <GameClientElement $visible={showClient} $preview={showPreview}>
-      <GameClientUI />
+      <GameUI ssoTicket={ssoToken} />
       {
         showClient && (
           <>
