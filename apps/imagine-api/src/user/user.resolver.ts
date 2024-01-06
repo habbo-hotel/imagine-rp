@@ -28,7 +28,10 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import {RPStatsRepository} from '../database/rp-stats.repository';
+import {
+  RPStatsChangeRepository,
+  RPStatsRepository,
+} from '../database/rp-stats.repository';
 import {RPStatsModel} from '../rp-stats/rp-stats.model';
 import {SessionCreatedModel} from '../session/session.model';
 import {SessionService} from '../session/session.service';
@@ -39,6 +42,7 @@ export class UserResolver {
     private readonly userRepo: UserRepository,
     private readonly rankRepo: RankRepository,
     private readonly rpStatsRepo: RPStatsRepository,
+    private readonly rpStatsChangeRepo: RPStatsChangeRepository,
     private readonly configRepo: ConfigRepository,
     private readonly betaCodeRepo: BetaCodeRepository,
     private readonly sessionService: SessionService
@@ -237,16 +241,8 @@ export class UserResolver {
       );
     }
 
-    await this.rpStatsRepo.create({
+    await this.rpStatsChangeRepo.create({
       id: newUser.id!,
-      healthCurrent: 100,
-      healthMax: 100,
-      energyCurrent: 100,
-      energyMax: 100,
-      armorCurrent: 0,
-      armorMax: 0,
-      hungerCurrent: 100,
-      hungerMax: 100,
     } as any);
 
     const newSession = await this.sessionService.generateSession(newUser.id!);

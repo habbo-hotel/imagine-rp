@@ -74,8 +74,11 @@ import {CorporationEntity} from './corporation.entity';
 import {GangEntity} from './gang.entity';
 import {GangRankEntity} from './gang-rank.entity';
 import {GangRankRepository} from './gang-rank.repository';
-import {RPStatsRepository} from './rp-stats.repository';
-import {RPStatsEntity} from './rp-stats.entity';
+import {
+  RPStatsChangeRepository,
+  RPStatsRepository,
+} from './rp-stats.repository';
+import {RPStatsChangeEntity, RPStatsEntity} from './rp-stats.entity';
 import {CorporationRankRepository} from './corporation-rank.repository';
 import {CorporationRankEntity} from './corporation-rank.entity';
 
@@ -119,6 +122,7 @@ export const databaseEntities = [
   GangEntity,
   GangRankEntity,
   RPStatsEntity,
+  RPStatsChangeEntity,
   CorporationRankEntity,
 ];
 
@@ -162,5 +166,6 @@ export const databaseRepositories = [
   GangRepository,
   GangRankRepository,
   RPStatsRepository,
+  RPStatsChangeRepository,
   CorporationRankRepository,
 ];

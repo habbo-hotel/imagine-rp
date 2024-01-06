@@ -71,3 +71,9 @@ export class RPStatsEntity {
   @Column({name: 'successful_evasions_total'})
   successfulEvasionsTotal!: number;
 }
+
+@Entity('rp_stats')
+export class RPStatsChangeEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
+}
