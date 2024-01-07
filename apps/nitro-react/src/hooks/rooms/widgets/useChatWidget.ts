@@ -3,13 +3,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ChatBubbleMessage, ChatEntryType, ChatHistoryCurrentDate, GetAvatarRenderManager, GetConfiguration, GetRoomEngine, GetRoomObjectScreenLocation, IRoomChatSettings, LocalizeText, PlaySound, RoomChatFormatter } from '../../../api';
 import { useMessageEvent, useRoomEngineEvent, useRoomSessionManagerEvent } from '../../events';
 import { useRoom } from '../useRoom';
-import { useChatHistory } from './../../chat-history';
 
 const avatarColorCache: Map<string, number> = new Map();
 const avatarImageCache: Map<string, string> = new Map();
 const petImageCache: Map<string, string> = new Map();
 
-const useChatWidgetState = () =>
+const useChatWidgetState = () => 
 {
     const [ chatMessages, setChatMessages ] = useState<ChatBubbleMessage[]>([]);
     const [ chatSettings, setChatSettings ] = useState<IRoomChatSettings>({
@@ -20,14 +19,13 @@ const useChatWidgetState = () =>
         protection: RoomChatSettings.FLOOD_FILTER_NORMAL
     });
     const { roomSession = null } = useRoom();
-    const { addChatEntry } = useChatHistory();
     const isDisposed = useRef(false);
 
-    const getScrollSpeed = useMemo(() =>
+    const getScrollSpeed = useMemo(() => 
     {
-        if(!chatSettings) return 6000;
+        if (!chatSettings) return 6000;
 
-        switch(chatSettings.speed)
+        switch (chatSettings.speed) 
         {
             case RoomChatSettings.CHAT_SCROLL_SPEED_FAST:
                 return 3000;
@@ -38,21 +36,21 @@ const useChatWidgetState = () =>
         }
     }, [ chatSettings ]);
 
-    const setFigureImage = (figure: string) =>
+    const setFigureImage = (figure: string) => 
     {
         const avatarImage = GetAvatarRenderManager().createAvatarImage(figure, AvatarScaleType.LARGE, null, {
             resetFigure: figure => 
             {
-                if(isDisposed.current) return;
+                if (isDisposed.current) return;
 
                 setFigureImage(figure);
             },
             dispose: () => 
-            {},
+            { },
             disposed: false
         });
 
-        if(!avatarImage) return;
+        if (!avatarImage) return;
 
         const image = avatarImage.getCroppedImage(AvatarSetType.HEAD);
         const color = avatarImage.getPartColor(AvatarFigurePartType.CHEST);
@@ -66,26 +64,26 @@ const useChatWidgetState = () =>
         return image.src;
     }
 
-    const getUserImage = (figure: string) =>
+    const getUserImage = (figure: string) => 
     {
         let existing = avatarImageCache.get(figure);
 
-        if(!existing) existing = setFigureImage(figure);
+        if (!existing) existing = setFigureImage(figure);
 
         return existing;
     }
 
-    const getPetImage = (figure: string, direction: number, _arg_3: boolean, scale: number = 64, posture: string = null) =>
+    const getPetImage = (figure: string, direction: number, _arg_3: boolean, scale: number = 64, posture: string = null) => 
     {
         let existing = petImageCache.get((figure + posture));
 
-        if(existing) return existing;
+        if (existing) return existing;
 
         const figureData = new PetFigureData(figure);
         const typeId = figureData.typeId;
         const image = GetRoomEngine().getRoomObjectPetImage(typeId, figureData.paletteId, figureData.color, new Vector3d((direction * 45)), scale, null, false, 0, figureData.customParts, posture);
 
-        if(image)
+        if (image) 
         {
             existing = TextureUtils.generateImageUrl(image.data);
 
@@ -95,7 +93,7 @@ const useChatWidgetState = () =>
         return existing;
     }
 
-    useRoomSessionManagerEvent<RoomSessionChatEvent>(RoomSessionChatEvent.CHAT_EVENT, event =>
+    useRoomSessionManagerEvent<RoomSessionChatEvent>(RoomSessionChatEvent.CHAT_EVENT, event => 
     {
         const roomObject = GetRoomEngine().getRoomObject(roomSession.roomId, event.objectId, RoomObjectCategory.UNIT);
         const bubbleLocation = roomObject ? GetRoomObjectScreenLocation(roomSession.roomId, roomObject?.id, RoomObjectCategory.UNIT) : new NitroPoint();
@@ -110,13 +108,13 @@ const useChatWidgetState = () =>
         let petType = -1;
         let text = event.message;
 
-        if(userData)
+        if (userData) 
         {
             userType = userData.type;
 
             const figure = userData.figure;
 
-            switch(userType)
+            switch (userType) 
             {
                 case RoomObjectType.PET:
                     imageUrl = getPetImage(figure, 2, true, 64, roomObject.model.getValue<string>(RoomObjectVariable.FIGURE_POSTURE));
@@ -135,12 +133,12 @@ const useChatWidgetState = () =>
             username = userData.name;
         }
 
-        switch(chatType)
+        switch (chatType) 
         {
             case RoomSessionChatEvent.CHAT_TYPE_RESPECT:
                 text = LocalizeText('widgets.chatbubble.respect', [ 'username' ], [ username ]);
 
-                if(GetConfiguration('respect.options')['enabled']) PlaySound(GetConfiguration('respect.options')['sound']);
+                if (GetConfiguration('respect.options')['enabled']) PlaySound(GetConfiguration('respect.options')['sound']);
 
                 break;
             case RoomSessionChatEvent.CHAT_TYPE_PETREVIVE:
@@ -148,12 +146,12 @@ const useChatWidgetState = () =>
             case RoomSessionChatEvent.CHAT_TYPE_PET_SPEED_FERTILIZE: {
                 let textKey = 'widget.chatbubble.petrevived';
 
-                if(chatType === RoomSessionChatEvent.CHAT_TYPE_PET_REBREED_FERTILIZE)
+                if (chatType === RoomSessionChatEvent.CHAT_TYPE_PET_REBREED_FERTILIZE) 
                 {
                     textKey = 'widget.chatbubble.petrefertilized;';
                 }
 
-                else if(chatType === RoomSessionChatEvent.CHAT_TYPE_PET_SPEED_FERTILIZE)
+                else if (chatType === RoomSessionChatEvent.CHAT_TYPE_PET_SPEED_FERTILIZE) 
                 {
                     textKey = 'widget.chatbubble.petspeedfertilized';
                 }
@@ -162,11 +160,11 @@ const useChatWidgetState = () =>
 
                 const newRoomObject = GetRoomEngine().getRoomObject(roomSession.roomId, event.extraParam, RoomObjectCategory.UNIT);
 
-                if(newRoomObject)
+                if (newRoomObject) 
                 {
                     const newUserData = roomSession.userDataManager.getUserDataByIndex(roomObject.id);
 
-                    if(newUserData) targetUserName = newUserData.name;
+                    if (newUserData) targetUserName = newUserData.name;
                 }
 
                 text = LocalizeText(textKey, [ 'petName', 'userName' ], [ username, targetUserName ]);
@@ -208,39 +206,38 @@ const useChatWidgetState = () =>
             color);
 
         setChatMessages(prevValue => [ ...prevValue, chatMessage ]);
-        addChatEntry({ id: -1, webId: userData.webID, entityId: userData.roomIndex, name: username, imageUrl, style: styleId, chatType: chatType, entityType: userData.type, message: formattedText, timestamp: ChatHistoryCurrentDate(), type: ChatEntryType.TYPE_CHAT, roomId: roomSession.roomId, color });
     });
 
-    useRoomEngineEvent<RoomDragEvent>(RoomDragEvent.ROOM_DRAG, event =>
+    useRoomEngineEvent<RoomDragEvent>(RoomDragEvent.ROOM_DRAG, event => 
     {
-        if(!chatMessages.length || (event.roomId !== roomSession.roomId)) return;
+        if (!chatMessages.length || (event.roomId !== roomSession.roomId)) return;
 
         const offsetX = event.offsetX;
 
         chatMessages.forEach(chat => (chat.elementRef && (chat.left += offsetX)));
     });
 
-    useMessageEvent<GetGuestRoomResultEvent>(GetGuestRoomResultEvent, event =>
+    useMessageEvent<GetGuestRoomResultEvent>(GetGuestRoomResultEvent, event => 
     {
         const parser = event.getParser();
 
-        if(!parser.roomEnter) return;
-        
+        if (!parser.roomEnter) return;
+
         setChatSettings(parser.chat);
     });
 
-    useMessageEvent<RoomChatSettingsEvent>(RoomChatSettingsEvent, event =>
+    useMessageEvent<RoomChatSettingsEvent>(RoomChatSettingsEvent, event => 
     {
         const parser = event.getParser();
-        
+
         setChatSettings(parser.chat);
     });
 
-    useEffect(() =>
+    useEffect(() => 
     {
         isDisposed.current = false;
 
-        return () =>
+        return () => 
         {
             isDisposed.current = true;
         }

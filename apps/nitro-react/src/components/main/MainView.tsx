@@ -8,14 +8,9 @@ import { AvatarEditorView } from '../avatar-editor/AvatarEditorView';
 import { CameraWidgetView } from '../camera/CameraWidgetView';
 import { CampaignView } from '../campaign/CampaignView';
 import { CatalogView } from '../catalog/CatalogView';
-import { ChatHistoryView } from '../chat-history/ChatHistoryView';
 import { FloorplanEditorView } from '../floorplan-editor/FloorplanEditorView';
 import { FriendsView } from '../friends/FriendsView';
-import { GameCenterView } from '../game-center/GameCenterView';
 import { GroupsView } from '../groups/GroupsView';
-import { GuideToolView } from '../guide-tool/GuideToolView';
-import { HcCenterView } from '../hc-center/HcCenterView';
-import { HelpView } from '../help/HelpView';
 import { HotelView } from '../hotel-view/HotelView';
 import { InventoryView } from '../inventory/InventoryView';
 import { ModToolsView } from '../mod-tools/ModToolsView';
@@ -28,7 +23,7 @@ import { UserProfileView } from '../user-profile/UserProfileView';
 import { UserSettingsView } from '../user-settings/UserSettingsView';
 import { WiredView } from '../wired/WiredView';
 
-export const MainView: FC<{}> = props =>
+export const MainView: FC<{}> = props => 
 {
     const [ isReady, setIsReady ] = useState(false);
     const [ landingViewVisible, setLandingViewVisible ] = useState(true);
@@ -36,28 +31,28 @@ export const MainView: FC<{}> = props =>
     useRoomSessionManagerEvent<RoomSessionEvent>(RoomSessionEvent.CREATED, event => setLandingViewVisible(false));
     useRoomSessionManagerEvent<RoomSessionEvent>(RoomSessionEvent.ENDED, event => setLandingViewVisible(event.openLandingView));
 
-    useEffect(() =>
+    useEffect(() => 
     {
         setIsReady(true);
 
         GetCommunication().connection.onReady();
     }, []);
 
-    useEffect(() =>
+    useEffect(() => 
     {
-        const linkTracker: ILinkEventTracker = { 
-            linkReceived: (url: string) =>
+        const linkTracker: ILinkEventTracker = {
+            linkReceived: (url: string) => 
             {
                 const parts = url.split('/');
-        
-                if(parts.length < 2) return;
-        
-                switch(parts[1])
+
+                if (parts.length < 2) return;
+
+                switch (parts[1]) 
                 {
                     case 'open':
-                        if(parts.length > 2)
+                        if (parts.length > 2) 
                         {
-                            switch(parts[2])
+                            switch (parts[2]) 
                             {
                                 case 'credits':
                                     //HabboWebTools.openWebPageAndMinimizeClient(this._windowManager.getProperty(ExternalVariables.WEB_SHOP_RELATIVE_URL));
@@ -87,7 +82,6 @@ export const MainView: FC<{}> = props =>
             <ToolbarView isInRoom={ !landingViewVisible } />
             <ModToolsView />
             <RoomView />
-            <ChatHistoryView />
             <WiredView />
             <AvatarEditorView />
             <AchievementsView />
@@ -100,12 +94,8 @@ export const MainView: FC<{}> = props =>
             <UserProfileView />
             <GroupsView />
             <CameraWidgetView />
-            <HelpView />
             <NitropediaView />
-            <GuideToolView />
-            <HcCenterView />
             <CampaignView />
-            <GameCenterView />
             <FloorplanEditorView />
         </Base>
     );

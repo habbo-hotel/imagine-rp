@@ -1,27 +1,26 @@
 import { GetCustomRoomFilterMessageComposer, NavigatorSearchComposer, RoomMuteComposer, RoomSettingsComposer, SecurityLevel, ToggleStaffPickMessageComposer, UpdateHomeRoomMessageComposer } from '@nitrots/nitro-renderer';
 import { FC, useEffect, useState } from 'react';
 import { FaLink } from 'react-icons/fa';
-import { CreateLinkEvent, DispatchUiEvent, GetGroupInformation, GetSessionDataManager, LocalizeText, ReportType, SendMessageComposer } from '../../../api';
+import { CreateLinkEvent, DispatchUiEvent, GetGroupInformation, GetSessionDataManager, LocalizeText, SendMessageComposer } from '../../../api';
 import { Button, classNames, Column, Flex, LayoutBadgeImageView, LayoutRoomThumbnailView, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text, UserProfileIconView } from '../../../common';
 import { RoomWidgetThumbnailEvent } from '../../../events';
-import { useHelp, useNavigator } from '../../../hooks';
+import { useNavigator } from '../../../hooks';
 
-export class NavigatorRoomInfoViewProps
+export class NavigatorRoomInfoViewProps 
 {
     onCloseClick: () => void;
 }
 
-export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
+export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props => 
 {
     const { onCloseClick = null } = props;
     const [ isRoomPicked, setIsRoomPicked ] = useState(false);
     const [ isRoomMuted, setIsRoomMuted ] = useState(false);
-    const { report = null } = useHelp();
     const { navigatorData = null } = useNavigator();
 
-    const hasPermission = (permission: string) =>
+    const hasPermission = (permission: string) => 
     {
-        switch(permission)
+        switch (permission) 
         {
             case 'settings':
                 return (GetSessionDataManager().userId === navigatorData.enteredGuestRoom.ownerId || GetSessionDataManager().isModerator);
@@ -31,21 +30,21 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
         }
     }
 
-    const processAction = (action: string, value?: string) =>
+    const processAction = (action: string, value?: string) => 
     {
-        if(!navigatorData || !navigatorData.enteredGuestRoom) return;
+        if (!navigatorData || !navigatorData.enteredGuestRoom) return;
 
-        switch(action)
+        switch (action) 
         {
             case 'set_home_room':
                 let newRoomId = -1;
 
-                if(navigatorData.homeRoomId !== navigatorData.enteredGuestRoom.roomId)
+                if (navigatorData.homeRoomId !== navigatorData.enteredGuestRoom.roomId) 
                 {
                     newRoomId = navigatorData.enteredGuestRoom.roomId;
                 }
 
-                if(newRoomId > 0) SendMessageComposer(new UpdateHomeRoomMessageComposer(newRoomId));
+                if (newRoomId > 0) SendMessageComposer(new UpdateHomeRoomMessageComposer(newRoomId));
                 return;
             case 'navigator_search_tag':
                 CreateLinkEvent(`navigator/search/${ value }`);
@@ -77,9 +76,6 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
             case 'open_floorplan_editor':
                 CreateLinkEvent('floor-editor/toggle');
                 return;
-            case 'report_room':
-                report(ReportType.ROOM, { roomId: navigatorData.enteredGuestRoom.roomId, roomName: navigatorData.enteredGuestRoom.roomName });
-                return;
             case 'close':
                 onCloseClick();
                 return;
@@ -87,16 +83,16 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
 
     }
 
-    useEffect(() =>
+    useEffect(() => 
     {
-        if(!navigatorData) return;
+        if (!navigatorData) return;
 
         setIsRoomPicked(navigatorData.currentRoomIsStaffPick);
 
-        if(navigatorData.enteredGuestRoom) setIsRoomMuted(navigatorData.enteredGuestRoom.allInRoomMuted);
+        if (navigatorData.enteredGuestRoom) setIsRoomMuted(navigatorData.enteredGuestRoom.allInRoomMuted);
     }, [ navigatorData ]);
 
-    if(!navigatorData.enteredGuestRoom) return null;
+    if (!navigatorData.enteredGuestRoom) return null;
 
     return (
         <NitroCardView className="nitro-room-info" theme="primary-slim">
@@ -129,7 +125,7 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
                                         </Flex>
                                         { (navigatorData.enteredGuestRoom.tags.length > 0) &&
                                             <Flex alignItems="center" gap={ 1 }>
-                                                { navigatorData.enteredGuestRoom.tags.map(tag =>
+                                                { navigatorData.enteredGuestRoom.tags.map(tag => 
                                                 {
                                                     return <Text key={ tag } pointer className="bg-muted rounded p-1" onClick={ event => processAction('navigator_search_tag', tag) }>#{ tag }</Text>
                                                 }) }
@@ -153,24 +149,24 @@ export const NavigatorRoomInfoView: FC<NavigatorRoomInfoViewProps> = props =>
                         </Flex>
                         <Column gap={ 1 }>
                             { hasPermission('staff_pick') &&
-                            <Button onClick={ () => processAction('toggle_pick') }>
-                                { LocalizeText(isRoomPicked ? 'navigator.staffpicks.unpick' : 'navigator.staffpicks.pick') }
-                            </Button> }
+                                <Button onClick={ () => processAction('toggle_pick') }>
+                                    { LocalizeText(isRoomPicked ? 'navigator.staffpicks.unpick' : 'navigator.staffpicks.pick') }
+                                </Button> }
                             <Button variant="danger" onClick={ () => processAction('report_room') }>
                                 { LocalizeText('help.emergency.main.report.room') }
                             </Button>
                             { hasPermission('settings') &&
-                            <>
-                                <Button onClick={ () => processAction('toggle_mute') }>
-                                    { LocalizeText(isRoomMuted ? 'navigator.muteall_on' : 'navigator.muteall_off') }
-                                </Button>
-                                <Button onClick={ () => processAction('room_filter') }>
-                                    { LocalizeText('navigator.roomsettings.roomfilter') }
-                                </Button>
-                                <Button onClick={ () => processAction('open_floorplan_editor') }>
-                                    { LocalizeText('open.floor.plan.editor') }
-                                </Button>
-                            </> }
+                                <>
+                                    <Button onClick={ () => processAction('toggle_mute') }>
+                                        { LocalizeText(isRoomMuted ? 'navigator.muteall_on' : 'navigator.muteall_off') }
+                                    </Button>
+                                    <Button onClick={ () => processAction('room_filter') }>
+                                        { LocalizeText('navigator.roomsettings.roomfilter') }
+                                    </Button>
+                                    <Button onClick={ () => processAction('open_floorplan_editor') }>
+                                        { LocalizeText('open.floor.plan.editor') }
+                                    </Button>
+                                </> }
                         </Column>
                     </> }
 

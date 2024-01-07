@@ -1,15 +1,14 @@
 import { RoomControllerLevel, RoomObjectCategory, RoomObjectVariable, RoomUnitGiveHandItemComposer, SetRelationshipStatusComposer, TradingOpenComposer } from '@nitrots/nitro-renderer';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetOwnRoomObject, GetSessionDataManager, GetUserProfile, LocalizeText, MessengerFriend, ReportType, RoomWidgetUpdateChatInputContentEvent, SendMessageComposer } from '../../../../../api';
+import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetOwnRoomObject, GetSessionDataManager, GetUserProfile, LocalizeText, MessengerFriend, RoomWidgetUpdateChatInputContentEvent, SendMessageComposer } from '../../../../../api';
 import { Base, Flex } from '../../../../../common';
-import { useFriends, useHelp, useRoom, useSessionInfo } from '../../../../../hooks';
+import { useFriends, useRoom, useSessionInfo } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
 import { ContextMenuView } from '../../context-menu/ContextMenuView';
 
-interface AvatarInfoWidgetAvatarViewProps
-{
+interface AvatarInfoWidgetAvatarViewProps {
     avatarInfo: AvatarInfoUser;
     onClose: () => void;
 }
@@ -22,53 +21,52 @@ const MODE_AMBASSADOR = 4;
 const MODE_AMBASSADOR_MUTE = 5;
 const MODE_RELATIONSHIP = 6;
 
-export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props =>
+export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props => 
 {
     const { avatarInfo = null, onClose = null } = props;
     const [ mode, setMode ] = useState(MODE_NORMAL);
     const { canRequestFriend = null } = useFriends();
-    const { report = null } = useHelp();
     const { roomSession = null } = useRoom();
     const { userRespectRemaining = 0, respectUser = null } = useSessionInfo();
 
-    const isShowGiveRights = useMemo(() =>
+    const isShowGiveRights = useMemo(() => 
     {
         return (avatarInfo.amIOwner && (avatarInfo.targetRoomControllerLevel < RoomControllerLevel.GUEST) && !avatarInfo.isGuildRoom);
     }, [ avatarInfo ]);
 
-    const isShowRemoveRights = useMemo(() =>
+    const isShowRemoveRights = useMemo(() => 
     {
         return (avatarInfo.amIOwner && (avatarInfo.targetRoomControllerLevel === RoomControllerLevel.GUEST) && !avatarInfo.isGuildRoom);
     }, [ avatarInfo ]);
 
-    const moderateMenuHasContent = useMemo(() =>
+    const moderateMenuHasContent = useMemo(() => 
     {
         return (avatarInfo.canBeKicked || avatarInfo.canBeBanned || avatarInfo.canBeMuted || isShowGiveRights || isShowRemoveRights);
     }, [ isShowGiveRights, isShowRemoveRights, avatarInfo ]);
 
-    const canGiveHandItem = useMemo(() =>
+    const canGiveHandItem = useMemo(() => 
     {
         let flag = false;
 
         const roomObject = GetOwnRoomObject();
 
-        if(roomObject)
+        if (roomObject) 
         {
             const carryId = roomObject.model.getValue<number>(RoomObjectVariable.FIGURE_CARRY_OBJECT);
 
-            if((carryId > 0) && (carryId < 999999)) flag = true;
+            if ((carryId > 0) && (carryId < 999999)) flag = true;
         }
 
         return flag;
     }, []);
 
-    const processAction = (name: string) =>
+    const processAction = (name: string) => 
     {
         let hideMenu = true;
 
-        if(name)
+        if (name) 
         {
-            switch(name)
+            switch (name) 
             {
                 case 'moderate':
                     hideMenu = false;
@@ -115,7 +113,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 case 'respect': {
                     respectUser(avatarInfo.webID);
 
-                    if((userRespectRemaining - 1) >= 1) hideMenu = false;
+                    if ((userRespectRemaining - 1) >= 1) hideMenu = false;
                     break;
                 }
                 case 'ignore':
@@ -154,9 +152,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 case 'trade':
                     SendMessageComposer(new TradingOpenComposer(avatarInfo.roomIndex));
                     break;
-                case 'report':
-                    report(ReportType.BULLY, { reportedUserId: avatarInfo.webID });
-                    break;
                 case 'pass_hand_item':
                     SendMessageComposer(new RoomUnitGiveHandItemComposer(avatarInfo.webID));
                     break;
@@ -193,10 +188,10 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
             }
         }
 
-        if(hideMenu) onClose();
+        if (hideMenu) onClose();
     }
 
-    useEffect(() =>
+    useEffect(() => 
     {
         setMode(MODE_NORMAL);
     }, [ avatarInfo ]);

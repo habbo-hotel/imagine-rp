@@ -3,14 +3,12 @@ import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { AvatarInfoUser, CreateLinkEvent, DispatchUiEvent, GetCanStandUp, GetCanUseExpression, GetOwnPosture, GetUserProfile, HasHabboClub, HasHabboVip, IsRidingHorse, LocalizeText, PostureTypeEnum, SendMessageComposer } from '../../../../../api';
 import { Flex, LayoutCurrencyIcon } from '../../../../../common';
-import { HelpNameChangeEvent } from '../../../../../events';
 import { useRoom } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
 import { ContextMenuView } from '../../context-menu/ContextMenuView';
 
-interface AvatarInfoWidgetOwnAvatarViewProps
-{
+interface AvatarInfoWidgetOwnAvatarViewProps {
     avatarInfo: AvatarInfoUser;
     isDancing: boolean;
     setIsDecorating: Dispatch<SetStateAction<boolean>>;
@@ -23,33 +21,30 @@ const MODE_NAME_CHANGE = 2;
 const MODE_EXPRESSIONS = 3;
 const MODE_SIGNS = 4;
 
-export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProps> = props =>
+export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProps> = props => 
 {
     const { avatarInfo = null, isDancing = false, setIsDecorating = null, onClose = null } = props;
     const [ mode, setMode ] = useState((isDancing && HasHabboClub()) ? MODE_CLUB_DANCES : MODE_NORMAL);
     const { roomSession = null } = useRoom();
 
-    const processAction = (name: string) =>
+    const processAction = (name: string) => 
     {
         let hideMenu = true;
 
-        if(name)
+        if (name) 
         {
-            if(name.startsWith('sign_'))
+            if (name.startsWith('sign_')) 
             {
                 const sign = parseInt(name.split('_')[1]);
 
                 roomSession.sendSignMessage(sign);
             }
-            else
+            else 
             {
-                switch(name)
+                switch (name) 
                 {
                     case 'decorate':
                         setIsDecorating(true);
-                        break;
-                    case 'change_name':
-                        DispatchUiEvent(new HelpNameChangeEvent(HelpNameChangeEvent.INIT));
                         break;
                     case 'change_looks':
                         CreateLinkEvent('avatar-editor/show');
@@ -107,16 +102,16 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
             }
         }
 
-        if(hideMenu) onClose();
+        if (hideMenu) onClose();
     }
 
     const isShowDecorate = () => (avatarInfo.amIOwner || avatarInfo.amIAnyRoomController || (avatarInfo.roomControllerLevel > RoomControllerLevel.GUEST));
-    
+
     const isRidingHorse = IsRidingHorse();
 
     return (
         <ContextMenuView objectId={ avatarInfo.roomIndex } category={ RoomObjectCategory.UNIT } userType={ avatarInfo.userType } onClose={ onClose } collapsable={ true }>
-            
+
             <ContextMenuHeaderView className="cursor-pointer" onClick={ event => GetUserProfile(avatarInfo.webID) }>
                 { avatarInfo.name }
             </ContextMenuHeaderView>

@@ -4,7 +4,7 @@ import { CreateLinkEvent, GetRoomEngine, LocalizeText, SendMessageComposer } fro
 import { Base, classNames, Column, Flex, Text, TransitionAnimation, TransitionAnimationTypes } from '../../../../common';
 import { useMessageEvent, useNavigator, useRoom } from '../../../../hooks';
 
-export const RoomToolsWidgetView: FC<{}> = props =>
+export const RoomToolsWidgetView: FC<{}> = props => 
 {
     const [ isZoomedIn, setIsZoomedIn ] = useState<boolean>(false);
     const [ roomName, setRoomName ] = useState<string>(null);
@@ -14,19 +14,19 @@ export const RoomToolsWidgetView: FC<{}> = props =>
     const { navigatorData = null } = useNavigator();
     const { roomSession = null } = useRoom();
 
-    const handleToolClick = (action: string, value?: string) =>
+    const handleToolClick = (action: string, value?: string) => 
     {
-        switch(action)
+        switch (action) 
         {
             case 'settings':
                 CreateLinkEvent('navigator/toggle-room-info');
                 return;
             case 'zoom':
-                setIsZoomedIn(prevValue =>
+                setIsZoomedIn(prevValue => 
                 {
                     let scale = GetRoomEngine().getRoomInstanceRenderingCanvasScale(roomSession.roomId, 1);
 
-                    if(!prevValue) scale /= 2;
+                    if (!prevValue) scale /= 2;
                     else scale *= 2;
 
                     GetRoomEngine().setRoomInstanceRenderingCanvasScale(roomSession.roomId, 1, scale);
@@ -50,18 +50,18 @@ export const RoomToolsWidgetView: FC<{}> = props =>
         }
     }
 
-    useMessageEvent<GetGuestRoomResultEvent>(GetGuestRoomResultEvent, event =>
+    useMessageEvent<GetGuestRoomResultEvent>(GetGuestRoomResultEvent, event => 
     {
         const parser = event.getParser();
 
-        if(!parser.roomEnter || (parser.data.roomId !== roomSession.roomId)) return;
+        if (!parser.roomEnter || (parser.data.roomId !== roomSession.roomId)) return;
 
-        if(roomName !== parser.data.roomName) setRoomName(parser.data.roomName);
-        if(roomOwner !== parser.data.ownerName) setRoomOwner(parser.data.ownerName);
-        if(roomTags !== parser.data.tags) setRoomTags(parser.data.tags);
+        if (roomName !== parser.data.roomName) setRoomName(parser.data.roomName);
+        if (roomOwner !== parser.data.ownerName) setRoomOwner(parser.data.ownerName);
+        if (roomTags !== parser.data.tags) setRoomTags(parser.data.tags);
     });
 
-    useEffect(() =>
+    useEffect(() => 
     {
         setIsOpen(true);
 
@@ -74,10 +74,6 @@ export const RoomToolsWidgetView: FC<{}> = props =>
         <Flex className="nitro-room-tools-container" gap={ 2 }>
             <Column center className="nitro-room-tools p-2">
                 <Base pointer title={ LocalizeText('room.settings.button.text') } className="icon icon-cog" onClick={ () => handleToolClick('settings') } />
-                <Base pointer title={ LocalizeText('room.zoom.button.text') } onClick={ () => handleToolClick('zoom') } className={ classNames('icon', (!isZoomedIn && 'icon-zoom-less'), (isZoomedIn && 'icon-zoom-more')) } />
-                <Base pointer title={ LocalizeText('room.chathistory.button.text') } onClick={ () => handleToolClick('chat_history') } className="icon icon-chat-history" />
-                { navigatorData.canRate &&
-                    <Base pointer title={ LocalizeText('room.like.button.text') } onClick={ () => handleToolClick('like_room') } className="icon icon-like-room" /> }
             </Column>
             <Column justifyContent="center">
                 <TransitionAnimation type={ TransitionAnimationTypes.SLIDE_LEFT } inProp={ isOpen } timeout={ 300 }>
