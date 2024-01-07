@@ -1,6 +1,6 @@
 import { ContextMenuEnum, CustomUserNotificationMessageEvent, RoomObjectCategory } from '@nitrots/nitro-renderer';
 import { FC } from 'react';
-import { GetGroupInformation, GetSessionDataManager, LocalizeText } from '../../../../../api';
+import { GetSessionDataManager, LocalizeText } from '../../../../../api';
 import { EFFECTBOX_OPEN, GROUP_FURNITURE, MONSTERPLANT_SEED_CONFIRMATION, MYSTERYTROPHY_OPEN_DIALOG, PURCHASABLE_CLOTHING_CONFIRMATION, useFurnitureContextMenuWidget, useMessageEvent, useNotification } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
@@ -11,29 +11,27 @@ import { EffectBoxConfirmView } from './EffectBoxConfirmView';
 import { MonsterPlantSeedConfirmView } from './MonsterPlantSeedConfirmView';
 import { PurchasableClothingConfirmView } from './PurchasableClothingConfirmView';
 
-export const FurnitureContextMenuView: FC<{}> = props =>
+export const FurnitureContextMenuView: FC<{}> = props => 
 {
     const { closeConfirm = null, processAction = null, onClose = null, objectId = -1, mode = null, confirmMode = null, confirmingObjectId = -1, groupData = null, isGroupMember = false, objectOwnerId = -1 } = useFurnitureContextMenuWidget();
     const { simpleAlert = null } = useNotification();
 
-    useMessageEvent<CustomUserNotificationMessageEvent>(CustomUserNotificationMessageEvent, event =>
+    useMessageEvent<CustomUserNotificationMessageEvent>(CustomUserNotificationMessageEvent, event => 
     {
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
-        // HOPPER_NO_COSTUME = 1; HOPPER_NO_HC = 2; GATE_NO_HC = 3; STARS_NOT_CANDIDATE = 4 (not coded in Emulator); STARS_NOT_ENOUGH_USERS = 5 (not coded in Emulator);
-
-        switch(parser.count)
+        switch (parser.count) 
         {
             case 1:
-                simpleAlert(LocalizeText('costumehopper.costumerequired.bodytext'), null, 'catalog/open/temporary_effects' , LocalizeText('costumehopper.costumerequired.buy'), LocalizeText('costumehopper.costumerequired.header'), null);
+                simpleAlert(LocalizeText('costumehopper.costumerequired.bodytext'), null, 'catalog/open/temporary_effects', LocalizeText('costumehopper.costumerequired.buy'), LocalizeText('costumehopper.costumerequired.header'), null);
                 break;
             case 2:
-                simpleAlert(LocalizeText('viphopper.viprequired.bodytext'), null, 'catalog/open/habbo_club' , LocalizeText('viprequired.buy.vip'), LocalizeText('viprequired.header'), null);
+                simpleAlert(LocalizeText('viphopper.viprequired.bodytext'), null, 'catalog/open/habbo_club', LocalizeText('viprequired.buy.vip'), LocalizeText('viprequired.header'), null);
                 break;
             case 3:
-                simpleAlert(LocalizeText('gate.viprequired.bodytext'), null, 'catalog/open/habbo_club' , LocalizeText('viprequired.buy.vip'), LocalizeText('gate.viprequired.title'), null);
+                simpleAlert(LocalizeText('gate.viprequired.bodytext'), null, 'catalog/open/habbo_club', LocalizeText('viprequired.buy.vip'), LocalizeText('gate.viprequired.title'), null);
                 break;
         }
     });
@@ -99,30 +97,13 @@ export const FurnitureContextMenuView: FC<{}> = props =>
                             </ContextMenuListItemView>
                         </> }
                     { (mode === ContextMenuEnum.MYSTERY_TROPHY) &&
-                    <>
-                        <ContextMenuHeaderView>
-                            { LocalizeText('mysterytrophy.header.title') }
-                        </ContextMenuHeaderView>
-                        <ContextMenuListItemView onClick={ event => processAction('use_mystery_trophy') }>
-                            { LocalizeText('friendfurni.context.use') }
-                        </ContextMenuListItemView>
-                    </> }
-                    { (mode === GROUP_FURNITURE) && groupData &&
                         <>
-                            <ContextMenuHeaderView className="cursor-pointer text-truncate" onClick={ () => GetGroupInformation(groupData.guildId) }>
-                                { groupData.guildName }
+                            <ContextMenuHeaderView>
+                                { LocalizeText('mysterytrophy.header.title') }
                             </ContextMenuHeaderView>
-                            { !isGroupMember &&
-                                <ContextMenuListItemView onClick={ event => processAction('join_group') }>
-                                    { LocalizeText('widget.furniture.button.join.group') }
-                                </ContextMenuListItemView> }
-                            <ContextMenuListItemView onClick={ event => processAction('go_to_group_homeroom') }>
-                                { LocalizeText('widget.furniture.button.go.to.group.home.room') }
+                            <ContextMenuListItemView onClick={ event => processAction('use_mystery_trophy') }>
+                                { LocalizeText('friendfurni.context.use') }
                             </ContextMenuListItemView>
-                            { groupData.guildHasReadableForum &&
-                                <ContextMenuListItemView onClick={ event => processAction('open_forum') }>
-                                    { LocalizeText('widget.furniture.button.open_group_forum') }
-                                </ContextMenuListItemView> }
                         </> }
                 </ContextMenuView> }
         </>

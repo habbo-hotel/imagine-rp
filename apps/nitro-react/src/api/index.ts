@@ -7,7 +7,6 @@ export * from './events';
 export * from './friends';
 export * from './GetRendererVersion';
 export * from './GetUIVersion';
-export * from './groups';
 export * from './inventory';
 export * from './mod-tools';
 export * from './navigator';

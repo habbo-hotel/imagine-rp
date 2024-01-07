@@ -15,12 +15,12 @@
   @include border-radius($card-border-radius);
   @include box-shadow($card-box-shadow);
 
-  > hr {
+  >hr {
     margin-right: 0;
     margin-left: 0;
   }
 
-  > .list-group {
+  >.list-group {
     border-top: inherit;
     border-bottom: inherit;
 
@@ -29,7 +29,7 @@
       @include border-top-radius($card-inner-border-radius);
     }
 
-    &:last-child  {
+    &:last-child {
       border-bottom-width: 0;
       @include border-bottom-radius($card-inner-border-radius);
     }
@@ -37,8 +37,8 @@
 
   // Due to specificity of the above selector (`.card > .list-group`), we must
   // use a child selector here to prevent double borders.
-  > .card-header + .list-group,
-  > .list-group + .card-footer {
+  >.card-header+.list-group,
+  >.list-group+.card-footer {
     border-top: 0;
   }
 }
@@ -66,10 +66,10 @@
 
 .card-link {
   &:hover {
-    text-decoration: if($link-hover-decoration == underline, none, null);
+    text-decoration: if($link-hover-decoration ==underline, none, null);
   }
 
-  + .card-link {
+  +.card-link {
     margin-left: $card-spacer-x;
   }
 }
@@ -112,7 +112,7 @@
   margin-left: -$card-cap-padding-x * .5;
   border-bottom: 0;
 
-  @if $nav-tabs-link-active-bg != $card-bg {
+  @if $nav-tabs-link-active-bg !=$card-bg {
     .nav-link.active {
       background-color: $card-bg;
       border-bottom-color: $card-bg;
@@ -158,23 +158,25 @@
 //
 
 .card-group {
+
   // The child selector allows nested `.card` within `.card-group`
   // to display properly.
-  > .card {
+  >.card {
     margin-bottom: $card-group-margin;
   }
 
   @include media-breakpoint-up(sm) {
     display: flex;
     flex-flow: row wrap;
+
     // The child selector allows nested `.card` within `.card-group`
     // to display properly.
-    > .card {
+    >.card {
       // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
       flex: 1 0 0%;
       margin-bottom: 0;
 
-      + .card {
+      +.card {
         margin-left: 0;
         border-left: 0;
       }
@@ -189,6 +191,7 @@
             // stylelint-disable-next-line property-disallowed-list
             border-top-right-radius: 0;
           }
+
           .card-img-bottom,
           .card-footer {
             // stylelint-disable-next-line property-disallowed-list
@@ -204,6 +207,7 @@
             // stylelint-disable-next-line property-disallowed-list
             border-top-left-radius: 0;
           }
+
           .card-img-bottom,
           .card-footer {
             // stylelint-disable-next-line property-disallowed-list

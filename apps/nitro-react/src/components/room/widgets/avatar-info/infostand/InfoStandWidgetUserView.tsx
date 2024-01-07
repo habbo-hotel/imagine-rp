@@ -1,20 +1,19 @@
 import { RelationshipStatusInfoEvent, RelationshipStatusInfoMessageParser, RoomSessionFavoriteGroupUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserFigureUpdateEvent, UserRelationshipsComposer } from '@nitrots/nitro-renderer';
 import { Dispatch, FC, FocusEvent, KeyboardEvent, SetStateAction, useEffect, useState } from 'react';
 import { FaPencilAlt, FaTimes } from 'react-icons/fa';
-import { AvatarInfoUser, CloneObject, GetConfiguration, GetGroupInformation, GetSessionDataManager, GetUserProfile, LocalizeText, SendMessageComposer } from '../../../../../api';
+import { AvatarInfoUser, CloneObject, GetConfiguration, GetSessionDataManager, GetUserProfile, LocalizeText, SendMessageComposer } from '../../../../../api';
 import { Column, Flex, LayoutAvatarImageView, LayoutBadgeImageView, Text, UserProfileIconView } from '../../../../../common';
 import { useMessageEvent, useRoom, useRoomSessionManagerEvent } from '../../../../../hooks';
 import { InfoStandWidgetUserRelationshipsView } from './InfoStandWidgetUserRelationshipsView';
 import { InfoStandWidgetUserTagsView } from './InfoStandWidgetUserTagsView';
 
-interface InfoStandWidgetUserViewProps
-{
+interface InfoStandWidgetUserViewProps {
     avatarInfo: AvatarInfoUser;
     setAvatarInfo: Dispatch<SetStateAction<AvatarInfoUser>>;
     onClose: () => void;
 }
 
-export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =>
+export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props => 
 {
     const { avatarInfo = null, setAvatarInfo = null, onClose = null } = props;
     const [ motto, setMotto ] = useState<string>(null);
@@ -22,9 +21,9 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
     const [ relationships, setRelationships ] = useState<RelationshipStatusInfoMessageParser>(null);
     const { roomSession = null } = useRoom();
 
-    const saveMotto = (motto: string) =>
+    const saveMotto = (motto: string) => 
     {
-        if(!isEditingMotto || (motto.length > GetConfiguration<number>('motto.max.length', 38))) return;
+        if (!isEditingMotto || (motto.length > GetConfiguration<number>('motto.max.length', 38))) return;
 
         roomSession.sendMottoMessage(motto);
 
@@ -33,11 +32,11 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
 
     const onMottoBlur = (event: FocusEvent<HTMLInputElement>) => saveMotto(event.target.value);
 
-    const onMottoKeyDown = (event: KeyboardEvent<HTMLInputElement>) =>
+    const onMottoKeyDown = (event: KeyboardEvent<HTMLInputElement>) => 
     {
         event.stopPropagation();
 
-        switch(event.key)
+        switch (event.key) 
         {
             case 'Enter':
                 saveMotto((event.target as HTMLInputElement).value);
@@ -45,15 +44,15 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         }
     }
 
-    useRoomSessionManagerEvent<RoomSessionUserBadgesEvent>(RoomSessionUserBadgesEvent.RSUBE_BADGES, event =>
+    useRoomSessionManagerEvent<RoomSessionUserBadgesEvent>(RoomSessionUserBadgesEvent.RSUBE_BADGES, event => 
     {
-        if(!avatarInfo || (avatarInfo.webID !== event.userId)) return;
+        if (!avatarInfo || (avatarInfo.webID !== event.userId)) return;
 
         const oldBadges = avatarInfo.badges.join('');
 
-        if(oldBadges === event.badges.join('')) return;
+        if (oldBadges === event.badges.join('')) return;
 
-        setAvatarInfo(prevValue =>
+        setAvatarInfo(prevValue => 
         {
             const newValue = CloneObject(prevValue);
 
@@ -63,11 +62,11 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         });
     });
 
-    useRoomSessionManagerEvent<RoomSessionUserFigureUpdateEvent>(RoomSessionUserFigureUpdateEvent.USER_FIGURE, event =>
+    useRoomSessionManagerEvent<RoomSessionUserFigureUpdateEvent>(RoomSessionUserFigureUpdateEvent.USER_FIGURE, event => 
     {
-        if(!avatarInfo || (avatarInfo.roomIndex !== event.roomIndex)) return;
+        if (!avatarInfo || (avatarInfo.roomIndex !== event.roomIndex)) return;
 
-        setAvatarInfo(prevValue =>
+        setAvatarInfo(prevValue => 
         {
             const newValue = CloneObject(prevValue);
 
@@ -79,11 +78,11 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         });
     });
 
-    useRoomSessionManagerEvent<RoomSessionFavoriteGroupUpdateEvent>(RoomSessionFavoriteGroupUpdateEvent.FAVOURITE_GROUP_UPDATE, event =>
+    useRoomSessionManagerEvent<RoomSessionFavoriteGroupUpdateEvent>(RoomSessionFavoriteGroupUpdateEvent.FAVOURITE_GROUP_UPDATE, event => 
     {
-        if(!avatarInfo || (avatarInfo.roomIndex !== event.roomIndex)) return;
+        if (!avatarInfo || (avatarInfo.roomIndex !== event.roomIndex)) return;
 
-        setAvatarInfo(prevValue =>
+        setAvatarInfo(prevValue => 
         {
             const newValue = CloneObject(prevValue);
             const clearGroup = ((event.status === -1) || (event.habboGroupId <= 0));
@@ -96,23 +95,23 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         });
     });
 
-    useMessageEvent<RelationshipStatusInfoEvent>(RelationshipStatusInfoEvent, event =>
+    useMessageEvent<RelationshipStatusInfoEvent>(RelationshipStatusInfoEvent, event => 
     {
         const parser = event.getParser();
 
-        if(!avatarInfo || (avatarInfo.webID !== parser.userId)) return;
+        if (!avatarInfo || (avatarInfo.webID !== parser.userId)) return;
 
         setRelationships(parser);
     });
 
-    useEffect(() =>
+    useEffect(() => 
     {
         setIsEditingMotto(false);
         setMotto(avatarInfo.motto);
 
         SendMessageComposer(new UserRelationshipsComposer(avatarInfo.webID));
 
-        return () =>
+        return () => 
         {
             setIsEditingMotto(false);
             setMotto(null);
@@ -120,7 +119,7 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         }
     }, [ avatarInfo ]);
 
-    if(!avatarInfo) return null;
+    if (!avatarInfo) return null;
 
     return (
         <Column className="nitro-infostand rounded">
@@ -144,10 +143,6 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                             <Flex gap={ 1 }>
                                 <Flex center className="badge-image">
                                     { avatarInfo.badges[0] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[0] } showInfo={ true } /> }
-                                </Flex>
-                                <Flex center pointer={ ( avatarInfo.groupId > 0) } className="badge-image" onClick={ event => GetGroupInformation(avatarInfo.groupId) }>
-                                    { avatarInfo.groupId > 0 &&
-                                        <LayoutBadgeImageView badgeCode={ avatarInfo.groupBadgeId } isGroup={ true } showInfo={ true } customTitle={ avatarInfo.groupName } /> }
                                 </Flex>
                             </Flex>
                             <Flex center gap={ 1 }>

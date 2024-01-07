@@ -9,7 +9,6 @@ import { CampaignView } from '../campaign/CampaignView';
 import { CatalogView } from '../catalog/CatalogView';
 import { FloorplanEditorView } from '../floorplan-editor/FloorplanEditorView';
 import { FriendsView } from '../friends/FriendsView';
-import { GroupsView } from '../groups/GroupsView';
 import { HotelView } from '../hotel-view/HotelView';
 import { InventoryView } from '../inventory/InventoryView';
 import { ModToolsView } from '../mod-tools/ModToolsView';
@@ -51,16 +50,8 @@ export const MainView: FC<{}> = props =>
                     case 'open':
                         if (parts.length > 2) 
                         {
-                            switch (parts[2]) 
-                            {
-                                case 'credits':
-                                    //HabboWebTools.openWebPageAndMinimizeClient(this._windowManager.getProperty(ExternalVariables.WEB_SHOP_RELATIVE_URL));
-                                    break;
-                                default: {
-                                    const name = parts[2];
-                                    HabboWebTools.openHabblet(name);
-                                }
-                            }
+                            const name = parts[2];
+                            return HabboWebTools.openHabblet(name);
                         }
                         return;
                 }
@@ -90,7 +81,6 @@ export const MainView: FC<{}> = props =>
             <RightSideView />
             <UserSettingsView />
             <UserProfileView />
-            <GroupsView />
             <CameraWidgetView />
             <NitropediaView />
             <CampaignView />
