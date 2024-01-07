@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { TryVisitRoom } from '../../../api';
+import { TryVisitRoom } from '../../api';
 
 export function TaxiToHubButton() 
 {
@@ -12,7 +12,7 @@ export function TaxiToHubButton()
     return (
         <div>
             <Button onClick={ onCallTaxi }>
-        Call a taxi
+                Call a taxi
             </Button>
         </div>
     )

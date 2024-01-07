@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { GetConfiguration } from '../../api';
 import { LayoutAvatarImageView } from '../../common';
 import { useRoomSessionManagerEvent, useSessionInfo } from '../../hooks';
-import { TaxiToHubButton } from '../roleplay/taxi-to-hub-button/TaxiToHubButton';
+import { TaxiToHubButton } from '../taxi-to-hub-button/TaxiToHubButton';
 
 export function HotelView() 
 {

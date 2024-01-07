@@ -6,6 +6,7 @@ import { Column, Flex, LayoutAvatarImageView, LayoutBadgeImageView, Text, UserPr
 import { useMessageEvent, useRoom, useRoomSessionManagerEvent } from '../../../../../hooks';
 import { InfoStandWidgetUserRelationshipsView } from './InfoStandWidgetUserRelationshipsView';
 import { InfoStandWidgetUserTagsView } from './InfoStandWidgetUserTagsView';
+import { RelationshipsContainerView } from '../../../../user-profile/views/RelationshipsContainerView';
 
 interface InfoStandWidgetUserViewProps {
     avatarInfo: AvatarInfoUser;
@@ -140,67 +141,27 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                             <LayoutAvatarImageView figure={ avatarInfo.figure } direction={ 4 } />
                         </Column>
                         <Column grow alignItems="center" gap={ 0 }>
+
                             <Flex gap={ 1 }>
+                                <Flex center className="badge-image">
+                                    <h6>Job</h6>
+                                </Flex>
                                 <Flex center className="badge-image">
                                     { avatarInfo.badges[0] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[0] } showInfo={ true } /> }
                                 </Flex>
                             </Flex>
-                            <Flex center gap={ 1 }>
+                            <Flex gap={ 1 }>
                                 <Flex center className="badge-image">
-                                    { avatarInfo.badges[1] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[1] } showInfo={ true } /> }
+                                    <h6>Gang</h6>
                                 </Flex>
                                 <Flex center className="badge-image">
-                                    { avatarInfo.badges[2] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[2] } showInfo={ true } /> }
-                                </Flex>
-                            </Flex>
-                            <Flex center gap={ 1 }>
-                                <Flex center className="badge-image">
-                                    { avatarInfo.badges[3] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[3] } showInfo={ true } /> }
-                                </Flex>
-                                <Flex center className="badge-image">
-                                    { avatarInfo.badges[4] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[4] } showInfo={ true } /> }
+                                    { avatarInfo.badges[0] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[0] } showInfo={ true } /> }
                                 </Flex>
                             </Flex>
                         </Column>
                     </Flex>
                     <hr className="m-0" />
                 </Column>
-                <Column gap={ 1 }>
-                    <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
-                        { (avatarInfo.type !== AvatarInfoUser.OWN_USER) &&
-                            <Flex grow alignItems="center" className="motto-content">
-                                <Text fullWidth pointer wrap textBreak small variant="white">{ motto }</Text>
-                            </Flex> }
-                        { avatarInfo.type === AvatarInfoUser.OWN_USER &&
-                            <Flex grow alignItems="center" gap={ 2 }>
-                                <FaPencilAlt className="small fa-icon" />
-                                <Flex grow alignItems="center" className="motto-content">
-                                    { !isEditingMotto &&
-                                        <Text fullWidth pointer wrap textBreak small variant="white" onClick={ event => setIsEditingMotto(true) }>{ motto }&nbsp;</Text> }
-                                    { isEditingMotto &&
-                                        <input type="text" className="motto-input" maxLength={ GetConfiguration<number>('motto.max.length', 38) } value={ motto } onChange={ event => setMotto(event.target.value) } onBlur={ onMottoBlur } onKeyDown={ onMottoKeyDown } autoFocus={ true } /> }
-                                </Flex>
-                            </Flex> }
-                    </Flex>
-                    <hr className="m-0" />
-                </Column>
-                <Column gap={ 1 }>
-                    { (avatarInfo.carryItem > 0) &&
-                        <>
-                            <hr className="m-0" />
-                            <Text variant="white" small wrap>
-                                { LocalizeText('infostand.text.handitem', [ 'item' ], [ LocalizeText('handitem' + avatarInfo.carryItem) ]) }
-                            </Text>
-                        </> }
-                </Column>
-                <Column gap={ 1 }>
-                    <InfoStandWidgetUserRelationshipsView relationships={ relationships } />
-                </Column>
-                { GetConfiguration('user.tags.enabled') &&
-                    <Column gap={ 1 } className="mt-1">
-                        <InfoStandWidgetUserTagsView tags={ GetSessionDataManager().tags } />
-                    </Column>
-                }
             </Column>
         </Column>
     );
