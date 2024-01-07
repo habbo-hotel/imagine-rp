@@ -12,6 +12,9 @@
       "@imagine-cms/imagine-web": [
         "apps/imagine-web/src"
       ],
+      "@imagine-cms/nitro-react": [
+        "apps/nitro-react/src"
+      ],
       "@imagine-cms/game-ui": [
         "libs/game-ui/src"
       ],
