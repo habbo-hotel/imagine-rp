@@ -1,25 +1,24 @@
 import React from 'react';
-import { ThemeProvider } from './theme/ThemeProvider';
-import { ImagineContextProviders } from '@imagine-cms/web';
-import { SiteContainer } from './components/site-container/SiteContainer';
-import { LoadingMessage } from './components/loading-message/LoadingMessage';
-
-export function LoadingScreen() {
-  return (
-    <div style={{ position: 'absolute', top: 0, left: 0, background: '#5F8A96', width: '100%', height: '100%', textAlign: 'center' }}>
-      <div style={{ marginTop: '10%' }}>
-        <LoadingMessage />
-      </div>
-    </div>
-  )
-}
-
+import { ThemeProvider } from './site-ui/theme/ThemeProvider';
+import { ImagineContextProviders, LoadingScreen } from '@imagine-cms/web';
+import { Route, Switch } from 'wouter';
+import { IMAGINE_ROUTES } from './site-ui/ImagineWeb.const';
 export function ImagineWeb() {
 
   return (
     <ImagineContextProviders loadingScreen={<LoadingScreen />}>
       <ThemeProvider>
-        <SiteContainer />
+        <Switch>
+          <>
+            {
+              IMAGINE_ROUTES.map(route => {
+                const Component = route.guard ? <route.guard redirect><route.view /></route.guard> : <route.view />
+
+                return <Route key={`route_${route.path}`} path={route.path} children={Component} />
+              })
+            }
+          </>
+        </Switch>
       </ThemeProvider >
     </ImagineContextProviders>
   )

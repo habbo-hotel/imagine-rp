@@ -21,12 +21,6 @@
       "args": "run start"
     },
     {
-      "name": "cerberus-web",
-      "cwd": "./apps/cerberus-web",
-      "script": "pnpm",
-      "args": "run start"
-    },
-    {
       "name": "nitro-react",
       "cwd": "./apps/nitro-react",
       "script": "pnpm",
