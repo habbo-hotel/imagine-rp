@@ -22,6 +22,7 @@ export function MeScreen() {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <UserStatsGrid user={user} />
+          <br />
           <RPStatsGridContainer userID={user.id} />
         </div>
         <div>
