@@ -5,7 +5,6 @@ import { Base, TransitionAnimation, TransitionAnimationTypes } from '../../commo
 import { useRoomSessionManagerEvent } from '../../hooks';
 import { AvatarEditorView } from '../avatar-editor/AvatarEditorView';
 import { CameraWidgetView } from '../camera/CameraWidgetView';
-import { CampaignView } from '../campaign/CampaignView';
 import { CatalogView } from '../catalog/CatalogView';
 import { FloorplanEditorView } from '../floorplan-editor/FloorplanEditorView';
 import { FriendsView } from '../friends/FriendsView';
@@ -21,9 +20,8 @@ import { UserProfileView } from '../user-profile/UserProfileView';
 import { UserSettingsView } from '../user-settings/UserSettingsView';
 import { WiredView } from '../wired/WiredView';
 
-export const MainView: FC<{}> = props => 
+export const MainView: FC<{}> = () => 
 {
-    const [ isReady, setIsReady ] = useState(false);
     const [ landingViewVisible, setLandingViewVisible ] = useState(true);
 
     useRoomSessionManagerEvent<RoomSessionEvent>(RoomSessionEvent.CREATED, event => setLandingViewVisible(false));
@@ -31,8 +29,6 @@ export const MainView: FC<{}> = props =>
 
     useEffect(() => 
     {
-        setIsReady(true);
-
         GetCommunication().connection.onReady();
     }, []);
 
@@ -83,7 +79,6 @@ export const MainView: FC<{}> = props =>
             <UserProfileView />
             <CameraWidgetView />
             <NitropediaView />
-            <CampaignView />
             <FloorplanEditorView />
         </Base>
     );
