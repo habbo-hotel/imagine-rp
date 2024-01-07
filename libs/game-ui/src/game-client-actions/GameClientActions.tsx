@@ -13,7 +13,7 @@ export function GameClientActions() {
 
   async function onServerTimeReceived(serverTime: any) {
     console.log('GameInfoBar: ', serverTime)
-    setServerTime(serverTime);
+    setServerTime(serverTime.toLowerCase());
   }
 
   useEffect(() => {

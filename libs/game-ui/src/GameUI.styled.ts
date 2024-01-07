@@ -13,6 +13,7 @@ export const GameUIElement = styled.div`
 export const GameUIContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  font-family: Ubuntu !important;
   gap: ${({ theme }) => theme.space.oneUnit};
   padding: ${({ theme }) => theme.space.oneUnit};
   width: 100%;

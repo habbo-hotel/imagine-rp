@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
 export const PlayerStatsBarElement = styled.div`
+  align-items: center;
   pointer-events: auto; 
   display: flex;
-  gap: ${({ theme }) => theme.space.oneUnit};
-    height: fit-content;
+  gap: ${({ theme }) => theme.space.halfUnit};
+  height: fit-content;
+  margin-right: ${({ theme }) => theme.space.oneUnit};
+  
   .progress-container {
-    background-color: #e0e0e0;
+    background-color: ${({ theme }) => theme.color.s30};
     border-radius: 10px;
     padding: 5px;
     width: 200px;
@@ -14,7 +17,7 @@ export const PlayerStatsBarElement = styled.div`
   }
   .progress {
     width: 100%;
-    background: #fff;
+    background: ${({ theme }) => theme.color.s30};
     border-radius: 8px;
     overflow: hidden;
     display: flex;

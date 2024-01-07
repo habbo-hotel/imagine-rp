@@ -26,14 +26,15 @@ export function GameClient() {
       <GameUI ssoTicket={ssoToken} />
       {
         showPreview && !showClient && (
-          <div className="content">
-            <Link to="/play">
+
+          <Link to="/play">
+            <div className="content">
               <div className="preview-overlay">
                 <i className="fa fa-search-location" style={{ marginRight: 8 }} />
                 Showing Preview
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
         )
       }
       <iframe

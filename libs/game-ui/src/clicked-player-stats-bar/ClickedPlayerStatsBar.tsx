@@ -28,5 +28,10 @@ export function ClickedPlayerStatsBar() {
   }
 
 
-  return <PlayerStatsBar player={clickedPlayer} />
+  return (
+    <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
+      <span style={{ color: 'red', fontWeight: 'bold', marginRight: 16 }}>vs</span>
+      <PlayerStatsBar player={clickedPlayer} />
+    </div>
+  )
 }

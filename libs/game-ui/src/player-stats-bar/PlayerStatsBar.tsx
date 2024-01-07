@@ -54,20 +54,21 @@ export function PlayerStatsBar({ player }: PlayerStatsBarProps) {
 
   return (
     <PlayerStatsBarElement>
-      <Avatar style={{ cursor: 'pointer', height: 60 }} look={player.look} headOnly onClick={onViewProfile} />
-      <div>
-        <div className="progress-container">
-          <div className="progress">
-            <div className="progress-icon">💚</div>
-            <div className="progress-bar health" style={{ width: `${healthPercent}%` }} >{healthCurrent}/{healthMax}</div>
-          </div>
+      <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }} onClick={onViewProfile}>
+        <Avatar style={{ height: 60 }} look={player.look} headOnly />
+        <h6 style={{ margin: 0 }}>{player.username}</h6>
+      </div>
+      <div className="progress-container">
+        <div className="progress">
+          <div className="progress-icon">💚</div>
+          <div className="progress-bar health" style={{ width: `${healthPercent}%` }} >{healthCurrent}/{healthMax}</div>
         </div>
+      </div>
 
-        <div className="progress-container">
-          <div className="progress">
-            <div className="progress-icon">👊</div>
-            <div className="progress-bar energy" style={{ width: `${energyPercent}%` }}>{energyCurrent}/{energyMax}</div>
-          </div>
+      <div className="progress-container">
+        <div className="progress">
+          <div className="progress-icon">👊</div>
+          <div className="progress-bar energy" style={{ width: `${energyPercent}%` }}>{energyCurrent}/{energyMax}</div>
         </div>
       </div>
     </PlayerStatsBarElement>
