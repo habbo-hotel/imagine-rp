@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { websocketContext } from '../../../websocket/src';
+import { websocketContext } from '@imagine-cms/websocket';
 
 export function GameInfoBar() {
   const { client } = useContext(websocketContext);

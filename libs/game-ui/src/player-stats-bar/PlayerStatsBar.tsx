@@ -1,26 +1,16 @@
+import { useLocation } from 'wouter';
+import { themeContext } from '@imagine-cms/web';
+import { Avatar } from '@imagine-cms/shared-ui';
 import { safeDiv } from './PlayerStatsBar.const';
 import { useRPStatsFetchOne } from '@imagine-cms/client';
-import { websocketContext } from '../../../websocket/src';
-import { PlayerStatsBarElement } from './PlayerStatsBar.styled';
-import React, { useContext, useEffect, useMemo } from 'react';
-import { Avatar } from '../../../../apps/cerberus-web/src/blocks/avatar/Avatar';
 import { PlayerStatsBarProps } from './PlayerStatsBar.types';
+import React, { useContext, useEffect, useMemo } from 'react';
+import { PlayerStatsBarElement } from './PlayerStatsBar.styled';
 
 export function PlayerStatsBar({ player }: PlayerStatsBarProps) {
+  const [, setLocation] = useLocation();
+  const { setTheme } = useContext(themeContext);
   const fetchRPStats = useRPStatsFetchOne();
-
-  async function refresh() {
-    if (!player?.userID) {
-      return
-    }
-    await fetchRPStats.fetch({ userID: player.userID });
-  }
-
-  useEffect(() => {
-    refresh();
-  }, [player?.userID]);
-
-  const { client } = useContext(websocketContext);
 
   const [healthCurrent, energyCurrent, hungerCurrent, armorCurrent] = useMemo(() => [
     player?.healthCurrent ?? 0,
@@ -45,10 +35,26 @@ export function PlayerStatsBar({ player }: PlayerStatsBarProps) {
     ]
   }, [fetchRPStats.data]);
 
+  function onViewProfile() {
+    setTheme({ showClient: false });
+    setLocation(`/profile/${player.username}`);
+  }
+
+  async function refresh() {
+    if (!player?.userID) {
+      return
+    }
+    await fetchRPStats.fetch({ userID: player.userID });
+  }
+
+  useEffect(() => {
+    refresh();
+  }, [player?.userID]);
+
 
   return (
     <PlayerStatsBarElement>
-      <Avatar style={{ height: 60 }} look={player.look} headOnly />
+      <Avatar style={{ cursor: 'pointer', height: 60 }} look={player.look} headOnly onClick={onViewProfile} />
       <div>
         <div className="progress-container">
           <div className="progress">

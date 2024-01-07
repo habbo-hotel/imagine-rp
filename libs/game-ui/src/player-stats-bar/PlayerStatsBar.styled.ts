@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const PlayerStatsBarElement = styled.div`
+  pointer-events: auto; 
   display: flex;
   gap: ${({ theme }) => theme.space.oneUnit};
   .progress-container {
