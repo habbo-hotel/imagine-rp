@@ -31,7 +31,6 @@ import { HighScoresRoleplayScreen } from './screens/high-scores-roleplay-screen/
 import { HighScoresEconomyScreen } from './screens/high-scores-economy-screen/HighScoresEconomyScreen';
 import { HighScoresCrimeScreen } from './screens/high-scores-crime-screen/HighScoresCrimeScreen';
 import { RouteDeclaration } from '../ImagineWeb.types';
-import { GuestContainer } from './components/guest-container/GuestContainer';
 import { SiteContainer } from './components/site-container/SiteContainer';
 
 export const SITE_ROUTES: RouteDeclaration[] = [
@@ -121,6 +120,7 @@ export const SITE_ROUTES: RouteDeclaration[] = [
   {
     path: '/play',
     guard: UserGuard,
+    layout: SiteContainer,
     view: PlayGameScreen,
   },
   {
