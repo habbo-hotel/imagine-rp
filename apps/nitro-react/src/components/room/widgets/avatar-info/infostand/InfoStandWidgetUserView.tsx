@@ -4,7 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import { AvatarInfoUser, CloneObject, GetSessionDataManager, GetUserProfile } from '../../../../../api';
 import { Column, Flex, LayoutAvatarImageView, LayoutBadgeImageView, Text, UserProfileIconView } from '../../../../../common';
 import { useRoomSessionManagerEvent } from '../../../../../hooks';
-import { useCorporationFetchOne, useGangFetchOne, useRPStatsFetchOne } from '@imagine-cms/client';
+import { useCorporationFetchOne, useGangFetchOne, useRPStatsFetchOne, useUserFetchOne } from '@imagine-cms/client';
 
 interface InfoStandWidgetUserViewProps {
     avatarInfo: AvatarInfoUser;
@@ -14,13 +14,19 @@ interface InfoStandWidgetUserViewProps {
 
 export function InfoStandWidgetUserView({ avatarInfo = null, setAvatarInfo = null, onClose = null }: InfoStandWidgetUserViewProps) 
 {
+    const fetchUser = useUserFetchOne();
     const fetchRPStats = useRPStatsFetchOne();
     const fetchCorp = useCorporationFetchOne();
     const fetchGang = useGangFetchOne();
 
     async function refresh() 
     {
-        const rpStats = await fetchRPStats.fetch({ userID: avatarInfo?.webID });
+        if (!avatarInfo) 
+        {
+            return;
+        }
+        fetchUser.fetch({ id: avatarInfo.webID });
+        const rpStats = await fetchRPStats.fetch({ userID: avatarInfo.webID });
         if (rpStats.corporationID) 
         {
             fetchCorp.fetch({ id: rpStats.corporationID });
@@ -104,7 +110,7 @@ export function InfoStandWidgetUserView({ avatarInfo = null, setAvatarInfo = nul
                 </Column>
                 <Column gap={ 1 }>
                     <Flex gap={ 1 }>
-                        <Column fullWidth className="body-image" onClick={ event => GetUserProfile(avatarInfo.webID) }>
+                        <Column fullWidth className="body-image" onClick={ () => GetUserProfile(avatarInfo.webID) } style={ { background: fetchUser.data?.rank?.backgroundColor } }>
                             <LayoutAvatarImageView figure={ avatarInfo.figure } direction={ 4 } />
                         </Column>
                         <Column grow alignItems="center" gap={ 0 }>
