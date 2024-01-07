@@ -5,16 +5,14 @@ import { useRoom } from '../../hooks';
 import { RoomSpectatorView } from './spectator/RoomSpectatorView';
 import { RoomWidgetsView } from './widgets/RoomWidgetsView';
 
-export const RoomView: FC<{}> = props =>
-{
+export const RoomView: FC<{}> = props => {
     const { roomSession = null } = useRoom();
     const elementRef = useRef<HTMLDivElement>();
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         const canvas = GetNitroInstance().application.renderer.view;
 
-        if(!canvas) return;
+        if (!canvas) return;
 
         canvas.onclick = event => DispatchMouseEvent(event);
         canvas.onmousemove = event => DispatchMouseEvent(event);
@@ -28,18 +26,18 @@ export const RoomView: FC<{}> = props =>
 
         const element = elementRef.current;
 
-        if(!element) return;
+        if (!element) return;
 
         element.appendChild(canvas);
     }, []);
 
     return (
-        <Base fit innerRef={ elementRef } className={ (!roomSession && 'd-none') }>
-            { roomSession &&
+        <Base fit innerRef={elementRef} className={(!roomSession && 'd-none')}>
+            {roomSession &&
                 <>
                     <RoomWidgetsView />
-                    { roomSession.isSpectator && <RoomSpectatorView /> }
-                </> }
+                    {roomSession.isSpectator && <RoomSpectatorView />}
+                </>}
         </Base>
     );
 }
