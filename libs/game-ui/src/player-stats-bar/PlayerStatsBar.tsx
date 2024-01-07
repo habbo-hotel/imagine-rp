@@ -6,9 +6,12 @@ import { PlayerStatsBarProps } from './PlayerStatsBar.types';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { PlayerStatsBarElement } from './PlayerStatsBar.styled';
 import { useRPStatsFetchOne, useUserFetchOne } from '@imagine-cms/client';
-import { GridLarge } from '../../../../apps/imagine-web/src/components/grid/Grid.remix';
 
-export function PlayerStatsBar({ player, showHunger = true, showArmor = true }: PlayerStatsBarProps) {
+function formatNumber(num: number): string {
+  return num.toLocaleString();
+}
+
+export function PlayerStatsBar({ player }: PlayerStatsBarProps) {
   const [, setLocation] = useLocation();
   const { setTheme } = useContext(themeContext);
   const fetchUser = useUserFetchOne();
@@ -64,36 +67,34 @@ export function PlayerStatsBar({ player, showHunger = true, showArmor = true }: 
         <h6>{player.username}</h6>
       </div>
       <div>
-        <div className="progress-container">
-          <div className="progress">
-            <div className="progress-icon">💚</div>
-            <div className="progress-bar health" style={{ width: `${healthPercent}%` }} >{healthCurrent}/{healthMax}</div>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <div className="progress-container">
+            <div className="progress">
+              <div className="progress-icon">❤️</div>
+              <div className="progress-bar health" style={{ width: `${healthPercent}%` }} >{formatNumber(healthCurrent)}/{formatNumber(healthMax)}</div>
+            </div>
           </div>
-        </div>
 
-        <div className="progress-container">
-          <div className="progress">
-            <div className="progress-icon">👊</div>
-            <div className="progress-bar energy" style={{ width: `${energyPercent}%` }}>{energyCurrent}/{energyMax}</div>
+          <div className="progress-container">
+            <div className="progress">
+              <div className="progress-icon">👊</div>
+              <div className="progress-bar energy" style={{ width: `${energyPercent}%` }}>{formatNumber(energyCurrent)}/{formatNumber(energyMax)}</div>
+            </div>
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          {showHunger && (
-            <div className="progress-container" style={{ width: '50%' }}>
-              <div className="progress">
-                <div className="progress-icon">🍽️</div>
-                <div className="progress-bar energy" style={{ width: `${hungerPercent}%` }}>{hungerCurrent}/{hungerMax}</div>
-              </div>
+          <div className="progress-container">
+            <div className="progress">
+              <div className="progress-icon">🍽️</div>
+              <div className="progress-bar hunger" style={{ width: `${hungerPercent}%` }}>{formatNumber(hungerCurrent)}/{formatNumber(hungerMax)}</div>
             </div>
-          )}
-          {showArmor && (
-            <div className="progress-container" style={{ width: '50%' }}>
-              <div className="progress">
-                <div className="progress-icon">🛡️</div>
-                <div className="progress-bar energy" style={{ width: `${armorPercent}%` }}>{armorCurrent}/{armorMax}</div>
-              </div>
+          </div>
+          <div className="progress-container">
+            <div className="progress">
+              <div className="progress-icon">🛡️</div>
+              <div className="progress-bar armor" style={{ width: `${armorPercent}%` }}>{formatNumber(armorCurrent)}/{formatNumber(armorMax)}</div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </PlayerStatsBarElement>

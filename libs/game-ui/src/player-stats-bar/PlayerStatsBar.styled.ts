@@ -30,9 +30,12 @@ export const PlayerStatsBarElement = styled.div`
   .progress-container {
     background-color: ${({ theme }) => theme.color.s30};
     border-radius:${({ theme }) => theme.radius.oneUnit};
-    padding: 5px;
-    margin-top: ${({ theme }) => theme.space.halfUnit};
-    width: 200px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: ${({ theme }) => theme.space.halfUnit};
+    width: 150px;
   }
   .progress {
     width: 100%;
@@ -59,13 +62,21 @@ export const PlayerStatsBarElement = styled.div`
     font-size: 0.8em;
     white-space: nowrap;
   }
+
   .health {
-    background: linear-gradient(to right, #00e676, #1b5e20);
-    width: 41.33%; /* Example percentage based on your image (62/150) */
+    background: linear-gradient(to right, #C62828, #B71C1C);
   }
+
   .energy {
-    background: linear-gradient(to right, #00b0ff, #01579b);
-    width: 55%; /* Example percentage based on your image (115/209) */
+    background: linear-gradient(to right, #388E3C, #1B5E20);
+  }
+  
+  .hunger {
+    background: linear-gradient(to right, #F57C00, #E65100);
+  }
+  
+  .armor {
+    background: linear-gradient(to right, #1976D2, #01579B);
   }
 `
 

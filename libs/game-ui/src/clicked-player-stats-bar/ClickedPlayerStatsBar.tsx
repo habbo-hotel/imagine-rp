@@ -1,4 +1,3 @@
-import DayJS from 'dayjs';
 import { sessionContext } from '@imagine-cms/web';
 import { websocketContext } from '@imagine-cms/websocket';
 import { ClickedPlayer } from './ClickedPlayerStatsBar.types';
@@ -11,7 +10,6 @@ const THIRTY_SECONDS = 30;
 
 export function ClickedPlayerStatsBar() {
   const { session } = useContext(sessionContext);
-  const [lastUpdatedAt, setLastUpdatedAt] = useState<DayJS.Dayjs>();
   const [clickedPlayer, setClickedPlayer] = useState<ClickedPlayer>();
 
   const { client } = useContext(websocketContext);
@@ -21,29 +19,15 @@ export function ClickedPlayerStatsBar() {
     if (parsedPlayerStats.userID === session?.id) {
       return;
     }
-    const currentTimestamp = DayJS();
-    setLastUpdatedAt(currentTimestamp);
     setClickedPlayer(parsedPlayerStats);
   }
 
-  function onClickedPlayerExpired() {
-    if (!lastUpdatedAt) {
-      return;
-    }
-    const lastUpdateDifference = DayJS().diff(lastUpdatedAt, 'second')
-    console.log(lastUpdateDifference)
-    const lastUpdateExpired = lastUpdateDifference > THIRTY_SECONDS;
-    if (!lastUpdateExpired) {
-      return;
-    }
-    setLastUpdatedAt(undefined);
+  function onHideClickedPlayer() {
     setClickedPlayer(undefined);
   }
 
   useEffect(() => {
     client.registerCallback('character_bar', onStatsReceived)
-    const checkExpirationInterval = setInterval(onClickedPlayerExpired, FIVE_SECONDS_IN_MS)
-    return (() => clearInterval(checkExpirationInterval));
   }, []);
 
 
@@ -53,9 +37,9 @@ export function ClickedPlayerStatsBar() {
 
 
   return (
-    <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
+    <div style={{ alignItems: 'center', cursor: 'pointer', display: 'flex', justifyContent: 'center' }} onClick={onHideClickedPlayer}>
       <i className="fa fa-swords fa-2x" style={{ marginRight: 16 }} />
-      <PlayerStatsBar player={clickedPlayer} showHunger={false} />
+      <PlayerStatsBar player={clickedPlayer} />
     </div>
   )
 }
