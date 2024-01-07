@@ -23,7 +23,7 @@ export function GameClientActions() {
   }
 
   useEffect(() => {
-    client.registerCallback('user_count', onServerTimeReceived)
+    client.registerCallback('user_count', onUserCountReceived)
     client.registerCallback('server_time', onServerTimeReceived)
   }, []);
 
