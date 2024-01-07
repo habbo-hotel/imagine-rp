@@ -1,17 +1,13 @@
 import { Dispose, DropBounce, EaseOut, JumpBy, Motions, NitroToolbarAnimateIconEvent, Queue, Wait } from '@nitrots/nitro-renderer';
-import { FC, useState } from 'react';
 import { CreateLinkEvent, GetSessionDataManager, MessengerIconState, OpenMessengerChat } from '../../api';
-import { Base, Flex, LayoutAvatarImageView, LayoutItemCountView, TransitionAnimation, TransitionAnimationTypes } from '../../common';
-import { useAchievements, useFriends, useInventoryUnseenTracker, useMessenger, useRoomEngineEvent, useSessionInfo } from '../../hooks';
-import { ToolbarMeView } from './ToolbarMeView';
+import { Base, Flex, LayoutAvatarImageView, LayoutItemCountView } from '../../common';
+import { useFriends, useInventoryUnseenTracker, useMessenger, useRoomEngineEvent, useSessionInfo } from '../../hooks';
 
-export const ToolbarView: FC<{ isInRoom: boolean }> = props => 
+export function ToolbarView(props: { isInRoom: boolean }) 
 {
     const { isInRoom } = props;
-    const [ isMeExpanded, setMeExpanded ] = useState(false);
     const { userFigure = null } = useSessionInfo();
     const { getFullCount = 0 } = useInventoryUnseenTracker();
-    const { getTotalUnseen = 0 } = useAchievements();
     const { requests = [] } = useFriends();
     const { iconState = MessengerIconState.HIDDEN } = useMessenger();
     const isMod = GetSessionDataManager().isModerator;
@@ -56,33 +52,25 @@ export const ToolbarView: FC<{ isInRoom: boolean }> = props =>
 
     return (
         <>
-            <TransitionAnimation type={ TransitionAnimationTypes.FADE_IN } inProp={ isMeExpanded } timeout={ 300 }>
-                <ToolbarMeView unseenAchievementCount={ getTotalUnseen } setMeExpanded={ setMeExpanded } />
-            </TransitionAnimation>
             <Flex alignItems="center" justifyContent="between" gap={ 2 } className="nitro-toolbar py-1 px-3">
                 <Flex gap={ 2 } alignItems="center">
                     <Flex alignItems="center" gap={ 2 }>
-                        <Flex center pointer className={ 'navigation-item item-avatar ' + (isMeExpanded ? 'active ' : '') } onClick={ event => setMeExpanded(!isMeExpanded) }>
-                            <LayoutAvatarImageView figure={ userFigure } direction={ 2 } position="absolute" />
-                            { (getTotalUnseen > 0) &&
-                                <LayoutItemCountView count={ getTotalUnseen } /> }
-                        </Flex>
-                        <Base pointer className="navigation-item icon icon-rooms" onClick={ event => CreateLinkEvent('navigator/toggle') } />
-                        <Base pointer className="navigation-item icon icon-catalog" onClick={ event => CreateLinkEvent('catalog/toggle') } />
-                        <Base pointer className="navigation-item icon icon-inventory" onClick={ event => CreateLinkEvent('inventory/toggle') }>
+                        <Base pointer className="navigation-item icon icon-rooms" onClick={ () => CreateLinkEvent('navigator/toggle') } />
+                        <Base pointer className="navigation-item icon icon-catalog" onClick={ () => CreateLinkEvent('catalog/toggle') } />
+                        <Base pointer className="navigation-item icon icon-inventory" onClick={ () => CreateLinkEvent('inventory/toggle') }>
                             { (getFullCount > 0) &&
                                 <LayoutItemCountView count={ getFullCount } /> }
                         </Base>
                         { isInRoom &&
-                            <Base pointer className="navigation-item icon icon-camera" onClick={ event => CreateLinkEvent('camera/toggle') } /> }
+                            <Base pointer className="navigation-item icon icon-camera" onClick={ () => CreateLinkEvent('camera/toggle') } /> }
                         { isMod &&
-                            <Base pointer className="navigation-item icon icon-modtools" onClick={ event => CreateLinkEvent('mod-tools/toggle') } /> }
+                            <Base pointer className="navigation-item icon icon-modtools" onClick={ () => CreateLinkEvent('mod-tools/toggle') } /> }
                     </Flex>
                     <Flex alignItems="center" id="toolbar-chat-input-container" />
                 </Flex>
                 <Flex alignItems="center" gap={ 2 }>
                     <Flex gap={ 2 }>
-                        <Base pointer className="navigation-item icon icon-friendall" onClick={ event => CreateLinkEvent('friends/toggle') }>
+                        <Base pointer className="navigation-item icon icon-friendall" onClick={ () => CreateLinkEvent('friends/toggle') }>
                             { (requests.length > 0) &&
                                 <LayoutItemCountView count={ requests.length } /> }
                         </Base>

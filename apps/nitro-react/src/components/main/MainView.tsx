@@ -3,7 +3,6 @@ import { FC, useEffect, useState } from 'react';
 import { AddEventLinkTracker, GetCommunication, RemoveLinkEventTracker } from '../../api';
 import { Base, TransitionAnimation, TransitionAnimationTypes } from '../../common';
 import { useRoomSessionManagerEvent } from '../../hooks';
-import { AchievementsView } from '../achievements/AchievementsView';
 import { AvatarEditorView } from '../avatar-editor/AvatarEditorView';
 import { CameraWidgetView } from '../camera/CameraWidgetView';
 import { CampaignView } from '../campaign/CampaignView';
@@ -84,7 +83,6 @@ export const MainView: FC<{}> = props =>
             <RoomView />
             <WiredView />
             <AvatarEditorView />
-            <AchievementsView />
             <NavigatorView />
             <InventoryView />
             <CatalogView />
