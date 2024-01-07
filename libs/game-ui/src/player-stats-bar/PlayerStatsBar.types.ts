@@ -1,6 +1,5 @@
-export interface PlayerStats {
-  healthCurrent: number;
-  energyCurrent: number;
-  hungerCurrent: number;
-  armorCurrent: number;
+import { ClickedPlayer } from "../clicked-player-stats-bar/ClickedPlayerStatsBar.types";
+
+export interface PlayerStatsBarProps {
+  player: ClickedPlayer;
 }

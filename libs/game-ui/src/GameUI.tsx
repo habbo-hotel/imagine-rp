@@ -1,10 +1,10 @@
 import React from 'react';
 import { GameUIProps } from './GameUI.types';
 import { WebsocketContextProvider } from '@imagine-cms/websocket';
-import { PlayerStatsBar } from './player-stats-bar/PlayerStatsBar';
 import { GameUIContainer, GameUIElement } from './GameUI.styled';
 import { GameInfoBar } from './game-info-bar/GameInfoBar';
 import { ClickedPlayerStatsBar } from './clicked-player-stats-bar/ClickedPlayerStatsBar';
+import { MyStatsBar } from './my-stats-bar/MyStatsBar';
 
 export function GameUI({ ssoTicket }: GameUIProps) {
   return (
@@ -12,7 +12,7 @@ export function GameUI({ ssoTicket }: GameUIProps) {
       <GameUIElement>
         <GameUIContainer>
           <GameInfoBar />
-          <PlayerStatsBar />
+          <MyStatsBar />
           <ClickedPlayerStatsBar />
         </GameUIContainer>
       </GameUIElement>

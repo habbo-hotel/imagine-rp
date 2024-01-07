@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const PlayerStatsBarElement = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.space.oneUnit};
   .progress-container {
     background-color: #e0e0e0;
     border-radius: 10px;

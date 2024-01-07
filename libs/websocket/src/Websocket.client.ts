@@ -5,7 +5,7 @@ type MessageCallback = (message: any) => void;
 export class WebSocketClient {
   private ws: WebSocket | null = null;
   private messageQueue: string[] = [];
-  private callbacks: Map<string, MessageCallback> = new Map();
+  private callbacks: Array<{ eventName: string, callback: MessageCallback }> = [];
 
   constructor(private readonly url: string) { }
 
@@ -41,16 +41,14 @@ export class WebSocketClient {
     });
   }
 
-  registerCallback(type: string, callback: MessageCallback): void {
-    this.callbacks.set(type, callback);
+  registerCallback(eventName: string, callback: MessageCallback): void {
+    this.callbacks.push({ eventName, callback });
   }
 
   private handleMessage(eventName: string, eventData: string): void {
     console.log(`WebSocket: Handling ${eventName} - ${eventData}`);
-    const callback = this.callbacks.get(eventName);
-    if (callback) {
-      callback(eventData);
-    }
+    const matchingCallbacks = this.callbacks.filter(_ => _.eventName === eventName);
+    matchingCallbacks.forEach(_ => _.callback(eventData))
   }
 
   sendRawEvent(message: string): void {

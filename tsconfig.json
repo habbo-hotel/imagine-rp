@@ -15,6 +15,9 @@
       "@imagine-cms/game-ui": [
         "libs/game-ui/src"
       ],
+      "@imagine-cms/shared-ui": [
+        "libs/shared-ui/src"
+      ],
       "@imagine-cms/client": [
         "libs/client/src"
       ],

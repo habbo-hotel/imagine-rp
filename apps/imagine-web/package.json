@@ -29,7 +29,8 @@
     "@imagine-cms/types": "*",
     "@imagine-cms/web": "*",
     "@imagine-cms/client": "*",
-    "@imagine-cms/game-ui": "*"
+    "@imagine-cms/game-ui": "*",
+    "@imagine-cms/shared-ui": "*"
   },
   "devDependencies": {
     "@types/node": "20.6.2",
