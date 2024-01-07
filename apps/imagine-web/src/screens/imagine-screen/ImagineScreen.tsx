@@ -12,7 +12,7 @@ export function ImagineScreen() {
       <Card header="About">
         <div style={{ display: 'flex', gap: 16 }}>
           <ImagineLogoContainer>
-            <img src="/img/imagine.png" height={250} width={250} loading="lazy" />
+            <img src="https://i.imgur.com/CtyHVEq.png" height={250} width={250} loading="lazy" />
           </ImagineLogoContainer>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <p>Crafted with precision using the latest technology, it's not just a CMS; it's a game-changer for retros everywhere.</p>

@@ -3,7 +3,7 @@ import { GridSizes } from "../../theme/ThemeProvider.types";
 
 export const GridElement = styled.div <{ $size: GridSizes }>`
   display: grid;
-  gap: ${({ theme }) => theme.space.twoUnits};
+  gap: ${({ theme }) => theme.space.oneUnit};
   grid-template-columns: 1fr;
   width: 100%;
   ${({ theme }) => `

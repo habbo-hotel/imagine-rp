@@ -1,4 +1,4 @@
-import { isJSON } from "./helpers";
+import { parseEventName, stringToBinary } from "./helpers";
 
 type MessageCallback = (message: any) => void;
 
@@ -13,25 +13,20 @@ export class WebSocketClient {
     return new Promise((resolve, reject) => {
       this.ws = new WebSocket(this.url);
 
+      this.ws.binaryType = 'blob';
+
       this.ws.onopen = () => {
-        console.log('Connected to the server.');
+        console.log('WebSocket: Connected to the server.');
         this.processQueue();
         resolve();
       };
 
-      this.ws.onmessage = (event) => {
-        console.log('WebSocket msg:', event.data);
-
-        if (isJSON(event.data)) {
-          const message = JSON.parse(event.data)
-          if (message.event === undefined) {
-            return
-          }
-        }
-
-        let eventData = event.data.split('¡')
-        let eventName = String(eventData[0]).trim()
-
+      this.ws.onmessage = async (event) => {
+        console.log(`WebSocket: Received ${event.data}`);
+        const data = event.data.split('¡');
+        const eventName = data.length > 0 ? data[0] : '';
+        const eventData = data.length > 1 ? data[1] : '';
+        console.log(`WebSocket: Processing as  ${eventName} and ${eventData}`);
         this.handleMessage(eventName, eventData);
       };
 
@@ -41,7 +36,7 @@ export class WebSocketClient {
       };
 
       this.ws.onclose = () => {
-        console.log('Disconnected from the server.');
+        console.log('WebSocket: Disconnected from the server.');
       };
     });
   }
@@ -51,6 +46,7 @@ export class WebSocketClient {
   }
 
   private handleMessage(eventName: string, eventData: string): void {
+    console.log(`WebSocket: Handling ${eventName} - ${eventData}`);
     const callback = this.callbacks.get(eventName);
     if (callback) {
       callback(eventData);
@@ -58,11 +54,27 @@ export class WebSocketClient {
   }
 
   sendRawEvent(message: string): void {
+    console.log(`WebSocket: Sending ${message}`);
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       this.ws.send(message);
     } else {
       this.messageQueue.push(message);
     }
+  }
+
+  startPingInterval(): void {
+    setInterval(() => {
+      this.sendPing();
+    }, 30000); // 30000 milliseconds = 30 seconds
+  }
+
+  sendPing(): void {
+    this.sendRawEvent(JSON.stringify({
+      EventName: 'ping',
+      Bypass: true,
+      ExtraData: '',
+      JSON: false
+    }))
   }
 
   sendTextEvent(eventName: string, data: string): void {

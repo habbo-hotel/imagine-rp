@@ -5,7 +5,7 @@ import { useFetchConfig } from '../../hooks/fetch-config.hook';
 import { ConfigContextProviderProps } from './ConfigContext.types';
 
 export function ConfigContextProvider({ children, loadingScreen }: ConfigContextProviderProps) {
-  const [config, setConfig] = useState<ConfigWire>({} as any);
+  const [config, setConfig] = useState<ConfigWire>();
   const { runQuery, data, loading } = useFetchConfig();
 
   useEffect(() => {
@@ -13,14 +13,16 @@ export function ConfigContextProvider({ children, loadingScreen }: ConfigContext
   }, [runQuery]);
 
   useEffect(() => {
-    setConfig(data!.config);
+    if (data) {
+      setConfig(data!.config);
+    }
   }, [data]);
 
   const updateConfig = (changes: Partial<ConfigWire>) => {
     setConfig(_ => ({ ..._!, ...changes }));
   };
 
-  if (loading) {
+  if (!config) {
     return <>{loadingScreen}</>
   }
 

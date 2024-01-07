@@ -10,11 +10,12 @@ export function WebsocketContextProvider({ children, ssoTicket }: WebsocketConte
 
   async function onWebsocketConnected() {
     await client.connect();
+    client.startPingInterval();
     await client.sendTextEvent('sup', ssoTicket);
   }
 
   useEffect(() => {
-    client.connect();
+    onWebsocketConnected();
   }, [client]);
 
   return (
