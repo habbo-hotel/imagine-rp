@@ -58,17 +58,19 @@ export function PlayerStatsBar({ player }: PlayerStatsBarProps) {
         <Avatar style={{ height: 60 }} look={player.look} headOnly />
         <h6 style={{ margin: 0 }}>{player.username}</h6>
       </div>
-      <div className="progress-container">
-        <div className="progress">
-          <div className="progress-icon">💚</div>
-          <div className="progress-bar health" style={{ width: `${healthPercent}%` }} >{healthCurrent}/{healthMax}</div>
+      <div>
+        <div className="progress-container">
+          <div className="progress">
+            <div className="progress-icon">💚</div>
+            <div className="progress-bar health" style={{ width: `${healthPercent}%` }} >{healthCurrent}/{healthMax}</div>
+          </div>
         </div>
-      </div>
 
-      <div className="progress-container">
-        <div className="progress">
-          <div className="progress-icon">👊</div>
-          <div className="progress-bar energy" style={{ width: `${energyPercent}%` }}>{energyCurrent}/{energyMax}</div>
+        <div className="progress-container">
+          <div className="progress">
+            <div className="progress-icon">👊</div>
+            <div className="progress-bar energy" style={{ width: `${energyPercent}%` }}>{energyCurrent}/{energyMax}</div>
+          </div>
         </div>
       </div>
     </PlayerStatsBarElement>
