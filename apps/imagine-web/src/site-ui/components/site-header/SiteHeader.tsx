@@ -19,11 +19,11 @@ export function SiteHeader() {
           </Link>
           <SiteHeaderTools>
             <ScopeGuard scope="accessAdminPanel" redirect={false}>
-              <a href={ADMIN_URL}>
+              <Link to="/admin/dashboard">
                 <ButtonDanger>
                   Admin Panel
                 </ButtonDanger>
-              </a>
+              </Link>
             </ScopeGuard>
             <Link to="/play">
               <ButtonNoBorder>

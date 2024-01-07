@@ -7,20 +7,20 @@ export function SiteSidebar() {
   return (
     <SiteSidebarElement>
       <ul>
-        <Link href="/dashboard">
+        <Link href="/admin/dashboard">
           <li>
             <i className="fa fa-home" />
           </li>
         </Link>
         <ScopeGuard scope="manageBetaCodes" redirect={false}>
-          <Link href="/beta-codes">
+          <Link href="/admin/beta-codes">
             <li>
               <i className="fa fa-vial" />
             </li>
           </Link>
         </ScopeGuard>
         <ScopeGuard scope="manageUsers" redirect={false}>
-          <Link href="/users">
+          <Link href="/admin/users">
             <li>
               <i className="fa fa-users" />
             </li>
@@ -28,28 +28,28 @@ export function SiteSidebar() {
         </ScopeGuard>
         <ScopeGuard scope="manageRooms" redirect={false}>
 
-          <Link href="/rooms">
+          <Link href="/admin/rooms">
             <li>
               <i className="fa fa-door-open" />
             </li>
           </Link>
         </ScopeGuard>
         <ScopeGuard scope="manageArticles" redirect={false}>
-          <Link href="/articles">
+          <Link href="/admin/articles">
             <li>
               <i className="fa fa-typewriter" />
             </li>
           </Link>
         </ScopeGuard>
         <ScopeGuard scope="managePermissions" redirect={false}>
-          <Link href="/permissions">
+          <Link href="/admin/permissions">
             <li>
               <i className="fa fa-shield" />
             </li>
           </Link>
         </ScopeGuard>
         <ScopeGuard scope="manageSite" redirect={false}>
-          <Link href="/configuration">
+          <Link href="/admin/configuration">
             <li>
               <i className="fa fa-cog" />
             </li>
@@ -65,11 +65,11 @@ export function SiteSidebar() {
               </li>
             </Link>
           </UserGuard>
-          <a href={SITE_URL}>
+          <Link to="/me">
             <li>
               <i className="fa fa-external-link" />
             </li>
-          </a>
+          </Link>
         </ul>
         <div className="notranslate">
           <b>Cerberus</b>

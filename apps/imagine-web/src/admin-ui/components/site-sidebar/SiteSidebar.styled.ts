@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ADMIN_SIDEBAR_WIDTH } from "../../AdminUI.styled";
 
 export const SiteSidebarElement = styled.div`
   background: ${({ theme }) => theme.color.s20};
@@ -7,7 +8,7 @@ export const SiteSidebarElement = styled.div`
   top: 0;
   left: 0;
   min-height: 100%;
-  width: ${({ theme }) => theme.components.sidebarWidth};
+  width: ${ADMIN_SIDEBAR_WIDTH};
   
   ul {
     list-style-type: none;
