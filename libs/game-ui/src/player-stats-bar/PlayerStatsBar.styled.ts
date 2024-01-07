@@ -29,7 +29,7 @@ export const PlayerStatsBarElement = styled.div`
   }
   .progress-bar {
     height: 20px;
-    min-width: fit-content;
+    min-width: fit-content !important;
     border-radius: 8px;
     text-align: right;
     padding-right: 5px;
