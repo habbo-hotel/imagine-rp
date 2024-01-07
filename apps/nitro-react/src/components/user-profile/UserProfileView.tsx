@@ -86,12 +86,12 @@ export function UserProfileView()
                 <Grid fullHeight={ false } gap={ 2 }>
                     <Column size={ 7 } gap={ 1 } className="user-container pe-2">
                         <UserContainerView userProfile={ userProfile } />
+                        { userRelationships &&
+                            <FriendsContainerView relationships={ userRelationships } friendsCount={ userProfile.friendsCount } /> }
                     </Column>
                     <Column size={ 5 }>
 
                         <RoleplayStatsView userID={ userProfile.id } />
-                        { userRelationships &&
-                            <FriendsContainerView relationships={ userRelationships } friendsCount={ userProfile.friendsCount } /> }
                     </Column>
                 </Grid>
             </NitroCardContentView>

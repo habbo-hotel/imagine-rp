@@ -31,12 +31,12 @@ export function RoleplayStatsView({ userID }: { userID: number })
         <Column gap={ 1 }>
             <Text small>
                 <b>My Job</b><br />
-                { fetchCorp.data.badgeCode && <Badge badge={ { code: fetchCorp.data.badgeCode } } /> }
-                <p>{ fetchCorp.data?.name ?? <>I don't have a job</> }</p>
+                { fetchCorp.data && <Badge badge={ { code: fetchCorp.data.badgeCode } } /> }
+                <p>{ fetchCorp.data?.name ?? <>Unemployed</> }</p>
             </Text>
             <Text small>
                 <b>My Gang</b><br />
-                <p>{ fetchGang.data?.name ?? <>I don't belong to a gang</> }</p>
+                <p>{ fetchGang.data?.name ?? <>No gang affiliation</> }</p>
             </Text>
         </Column>
     )
