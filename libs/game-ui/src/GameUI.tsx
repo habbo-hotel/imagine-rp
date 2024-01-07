@@ -1,9 +1,9 @@
 import React from 'react';
 import { GameUIProps } from './GameUI.types';
 import { MyStatsBar } from './my-stats-bar/MyStatsBar';
-import { GameInfoBar } from './game-info-bar/GameInfoBar';
 import { GameUIContainer, GameUIElement } from './GameUI.styled';
 import { WebsocketContextProvider } from '@imagine-cms/websocket';
+import { GameClientActions } from './game-client-actions/GameClientActions';
 import { ClickedPlayerStatsBar } from './clicked-player-stats-bar/ClickedPlayerStatsBar';
 
 export function GameUI({ ssoTicket }: GameUIProps) {
@@ -11,7 +11,7 @@ export function GameUI({ ssoTicket }: GameUIProps) {
     <WebsocketContextProvider ssoTicket={ssoTicket}>
       <GameUIElement>
         <GameUIContainer>
-          <GameInfoBar />
+          <GameClientActions />
           <MyStatsBar />
           <ClickedPlayerStatsBar />
         </GameUIContainer>

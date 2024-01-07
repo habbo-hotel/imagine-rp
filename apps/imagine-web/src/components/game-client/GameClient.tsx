@@ -1,7 +1,6 @@
 import { Link } from 'wouter';
 import { GameClientElement } from './GameClient.styled';
 import React, { useContext, useEffect, useState } from 'react';
-import { GameClientActions } from './game-client-actions/GameClientActions';
 import { configContext, sessionContext, themeContext, useSSOCreate } from '@imagine-cms/web';
 import { GameUI } from '@imagine-cms/game-ui';
 
@@ -25,14 +24,6 @@ export function GameClient() {
   return (
     <GameClientElement $visible={showClient} $preview={showPreview}>
       <GameUI ssoTicket={ssoToken} />
-      {
-        showClient && (
-          <>
-            <GameClientActions />
-          </>
-        )
-      }
-
       {
         showPreview && !showClient && (
           <div className="content">

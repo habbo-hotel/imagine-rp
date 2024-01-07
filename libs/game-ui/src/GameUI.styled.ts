@@ -12,10 +12,8 @@ export const GameUIElement = styled.div`
 
 export const GameUIContainer = styled.div`
   display: flex;
-  flex: 1;
   flex-wrap: wrap;
   gap: ${({ theme }) => theme.space.oneUnit};
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 50px;
+  padding: ${({ theme }) => theme.space.oneUnit};
+  width: 100%;
 `

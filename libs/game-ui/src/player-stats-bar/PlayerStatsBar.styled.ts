@@ -4,6 +4,7 @@ export const PlayerStatsBarElement = styled.div`
   pointer-events: auto; 
   display: flex;
   gap: ${({ theme }) => theme.space.oneUnit};
+    height: fit-content;
   .progress-container {
     background-color: #e0e0e0;
     border-radius: 10px;
