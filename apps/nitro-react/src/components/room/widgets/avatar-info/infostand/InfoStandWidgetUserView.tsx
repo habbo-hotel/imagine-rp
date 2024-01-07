@@ -21,7 +21,7 @@ export function InfoStandWidgetUserView({ avatarInfo = null, setAvatarInfo = nul
 
     async function refresh() 
     {
-        if (!avatarInfo) 
+        if (!avatarInfo?.webID) 
         {
             return;
         }

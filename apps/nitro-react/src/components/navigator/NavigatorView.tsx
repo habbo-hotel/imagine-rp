@@ -1,19 +1,20 @@
-import { ConvertGlobalRoomIdMessageComposer, HabboWebTools, ILinkEventTracker, LegacyExternalInterface, NavigatorInitComposer, NavigatorSearchComposer, RoomSessionEvent } from '@nitrots/nitro-renderer';
+import { ILinkEventTracker, NavigatorInitComposer, NavigatorSearchComposer, RoomSessionEvent } from '@nitrots/nitro-renderer';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { FaPlus } from 'react-icons/fa';
-import { AddEventLinkTracker, LocalizeText, RemoveLinkEventTracker, SendMessageComposer, TryVisitRoom } from '../../api';
-import { Base, Column, NitroCardContentView, NitroCardHeaderView, NitroCardTabsItemView, NitroCardTabsView, NitroCardView } from '../../common';
-import { useNavigator, useRoomSessionManagerEvent } from '../../hooks';
+import { AddEventLinkTracker, RemoveLinkEventTracker, SendMessageComposer, TryVisitRoom } from '../../api';
+import { Base, Column, NitroCardContentView, NitroCardHeaderView, NitroCardView } from '../../common';
+import { useNavigator, useRoomSessionManagerEvent, useSessionInfo } from '../../hooks';
 import { NavigatorDoorStateView } from './views/NavigatorDoorStateView';
 import { NavigatorRoomCreatorView } from './views/NavigatorRoomCreatorView';
 import { NavigatorRoomInfoView } from './views/NavigatorRoomInfoView';
 import { NavigatorRoomLinkView } from './views/NavigatorRoomLinkView';
 import { NavigatorRoomSettingsView } from './views/room-settings/NavigatorRoomSettingsView';
 import { NavigatorSearchResultView } from './views/search/NavigatorSearchResultView';
-import { NavigatorSearchView } from './views/search/NavigatorSearchView';
+import { useUserFetchOne } from '@imagine-cms/client';
 
 export const NavigatorView: FC<{}> = props => 
 {
+    const { userInfo } = useSessionInfo();
+    const fetchUser = useUserFetchOne();
     const [ isVisible, setIsVisible ] = useState(false);
     const [ isReady, setIsReady ] = useState(false);
     const [ isCreatorOpen, setCreatorOpen ] = useState(false);
@@ -25,6 +26,15 @@ export const NavigatorView: FC<{}> = props =>
     const { searchResult = null, topLevelContext = null, topLevelContexts = null, navigatorData = null } = useNavigator();
     const pendingSearch = useRef<{ value: string, code: string }>(null);
     const elementRef = useRef<HTMLDivElement>();
+
+    useEffect(() => 
+    {
+        if (!userInfo?.userId) 
+        {
+            return;
+        }
+        fetchUser.fetch({ id: userInfo.userId });
+    }, [ userInfo.userId ]);
 
     useRoomSessionManagerEvent<RoomSessionEvent>(RoomSessionEvent.CREATED, event => 
     {
@@ -188,6 +198,11 @@ export const NavigatorView: FC<{}> = props =>
         setNeedsInit(false);
     }, [ isVisible, needsInit ]);
 
+
+    if (!fetchUser.data?.rank?.scopes?.useNavigation) 
+    {
+        return null;
+    }
 
     return (
         <>

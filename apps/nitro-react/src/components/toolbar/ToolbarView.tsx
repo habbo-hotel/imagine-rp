@@ -1,16 +1,29 @@
 import { Dispose, DropBounce, EaseOut, JumpBy, Motions, NitroToolbarAnimateIconEvent, Queue, Wait } from '@nitrots/nitro-renderer';
 import { CreateLinkEvent, GetSessionDataManager, MessengerIconState, OpenMessengerChat } from '../../api';
-import { Base, Flex, LayoutAvatarImageView, LayoutItemCountView } from '../../common';
+import { Base, Flex, LayoutItemCountView } from '../../common';
 import { useFriends, useInventoryUnseenTracker, useMessenger, useRoomEngineEvent, useSessionInfo } from '../../hooks';
+import { useUserFetchOne } from '@imagine-cms/client';
+import { useEffect } from 'react';
 
 export function ToolbarView(props: { isInRoom: boolean }) 
 {
+    const { userInfo } = useSessionInfo();
+    const fetchUser = useUserFetchOne();
     const { isInRoom } = props;
-    const { userFigure = null } = useSessionInfo();
     const { getFullCount = 0 } = useInventoryUnseenTracker();
     const { requests = [] } = useFriends();
     const { iconState = MessengerIconState.HIDDEN } = useMessenger();
     const isMod = GetSessionDataManager().isModerator;
+
+    useEffect(() => 
+    {
+        if (!userInfo?.userId) 
+        {
+            return;
+        }
+        fetchUser.fetch({ id: userInfo.userId });
+    }, [ userInfo.userId ]);
+
     useRoomEngineEvent<NitroToolbarAnimateIconEvent>(NitroToolbarAnimateIconEvent.ANIMATE_ICON, event => 
     {
         const animationIconToToolbar = (iconName: string, image: HTMLImageElement, x: number, y: number) => 
@@ -55,7 +68,9 @@ export function ToolbarView(props: { isInRoom: boolean })
             <Flex alignItems="center" justifyContent="between" gap={ 2 } className="nitro-toolbar py-1 px-3">
                 <Flex gap={ 2 } alignItems="center">
                     <Flex alignItems="center" gap={ 2 }>
-                        <Base pointer className="navigation-item icon icon-rooms" onClick={ () => CreateLinkEvent('navigator/toggle') } />
+                        { fetchUser.data?.rank?.scopes?.useNavigation && (
+                            <Base pointer className="navigation-item icon icon-rooms" onClick={ () => CreateLinkEvent('navigator/toggle') } />
+                        ) }
                         <Base pointer className="navigation-item icon icon-catalog" onClick={ () => CreateLinkEvent('catalog/toggle') } />
                         <Base pointer className="navigation-item icon icon-inventory" onClick={ () => CreateLinkEvent('inventory/toggle') }>
                             { (getFullCount > 0) &&

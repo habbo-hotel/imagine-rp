@@ -57,6 +57,9 @@ export class RankScopesInterface implements RankScopesWire {
 
   @Field({nullable: true})
   manageStore!: boolean;
+
+  @Field({nullable: true})
+  useNavigation!: boolean;
 }
 
 @InputType('RankFlagsInput')

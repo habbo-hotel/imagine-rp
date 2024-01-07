@@ -102,6 +102,7 @@ type RankScopesModel implements RankScopesInterface {
   manageSite: Boolean
   manageWordFilter: Boolean
   manageStore: Boolean
+  useNavigation: Boolean
 }
 
 interface RankScopesInterface {
@@ -123,6 +124,7 @@ interface RankScopesInterface {
   manageSite: Boolean
   manageWordFilter: Boolean
   manageStore: Boolean
+  useNavigation: Boolean
 }
 
 type RankFlagsModel implements RankFlagsInterface {
@@ -1128,6 +1130,7 @@ input RankScopesInput {
   manageSite: Boolean
   manageWordFilter: Boolean
   manageStore: Boolean
+  useNavigation: Boolean
 }
 
 input RankFlagsInput {

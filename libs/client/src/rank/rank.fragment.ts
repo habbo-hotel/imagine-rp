@@ -21,6 +21,7 @@ export const QUERIED_SCOPES: Record<keyof RankScopesWire, false> = {
   manageSite: false,
   manageWordFilter: false,
   manageStore: false,
+  useNavigation: false,
 }
 
 export interface RankFragment {
@@ -55,6 +56,7 @@ export const RANK_FRAGMENT: any = gql`
       manageSite
       manageWordFilter
       manageStore
+      useNavigation
     }
     flags {
       showOnStaffPage
