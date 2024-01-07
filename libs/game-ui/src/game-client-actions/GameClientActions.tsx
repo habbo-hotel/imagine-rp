@@ -1,11 +1,12 @@
 import { useLocation } from 'wouter';
-import { themeContext } from '@imagine-cms/web';
+import { configContext, themeContext } from '@imagine-cms/web';
 import React, { useContext, useEffect, useState } from 'react';
 import { GameClientActionsElement } from './GameClientActions.styled';
 import { websocketContext } from '@imagine-cms/websocket';
 
 export function GameClientActions() {
   const [, setLocation] = useLocation();
+  const { config } = useContext(configContext);
   const { setTheme } = useContext(themeContext);
   const { client } = useContext(websocketContext);
   const [isExpanded, setExpanded] = useState<boolean>(false);
@@ -54,7 +55,7 @@ export function GameClientActions() {
   return (
     <>
       <GameClientActionsElement>
-        <button className="action" onClick={onViewHome}>Web</button>
+        <button className="action" onClick={onViewHome}>{config.siteName}</button>
         <button className="action" onClick={onToggleFullScreen}>
           <i className={`fas ${isExpanded ? 'fa-compress' : 'fa-expand'}`} />
         </button>

@@ -2,4 +2,6 @@ import { ClickedPlayer } from "../clicked-player-stats-bar/ClickedPlayerStatsBar
 
 export interface PlayerStatsBarProps {
   player: ClickedPlayer;
+  showHunger?: boolean;
+  showArmor?: boolean;
 }

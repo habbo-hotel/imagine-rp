@@ -14,7 +14,8 @@ export const GameUIContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   font-family: Ubuntu !important;
+  font-size: 0.7875rem !important;
   gap: ${({ theme }) => theme.space.oneUnit};
-  padding: ${({ theme }) => theme.space.oneUnit};
+  padding: 5px;
   width: 100%;
 `

@@ -17,11 +17,10 @@ export const GameClientActionsElement = styled.div`
         border-radius: 5px;
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
         color: #fff;
-        font-weight: 600;
         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
         text-transform: uppercase;
         letter-spacing: 1px;
-        padding: 5px;
+        padding: 4px;
 
         &:hover {
             border-color: ${({ theme }) => theme.color.s60};

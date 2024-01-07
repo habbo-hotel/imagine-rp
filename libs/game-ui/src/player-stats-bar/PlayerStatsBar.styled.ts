@@ -4,21 +4,40 @@ export const PlayerStatsBarElement = styled.div`
   align-items: center;
   pointer-events: auto; 
   display: flex;
-  gap: ${({ theme }) => theme.space.halfUnit};
   height: fit-content;
   margin-right: ${({ theme }) => theme.space.oneUnit};
+
+  .user-container {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    justify-content: center;
+    padding: ${({ theme }) => theme.space.halfUnit};
+
+    img {
+      background: ${({ theme }) => theme.color.s30};
+      border-radius:${({ theme }) => theme.radius.twoUnits};
+    }
+
+    h6 {
+      text-shadow: ${({ theme }) => `4px 4px 5px ${theme.color.s20}`} !important;
+      margin: 4px;
+    }
+  }
   
   .progress-container {
     background-color: ${({ theme }) => theme.color.s30};
-    border-radius: 10px;
+    border-radius:${({ theme }) => theme.radius.oneUnit};
     padding: 5px;
+    margin-top: ${({ theme }) => theme.space.halfUnit};
     width: 200px;
-    margin: 10px 0;
   }
   .progress {
     width: 100%;
     background: ${({ theme }) => theme.color.s30};
-    border-radius: 8px;
+    border-radius:${({ theme }) => theme.radius.oneUnit};
     overflow: hidden;
     display: flex;
     align-items: center;
