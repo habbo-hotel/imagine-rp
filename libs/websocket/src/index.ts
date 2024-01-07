@@ -1,4 +1,4 @@
 export * from './Websocket.client';
-export * from './WebsocketContext.provider';
+export * from './WebsocketContextProvider';
 export * from './WebsocketContext';
 export * from './WebsocketContext.types';
