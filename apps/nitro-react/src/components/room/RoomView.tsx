@@ -5,11 +5,13 @@ import { useRoom } from '../../hooks';
 import { RoomSpectatorView } from './spectator/RoomSpectatorView';
 import { RoomWidgetsView } from './widgets/RoomWidgetsView';
 
-export const RoomView: FC<{}> = props => {
+export const RoomView: FC<{}> = props => 
+{
     const { roomSession = null } = useRoom();
     const elementRef = useRef<HTMLDivElement>();
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         const canvas = GetNitroInstance().application.renderer.view;
 
         if (!canvas) return;
@@ -32,12 +34,12 @@ export const RoomView: FC<{}> = props => {
     }, []);
 
     return (
-        <Base fit innerRef={elementRef} className={(!roomSession && 'd-none')}>
-            {roomSession &&
+        <Base fit innerRef={ elementRef } className={ (!roomSession && 'd-none') }>
+            { roomSession &&
                 <>
                     <RoomWidgetsView />
-                    {roomSession.isSpectator && <RoomSpectatorView />}
-                </>}
+                    { roomSession.isSpectator && <RoomSpectatorView /> }
+                </> }
         </Base>
     );
 }

@@ -7,21 +7,23 @@ import { useWired } from '../../wired';
 import { useObjectDeselectedEvent, useObjectRollOutEvent, useObjectRollOverEvent, useObjectSelectedEvent } from '../engine';
 import { useRoom } from '../useRoom';
 
-const useAvatarInfoWidgetState = () => {
-    const [avatarInfo, setAvatarInfo] = useState<IAvatarInfo>(null);
-    const [activeNameBubble, setActiveNameBubble] = useState<AvatarInfoName>(null);
-    const [nameBubbles, setNameBubbles] = useState<AvatarInfoName[]>([]);
-    const [productBubbles, setProductBubbles] = useState<UseProductItem[]>([]);
-    const [confirmingProduct, setConfirmingProduct] = useState<UseProductItem>(null);
-    const [pendingPetId, setPendingPetId] = useState<number>(-1);
-    const [isDecorating, setIsDecorating] = useState(false);
+const useAvatarInfoWidgetState = () => 
+{
+    const [ avatarInfo, setAvatarInfo ] = useState<IAvatarInfo>(null);
+    const [ activeNameBubble, setActiveNameBubble ] = useState<AvatarInfoName>(null);
+    const [ nameBubbles, setNameBubbles ] = useState<AvatarInfoName[]>([]);
+    const [ productBubbles, setProductBubbles ] = useState<UseProductItem[]>([]);
+    const [ confirmingProduct, setConfirmingProduct ] = useState<UseProductItem>(null);
+    const [ pendingPetId, setPendingPetId ] = useState<number>(-1);
     const { friends = [] } = useFriends();
     const { selectObjectForWired = null } = useWired();
     const { roomSession = null } = useRoom();
 
-    const removeNameBubble = (index: number) => {
-        setNameBubbles(prevValue => {
-            const newValue = [...prevValue];
+    const removeNameBubble = (index: number) => 
+    {
+        setNameBubbles(prevValue => 
+        {
+            const newValue = [ ...prevValue ];
 
             newValue.splice(index, 1);
 
@@ -29,9 +31,11 @@ const useAvatarInfoWidgetState = () => {
         });
     }
 
-    const removeProductBubble = (index: number) => {
-        setProductBubbles(prevValue => {
-            const newValue = [...prevValue];
+    const removeProductBubble = (index: number) => 
+    {
+        setProductBubbles(prevValue => 
+        {
+            const newValue = [ ...prevValue ];
             const item = newValue.splice(index, 1)[0];
 
             if (confirmingProduct === item) setConfirmingProduct(null);
@@ -40,12 +44,14 @@ const useAvatarInfoWidgetState = () => {
         });
     }
 
-    const updateConfirmingProduct = (product: UseProductItem) => {
+    const updateConfirmingProduct = (product: UseProductItem) => 
+    {
         setConfirmingProduct(product);
         setProductBubbles([]);
     }
 
-    const getObjectName = (objectId: number, category: number) => {
+    const getObjectName = (objectId: number, category: number) => 
+    {
         const name = AvatarInfoUtilities.getObjectName(objectId, category);
 
         if (!name) return;
@@ -55,10 +61,12 @@ const useAvatarInfoWidgetState = () => {
         if (category !== RoomObjectCategory.UNIT) setProductBubbles([]);
     }
 
-    const getObjectInfo = (objectId: number, category: number) => {
+    const getObjectInfo = (objectId: number, category: number) => 
+    {
         let info: IAvatarInfo = null;
 
-        switch (category) {
+        switch (category) 
+        {
             case RoomObjectCategory.FLOOR:
             case RoomObjectCategory.WALL:
                 info = AvatarInfoUtilities.getFurniInfo(objectId, category);
@@ -70,7 +78,8 @@ const useAvatarInfoWidgetState = () => {
 
                 if (!userData) break;
 
-                switch (userData.type) {
+                switch (userData.type) 
+                {
                     case RoomObjectType.PET:
                         roomSession.userDataManager.requestPetInfo(userData.webID);
                         setPendingPetId(userData.webID);
@@ -94,25 +103,30 @@ const useAvatarInfoWidgetState = () => {
         setAvatarInfo(info);
     }
 
-    useRoomSessionManagerEvent<RoomSessionUserDataUpdateEvent>(RoomSessionUserDataUpdateEvent.USER_DATA_UPDATED, event => {
+    useRoomSessionManagerEvent<RoomSessionUserDataUpdateEvent>(RoomSessionUserDataUpdateEvent.USER_DATA_UPDATED, event => 
+    {
         if (!event.addedUsers.length) return;
 
         let addedNameBubbles: AvatarInfoName[] = [];
 
-        event.addedUsers.forEach(user => {
+        event.addedUsers.forEach(user => 
+        {
             if (user.webID === GetSessionDataManager().userId) return;
 
-            if (friends.find(friend => (friend.id === user.webID))) {
+            if (friends.find(friend => (friend.id === user.webID))) 
+            {
                 addedNameBubbles.push(new AvatarInfoName(user.roomIndex, RoomObjectCategory.UNIT, user.webID, user.name, user.type, true));
             }
         });
 
         if (!addedNameBubbles.length) return;
 
-        setNameBubbles(prevValue => {
-            const newValue = [...prevValue];
+        setNameBubbles(prevValue => 
+        {
+            const newValue = [ ...prevValue ];
 
-            addedNameBubbles.forEach(bubble => {
+            addedNameBubbles.forEach(bubble => 
+            {
                 const oldIndex = newValue.findIndex(oldBubble => (oldBubble.id === bubble.id));
 
                 if (oldIndex > -1) newValue.splice(oldIndex, 1);
@@ -124,7 +138,8 @@ const useAvatarInfoWidgetState = () => {
         });
     });
 
-    useRoomSessionManagerEvent<RoomSessionPetInfoUpdateEvent>(RoomSessionPetInfoUpdateEvent.PET_INFO, event => {
+    useRoomSessionManagerEvent<RoomSessionPetInfoUpdateEvent>(RoomSessionPetInfoUpdateEvent.PET_INFO, event => 
+    {
         const petData = event.petInfo;
 
         if (!petData) return;
@@ -140,7 +155,8 @@ const useAvatarInfoWidgetState = () => {
     });
 
 
-    useRoomEngineEvent<RoomEngineUseProductEvent>(RoomEngineUseProductEvent.USE_PRODUCT_FROM_ROOM, event => {
+    useRoomEngineEvent<RoomEngineUseProductEvent>(RoomEngineUseProductEvent.USE_PRODUCT_FROM_ROOM, event => 
+    {
         const roomObject = GetRoomEngine().getRoomObject(roomSession.roomId, event.objectId, RoomObjectCategory.FLOOR);
 
         if (!roomObject || !IsOwnerOfFurniture(roomObject)) return;
@@ -156,31 +172,39 @@ const useAvatarInfoWidgetState = () => {
         const useProductBubbles: UseProductItem[] = [];
         const roomObjects = GetRoomEngine().getRoomObjects(roomSession.roomId, RoomObjectCategory.UNIT);
 
-        for (const roomObject of roomObjects) {
+        for (const roomObject of roomObjects) 
+        {
             const userData = roomSession.userDataManager.getUserDataByIndex(roomObject.id);
 
             let replace = false;
 
-            if (!userData || (userData.type !== RoomObjectType.PET)) {
+            if (!userData || (userData.type !== RoomObjectType.PET)) 
+            {
 
             }
-            else {
-                if (userData.ownerId === ownerId) {
+            else 
+            {
+                if (userData.ownerId === ownerId) 
+                {
                     if (userData.hasSaddle && (furniData.specialType === FurniCategory.PET_SADDLE)) replace = true;
 
                     const figureParts = userData.figure.split(' ');
                     const figurePart = (figureParts.length ? parseInt(figureParts[0]) : -1);
 
-                    if (figurePart === part) {
-                        if (furniData.specialType === FurniCategory.MONSTERPLANT_REVIVAL) {
+                    if (figurePart === part) 
+                    {
+                        if (furniData.specialType === FurniCategory.MONSTERPLANT_REVIVAL) 
+                        {
                             if (!userData.canRevive) continue;
                         }
 
-                        if (furniData.specialType === FurniCategory.MONSTERPLANT_REBREED) {
+                        if (furniData.specialType === FurniCategory.MONSTERPLANT_REBREED) 
+                        {
                             if ((userData.petLevel < 7) || userData.canRevive || userData.canBreed) continue;
                         }
 
-                        if (furniData.specialType === FurniCategory.MONSTERPLANT_FERTILIZE) {
+                        if (furniData.specialType === FurniCategory.MONSTERPLANT_FERTILIZE) 
+                        {
                             if ((userData.petLevel >= 7) || userData.canRevive) continue;
                         }
 
@@ -195,28 +219,31 @@ const useAvatarInfoWidgetState = () => {
         if (useProductBubbles.length) setProductBubbles(useProductBubbles);
     });
 
-    useRoomEngineEvent<RoomEngineObjectEvent>(RoomEngineObjectEvent.REQUEST_MANIPULATION, event => {
+    useRoomEngineEvent<RoomEngineObjectEvent>(RoomEngineObjectEvent.REQUEST_MANIPULATION, event => 
+    {
         if (!CanManipulateFurniture(roomSession, event.objectId, event.category)) return;
-
-        setIsDecorating(true);
     });
 
-    useObjectSelectedEvent(event => {
+    useObjectSelectedEvent(event => 
+    {
         getObjectInfo(event.id, event.category);
     });
 
-    useObjectDeselectedEvent(event => {
+    useObjectDeselectedEvent(event => 
+    {
         setAvatarInfo(null);
         setProductBubbles([]);
     });
 
-    useObjectRollOverEvent(event => {
+    useObjectRollOverEvent(event => 
+    {
         if (avatarInfo || (event.category !== RoomObjectCategory.UNIT)) return;
 
         getObjectName(event.id, event.category);
     });
 
-    useObjectRollOutEvent(event => {
+    useObjectRollOutEvent(event => 
+    {
         if (!activeNameBubble || (event.category !== RoomObjectCategory.UNIT) || (activeNameBubble.roomIndex !== event.id)) return;
 
         setActiveNameBubble(null);
@@ -225,10 +252,12 @@ const useAvatarInfoWidgetState = () => {
     useUiEvent<RoomWidgetUpdateRoomObjectEvent>([
         RoomWidgetUpdateRoomObjectEvent.FURNI_REMOVED,
         RoomWidgetUpdateRoomObjectEvent.USER_REMOVED
-    ], event => {
+    ], event => 
+    {
         if (activeNameBubble && (activeNameBubble.category === event.category) && (activeNameBubble.roomIndex === event.id)) setActiveNameBubble(null);
 
-        if (event.category === RoomObjectCategory.UNIT) {
+        if (event.category === RoomObjectCategory.UNIT) 
+        {
             let index = nameBubbles.findIndex(bubble => (bubble.roomIndex === event.id));
 
             if (index > -1) setNameBubbles(prevValue => prevValue.filter(bubble => (bubble.roomIndex === event.id)));
@@ -238,40 +267,43 @@ const useAvatarInfoWidgetState = () => {
             if (index > -1) setProductBubbles(prevValue => prevValue.filter(bubble => (bubble.id !== event.id)));
         }
 
-        else if (event.category === RoomObjectCategory.FLOOR) {
+        else if (event.category === RoomObjectCategory.FLOOR) 
+        {
             const index = productBubbles.findIndex(bubble => (bubble.id === event.id));
 
             if (index > -1) setProductBubbles(prevValue => prevValue.filter(bubble => (bubble.requestRoomObjectId !== event.id)));
         }
 
-        if (avatarInfo) {
-            if (avatarInfo instanceof AvatarInfoFurni) {
+        if (avatarInfo) 
+        {
+            if (avatarInfo instanceof AvatarInfoFurni) 
+            {
                 if (avatarInfo.id === event.id) setAvatarInfo(null);
             }
 
-            else if ((avatarInfo instanceof AvatarInfoUser) || (avatarInfo instanceof AvatarInfoRentableBot) || (avatarInfo instanceof AvatarInfoPet)) {
+            else if ((avatarInfo instanceof AvatarInfoUser) || (avatarInfo instanceof AvatarInfoRentableBot) || (avatarInfo instanceof AvatarInfoPet)) 
+            {
                 if (avatarInfo.roomIndex === event.id) setAvatarInfo(null);
             }
         }
     });
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         if (!avatarInfo) return;
 
         setActiveNameBubble(null);
         setNameBubbles([]);
         setProductBubbles([]);
-    }, [avatarInfo]);
+    }, [ avatarInfo ]);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         if (!activeNameBubble) return;
 
         setNameBubbles([]);
-    }, [activeNameBubble]);
+    }, [ activeNameBubble ]);
 
-    useEffect(() => {
-        roomSession.isDecorating = isDecorating;
-    }, [roomSession, isDecorating]);
 
     return { avatarInfo, setAvatarInfo, activeNameBubble, setActiveNameBubble, nameBubbles, productBubbles, confirmingProduct, removeNameBubble, removeProductBubble, updateConfirmingProduct, getObjectName };
 }
