@@ -185,9 +185,6 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                     <hr className="m-0" />
                 </Column>
                 <Column gap={ 1 }>
-                    <Text variant="white" small wrap>
-                        { LocalizeText('infostand.text.achievement_score') + ' ' + avatarInfo.achievementScore }
-                    </Text>
                     { (avatarInfo.carryItem > 0) &&
                         <>
                             <hr className="m-0" />

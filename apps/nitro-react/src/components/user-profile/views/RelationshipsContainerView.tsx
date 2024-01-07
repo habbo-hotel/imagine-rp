@@ -3,21 +3,19 @@ import { FC } from 'react';
 import { GetUserProfile, LocalizeText } from '../../../api';
 import { Column, Flex, LayoutAvatarImageView, Text } from '../../../common';
 
-interface RelationshipsContainerViewProps
-{
+interface RelationshipsContainerViewProps {
     relationships: RelationshipStatusInfoMessageParser;
 }
 
-interface RelationshipsContainerRelationshipViewProps
-{
+interface RelationshipsContainerRelationshipViewProps {
     type: number;
 }
 
-export const RelationshipsContainerView: FC<RelationshipsContainerViewProps> = props =>
+export const RelationshipsContainerView: FC<RelationshipsContainerViewProps> = props => 
 {
     const { relationships = null } = props;
 
-    const RelationshipComponent = ({ type }: RelationshipsContainerRelationshipViewProps) =>
+    const RelationshipComponent = ({ type }: RelationshipsContainerRelationshipViewProps) => 
     {
         const relationshipInfo = (relationships && relationships.relationshipStatusMap.hasKey(type)) ? relationships.relationshipStatusMap.getValue(type) : null;
         const relationshipName = RelationshipStatusEnum.RELATIONSHIP_NAMES[type].toLocaleLowerCase();
@@ -29,7 +27,7 @@ export const RelationshipsContainerView: FC<RelationshipsContainerViewProps> = p
                 </Flex>
                 <Column grow gap={ 0 }>
                     <Flex alignItems="center" justifyContent="between" className="bg-white rounded px-2 py-1 user-relationship">
-                        <Text small underline pointer onClick={ event => (relationshipInfo && (relationshipInfo.randomFriendId >= 1) && GetUserProfile(relationshipInfo.randomFriendId)) }>
+                        <Text small underline pointer onClick={ () => (relationshipInfo && (relationshipInfo.randomFriendId >= 1) && GetUserProfile(relationshipInfo.randomFriendId)) }>
                             { (!relationshipInfo || (relationshipInfo.friendCount === 0)) &&
                                 LocalizeText('extendedprofile.add.friends') }
                             { (relationshipInfo && (relationshipInfo.friendCount >= 1)) &&
@@ -55,8 +53,6 @@ export const RelationshipsContainerView: FC<RelationshipsContainerViewProps> = p
     return (
         <>
             <RelationshipComponent type={ RelationshipStatusEnum.HEART } />
-            <RelationshipComponent type={ RelationshipStatusEnum.SMILE } />
-            <RelationshipComponent type={ RelationshipStatusEnum.BOBBA } />
         </>
     );
 }

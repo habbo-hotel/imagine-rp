@@ -6,6 +6,8 @@ import { useMessageEvent, useRoomEngineEvent } from '../../hooks';
 import { BadgesContainerView } from './views/BadgesContainerView';
 import { FriendsContainerView } from './views/FriendsContainerView';
 import { UserContainerView } from './views/UserContainerView';
+import { CorpContainerView } from './views/CorpContainerView';
+import { GangContainerView } from './views/GangContainerView';
 
 export const UserProfileView: FC<{}> = props => 
 {
@@ -99,23 +101,15 @@ export const UserProfileView: FC<{}> = props =>
                 <Grid fullHeight={ false } gap={ 2 }>
                     <Column size={ 7 } gap={ 1 } className="user-container pe-2">
                         <UserContainerView userProfile={ userProfile } />
-                        <Grid columnCount={ 5 } fullHeight className="bg-muted rounded px-2 py-1">
-                            <BadgesContainerView fullWidth center badges={ userBadges } />
-                        </Grid>
                     </Column>
                     <Column size={ 5 }>
+
+                        <CorpContainerView />
+                        <GangContainerView />
                         { userRelationships &&
                             <FriendsContainerView relationships={ userRelationships } friendsCount={ userProfile.friendsCount } /> }
                     </Column>
                 </Grid>
-                <Flex alignItems="center" className="rooms-button-container px-2 py-1">
-                    <Flex alignItems="center" gap={ 1 } onClick={ event => CreateLinkEvent(`navigator/search/hotel_view/owner:${ userProfile.username }`) }>
-                        <i className="icon icon-rooms" />
-                        <Text bold underline pointer>{ LocalizeText('extendedprofile.rooms') }</Text>
-                    </Flex>
-                </Flex>
-                corporation
-                gang
             </NitroCardContentView>
         </NitroCardView>
     )

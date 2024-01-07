@@ -1,6 +1,4 @@
 .user-profile {
-    width: $user-profile-width;
-    height: $user-profile-height;
 
     .user-container {
         border-right: 1px solid gray;
@@ -51,17 +49,17 @@
             height: 136px;
             background-position: -3px -3px;
         }
-        
+
         &.image-2 {
             width: 95px;
             height: 136px;
             background-position: -104px -3px;
         }
-        
+
         &.image-3 {
             width: 95px;
             height: 136px;
             background-position: -205px -3px;
         }
-    }    
+    }
 }

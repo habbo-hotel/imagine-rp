@@ -182,7 +182,6 @@ export class AvatarInfoUtilities
         userInfo.isSpectatorMode = roomSession.isSpectator;
         userInfo.name = userData.name;
         userInfo.motto = userData.custom;
-        userInfo.achievementScore = userData.activityPoints;
         userInfo.webID = userData.webID;
         userInfo.roomIndex = userData.roomIndex;
         userInfo.userType = RoomObjectType.USER;
