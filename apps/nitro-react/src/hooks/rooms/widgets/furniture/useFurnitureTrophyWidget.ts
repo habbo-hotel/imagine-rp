@@ -1,7 +1,7 @@
 import { RoomEngineTriggerWidgetEvent, RoomObjectVariable } from '@nitrots/nitro-renderer';
 import { useState } from 'react';
 import { GetRoomEngine } from '../../../../api';
-import { useNitroEvent } from '../../../events';
+import { useRoomEngineEvent } from '../../../events';
 import { useFurniRemovedEvent } from '../../engine';
 
 const useFurnitureTrophyWidgetState = () =>
@@ -23,7 +23,7 @@ const useFurnitureTrophyWidgetState = () =>
         setMessage('');
     }
 
-    useNitroEvent<RoomEngineTriggerWidgetEvent>(RoomEngineTriggerWidgetEvent.REQUEST_TROPHY, event =>
+    useRoomEngineEvent<RoomEngineTriggerWidgetEvent>(RoomEngineTriggerWidgetEvent.REQUEST_TROPHY, event =>
     {
         const roomObject = GetRoomEngine().getRoomObject(event.roomId, event.objectId, event.category);
 

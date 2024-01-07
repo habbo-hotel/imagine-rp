@@ -1,4 +1,4 @@
-import { GetTickerTime, IFurnitureData, IRoomModerationSettings, IRoomPetData, IRoomUserData, ObjectDataFactory, PetFigureData, PetType, RoomControllerLevel, RoomModerationSettings, RoomObjectCategory, RoomObjectType, RoomObjectVariable, RoomTradingLevelEnum, RoomWidgetEnumItemExtradataParameter } from '@nitrots/nitro-renderer';
+import { GetTickerTime, IFurnitureData, IRoomModerationSettings, IRoomPetData, IRoomUserData, ObjectDataFactory, PetFigureData, PetType, RoomControllerLevel, RoomModerationSettings, RoomObjectCategory, RoomObjectType, RoomObjectVariable, RoomTradingLevelEnum, RoomWidgetEnumItemExtradataParameter, Vector3d } from '@nitrots/nitro-renderer';
 import { GetRoomEngine, GetRoomSession, GetSessionDataManager, IsOwnerOfFurniture } from '../../nitro';
 import { LocalizeText } from '../../utils';
 import { AvatarInfoFurni } from './AvatarInfoFurni';
@@ -72,20 +72,24 @@ export class AvatarInfoUtilities
     public static getFurniInfo(objectId: number, category: number): AvatarInfoFurni
     {
         const roomSession = GetRoomSession();
-        const roomObject = GetRoomEngine().getRoomObject(roomSession.roomId, objectId, category);
-
-        if(!roomObject) return null;
-
         const furniInfo = new AvatarInfoFurni(AvatarInfoFurni.FURNI);
 
         furniInfo.id = objectId;
         furniInfo.category = category;
 
+        const roomObject = GetRoomEngine().getRoomObject(roomSession.roomId, objectId, category);
+
+        if(!roomObject) return;
+
         const model = roomObject.model;
 
-        if(model.getValue<string>(RoomWidgetEnumItemExtradataParameter.INFOSTAND_EXTRA_PARAM)) furniInfo.extraParam = model.getValue<string>(RoomWidgetEnumItemExtradataParameter.INFOSTAND_EXTRA_PARAM);
+        if(model.getValue<string>(RoomWidgetEnumItemExtradataParameter.INFOSTAND_EXTRA_PARAM))
+        {
+            furniInfo.extraParam = model.getValue<string>(RoomWidgetEnumItemExtradataParameter.INFOSTAND_EXTRA_PARAM);
+        }
 
-        const objectData = ObjectDataFactory.getData(model.getValue<number>(RoomObjectVariable.FURNITURE_DATA_FORMAT));
+        const dataFormat = model.getValue<number>(RoomObjectVariable.FURNITURE_DATA_FORMAT);
+        const objectData = ObjectDataFactory.getData(dataFormat);
 
         objectData.initializeFromRoomObjectModel(model);
 
@@ -137,14 +141,14 @@ export class AvatarInfoUtilities
 
         furniInfo.expiration = ((expiryTime < 0) ? expiryTime : Math.max(0, (expiryTime - ((GetTickerTime() - expiryTimestamp) / 1000))));
 
-        /* let roomObjectImage = GetRoomEngine().getRoomObjectImage(roomSession.roomId, objectId, category, new Vector3d(180), 64, null);
+        let roomObjectImage = GetRoomEngine().getRoomObjectImage(roomSession.roomId, objectId, category, new Vector3d(180), 64, null);
 
         if(!roomObjectImage.data || (roomObjectImage.data.width > 140) || (roomObjectImage.data.height > 200))
         {
             roomObjectImage = GetRoomEngine().getRoomObjectImage(roomSession.roomId, objectId, category, new Vector3d(180), 1, null);
         }
 
-        furniInfo.image = roomObjectImage.getImage(); */
+        furniInfo.image = roomObjectImage.getImage();
         furniInfo.isWallItem = (category === RoomObjectCategory.WALL);
         furniInfo.isRoomOwner = roomSession.isRoomOwner;
         furniInfo.roomControllerLevel = roomSession.controllerLevel;
@@ -155,7 +159,11 @@ export class AvatarInfoUtilities
 
         const guildId = model.getValue<number>(RoomObjectVariable.FURNITURE_GUILD_CUSTOMIZED_GUILD_ID);
 
-        if(guildId !== 0) furniInfo.groupId = guildId;
+        if(guildId !== 0)
+        {
+            furniInfo.groupId = guildId;
+            //this.container.connection.send(new GroupInformationComposer(guildId, false));
+        }
 
         if(IsOwnerOfFurniture(roomObject)) furniInfo.isOwner = true;
 
@@ -166,7 +174,11 @@ export class AvatarInfoUtilities
     {
         const roomSession = GetRoomSession();
 
-        const userInfo = new AvatarInfoUser((userData.webID === GetSessionDataManager().userId) ? AvatarInfoUser.OWN_USER : AvatarInfoUser.PEER);
+        let userInfoType = AvatarInfoUser.OWN_USER;
+
+        if(userData.webID !== GetSessionDataManager().userId) userInfoType = AvatarInfoUser.PEER;
+
+        const userInfo = new AvatarInfoUser(userInfoType);
 
         userInfo.isSpectatorMode = roomSession.isSpectator;
         userInfo.name = userData.name;
@@ -180,7 +192,7 @@ export class AvatarInfoUtilities
 
         if(roomObject) userInfo.carryItem = (roomObject.model.getValue<number>(RoomObjectVariable.FIGURE_CARRY_OBJECT) || 0);
 
-        if(userInfo.type === AvatarInfoUser.OWN_USER) userInfo.allowNameChange = GetSessionDataManager().canChangeName;
+        if(userInfoType === AvatarInfoUser.OWN_USER) userInfo.allowNameChange = GetSessionDataManager().canChangeName;
 
         userInfo.amIOwner = roomSession.isRoomOwner;
         userInfo.isGuildRoom = roomSession.isGuildRoom;
@@ -188,11 +200,14 @@ export class AvatarInfoUtilities
         userInfo.amIAnyRoomController = GetSessionDataManager().isModerator;
         userInfo.isAmbassador = GetSessionDataManager().isAmbassador;
 
-        if(userInfo.type === AvatarInfoUser.PEER)
+        if(userInfoType === AvatarInfoUser.PEER)
         {
             if(roomObject)
             {
-                userInfo.targetRoomControllerLevel = roomObject.model.getValue<number>(RoomObjectVariable.FIGURE_FLAT_CONTROL);
+                const flatControl = roomObject.model.getValue<number>(RoomObjectVariable.FIGURE_FLAT_CONTROL);
+
+                if(flatControl !== null) userInfo.targetRoomControllerLevel = flatControl;
+
                 userInfo.canBeMuted = this.canBeMuted(userInfo);
                 userInfo.canBeKicked = this.canBeKicked(userInfo);
                 userInfo.canBeBanned = this.canBeBanned(userInfo);
@@ -219,7 +234,7 @@ export class AvatarInfoUtilities
                         userInfo.canTrade = (roomController || targetController);
                         break;
                     }
-                    case RoomTradingLevelEnum.FREE_TRADING:
+                    case RoomTradingLevelEnum.NO_TRADING:
                         userInfo.canTrade = true;
                         break;
                     default:

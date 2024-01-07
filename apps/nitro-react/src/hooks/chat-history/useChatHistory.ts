@@ -2,7 +2,7 @@ import { GetGuestRoomResultEvent, NewConsoleMessageEvent, RoomInviteEvent, RoomS
 import { useState } from 'react';
 import { useBetween } from 'use-between';
 import { ChatEntryType, ChatHistoryCurrentDate, IChatEntry, IRoomHistoryEntry, MessengerHistoryCurrentDate } from '../../api';
-import { useMessageEvent, useNitroEvent } from '../events';
+import { useMessageEvent, useRoomSessionManagerEvent } from '../events';
 
 const CHAT_HISTORY_MAX = 1000;
 const ROOM_HISTORY_MAX = 10;
@@ -64,7 +64,7 @@ const useChatHistoryState = () =>
         });
     }
 
-    useNitroEvent<RoomSessionEvent>(RoomSessionEvent.STARTED, event => setNeedsRoomInsert(true));
+    useRoomSessionManagerEvent<RoomSessionEvent>(RoomSessionEvent.STARTED, event => setNeedsRoomInsert(true));
 
     useMessageEvent<GetGuestRoomResultEvent>(GetGuestRoomResultEvent, event =>
     {

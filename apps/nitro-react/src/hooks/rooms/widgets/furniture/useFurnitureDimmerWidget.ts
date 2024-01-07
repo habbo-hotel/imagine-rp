@@ -1,7 +1,7 @@
 import { RoomControllerLevel, RoomEngineDimmerStateEvent, RoomEngineTriggerWidgetEvent, RoomId, RoomSessionDimmerPresetsEvent } from '@nitrots/nitro-renderer';
 import { useEffect, useState } from 'react';
 import { DimmerFurnitureWidgetPresetItem, FurnitureDimmerUtilities, GetSessionDataManager } from '../../../../api';
-import { useNitroEvent } from '../../../events';
+import { useRoomEngineEvent, useRoomSessionManagerEvent } from '../../../events';
 import { useRoom } from '../../useRoom';
 
 const useFurnitureDimmerWidgetState = () =>
@@ -56,14 +56,14 @@ const useFurnitureDimmerWidgetState = () =>
         FurnitureDimmerUtilities.savePreset(preset.id, selectedEffectId, selectedColor, selectedBrightness, true);
     }
 
-    useNitroEvent<RoomEngineTriggerWidgetEvent>(RoomEngineTriggerWidgetEvent.REQUEST_DIMMER, event =>
+    useRoomEngineEvent<RoomEngineTriggerWidgetEvent>(RoomEngineTriggerWidgetEvent.REQUEST_DIMMER, event =>
     {
         if(!canOpenWidget()) return;
         
         roomSession.requestMoodlightSettings();
     });
 
-    useNitroEvent<RoomSessionDimmerPresetsEvent>(RoomSessionDimmerPresetsEvent.ROOM_DIMMER_PRESETS, event =>
+    useRoomSessionManagerEvent<RoomSessionDimmerPresetsEvent>(RoomSessionDimmerPresetsEvent.ROOM_DIMMER_PRESETS, event =>
     {
         const presets: DimmerFurnitureWidgetPresetItem[] = [];
 
@@ -82,7 +82,7 @@ const useFurnitureDimmerWidgetState = () =>
         setSelectedPresetId(event.selectedPresetId);
     });
 
-    useNitroEvent<RoomEngineDimmerStateEvent>(RoomEngineDimmerStateEvent.ROOM_COLOR, event =>
+    useRoomEngineEvent<RoomEngineDimmerStateEvent>(RoomEngineDimmerStateEvent.ROOM_COLOR, event =>
     {
         if(RoomId.isRoomPreviewerId(event.roomId)) return;
 

@@ -258,7 +258,7 @@ const useNotificationState = () =>
         simpleAlert( LocalizeText(('opening.hours.' + (parser.userThrowOutAtClose ? 'disconnected' : 'closed')), [ 'h', 'm' ], [ getTimeZeroPadded(parser.openHour), getTimeZeroPadded(parser.openMinute) ]), NotificationAlertType.DEFAULT, null, null, LocalizeText('opening.hours.title'));
     });
 
-    useMessageEvent<PetReceivedMessageEvent>(PetReceivedMessageEvent, async event =>
+    useMessageEvent<PetReceivedMessageEvent>(PetReceivedMessageEvent, event =>
     {
         const parser = event.getParser();
 
@@ -268,7 +268,7 @@ const useNotificationState = () =>
 
         const imageResult = GetRoomEngine().getRoomObjectPetImage(parser.pet.typeId, parser.pet.paletteId, parseInt(parser.pet.color, 16), new Vector3d(45 * 3), 64, null, true);
 
-        if(imageResult) imageUrl = (await imageResult.getImage())?.src;
+        if(imageResult) imageUrl = imageResult.getImage().src;
 
         showSingleBubble(text, NotificationBubbleType.PETLEVEL, imageUrl);
     });
@@ -284,7 +284,7 @@ const useNotificationState = () =>
         setAlerts(prevValue => [ alertItem, ...prevValue ]);
     });
 
-    useMessageEvent<PetLevelNotificationEvent>(PetLevelNotificationEvent, async event =>
+    useMessageEvent<PetLevelNotificationEvent>(PetLevelNotificationEvent, event =>
     {
         const parser = event.getParser();
 
@@ -292,7 +292,7 @@ const useNotificationState = () =>
 
         const imageResult = GetRoomEngine().getRoomObjectPetImage(parser.figureData.typeId, parser.figureData.paletteId, parseInt(parser.figureData.color, 16), new Vector3d(45 * 3), 64, null, true);
 
-        if(imageResult) imageUrl = (await imageResult.getImage())?.src;
+        if(imageResult) imageUrl = imageResult.getImage().src;
 
         showSingleBubble(LocalizeText('notifications.text.petlevel', [ 'pet_name', 'level' ], [ parser.petName, parser.level.toString() ]), NotificationBubbleType.PETLEVEL, imageUrl);
     });

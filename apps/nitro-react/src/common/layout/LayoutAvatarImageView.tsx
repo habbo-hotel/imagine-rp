@@ -68,14 +68,11 @@ export const LayoutAvatarImageView: FC<LayoutAvatarImageViewProps> = props =>
 
         avatarImage.setDirection(setType, direction);
 
-        (async () =>
-        {
-            const image = await avatarImage.getCroppedImage(setType);
+        const image = avatarImage.getCroppedImage(setType);
 
-            if(image) setAvatarUrl(image.src);
+        if(image) setAvatarUrl(image.src);
 
-            avatarImage.dispose();
-        })();
+        avatarImage.dispose();
     }, [ figure, gender, direction, headOnly, randomValue ]);
 
     useEffect(() =>

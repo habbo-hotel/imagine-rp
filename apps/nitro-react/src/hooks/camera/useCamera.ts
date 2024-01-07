@@ -2,7 +2,7 @@ import { InitCameraMessageEvent, IRoomCameraWidgetEffect, RequestCameraConfigura
 import { useEffect, useState } from 'react';
 import { useBetween } from 'use-between';
 import { CameraPicture, GetRoomCameraWidgetManager, SendMessageComposer } from '../../api';
-import { useMessageEvent, useNitroEvent } from '../events';
+import { useCameraEvent, useMessageEvent } from '../events';
 
 const useCameraState = () =>
 {
@@ -12,7 +12,7 @@ const useCameraState = () =>
     const [ myLevel, setMyLevel ] = useState(10);
     const [ price, setPrice ] = useState<{ credits: number, duckets: number, publishDucketPrice: number }>(null);
 
-    useNitroEvent<RoomCameraWidgetManagerEvent>(RoomCameraWidgetManagerEvent.INITIALIZED, event =>
+    useCameraEvent<RoomCameraWidgetManagerEvent>(RoomCameraWidgetManagerEvent.INITIALIZED, event =>
     {
         setAvailableEffects(Array.from(GetRoomCameraWidgetManager().effects.values()));
     });

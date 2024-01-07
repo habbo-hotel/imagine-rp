@@ -189,7 +189,7 @@ export class AvatarEditorGridPartItem implements IAvatarImageListener
         return container;
     }
 
-    private async updateThumbVisualization(): Promise<void>
+    private updateThumbVisualization(): void
     {
         if(!this._isInitalized) return;
 
@@ -212,7 +212,7 @@ export class AvatarEditorGridPartItem implements IAvatarImageListener
 
         if(this._isDisabled) this.setAlpha(container, 0.2);
 
-        this._imageUrl = await TextureUtils.generateImageUrl(container);
+        this._imageUrl = TextureUtils.generateImageUrl(container);
         
         if(this.notify) this.notify();
     }

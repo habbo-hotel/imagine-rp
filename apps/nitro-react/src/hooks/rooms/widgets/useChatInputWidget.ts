@@ -1,7 +1,7 @@
-import { AvatarExpressionEnum, GetTicker, HabboClubLevelEnum, NitroEventDispatcher, RoomControllerLevel, RoomEngineObjectEvent, RoomObjectCategory, RoomRotatingEffect, RoomSessionChatEvent, RoomSettingsComposer, RoomShakingEffect, RoomZoomEvent, TextureUtils } from '@nitrots/nitro-renderer';
+import { AvatarExpressionEnum, GetTicker, HabboClubLevelEnum, RoomControllerLevel, RoomEngineObjectEvent, RoomObjectCategory, RoomRotatingEffect, RoomSessionChatEvent, RoomSettingsComposer, RoomShakingEffect, RoomZoomEvent, TextureUtils } from '@nitrots/nitro-renderer';
 import { useEffect, useState } from 'react';
 import { ChatMessageTypeEnum, CreateLinkEvent, GetClubMemberLevel, GetConfiguration, GetRoomEngine, GetSessionDataManager, LocalizeText, SendMessageComposer } from '../../../api';
-import { useNitroEvent } from '../../events';
+import { useRoomEngineEvent, useRoomSessionManagerEvent } from '../../events';
 import { useNotification } from '../../notification';
 import { useObjectSelectedEvent } from '../engine';
 import { useRoom } from '../useRoom';
@@ -104,25 +104,22 @@ const useChatInputWidgetState = () =>
                     return null;
                 case ':iddqd':
                 case ':flip':
-                    NitroEventDispatcher.dispatchEvent(new RoomZoomEvent(roomSession.roomId, -1, true));
+                    GetRoomEngine().events.dispatchEvent(new RoomZoomEvent(roomSession.roomId, -1, true));
 
                     return null;
                 case ':zoom':
-                    NitroEventDispatcher.dispatchEvent(new RoomZoomEvent(roomSession.roomId, parseFloat(secondPart), false));
+                    GetRoomEngine().events.dispatchEvent(new RoomZoomEvent(roomSession.roomId, parseFloat(secondPart), false));
 
                     return null;
                 case ':screenshot':
                     const texture = GetRoomEngine().createTextureFromRoom(roomSession.roomId, 1);
 
-                    (async () =>
-                    {
-                        const image = new Image();
+                    const image = new Image();
                     
-                        image.src = await TextureUtils.generateImageUrl(texture);
-                        
-                        const newWindow = window.open('');
-                        newWindow.document.write(image.outerHTML);
-                    })();
+                    image.src = TextureUtils.generateImageUrl(texture);
+                    
+                    const newWindow = window.open('');
+                    newWindow.document.write(image.outerHTML);
                     return null;
                 case ':pickall':
                     if(roomSession.isRoomOwner || GetSessionDataManager().isModerator)
@@ -191,7 +188,7 @@ const useChatInputWidgetState = () =>
         }
     }
 
-    useNitroEvent<RoomSessionChatEvent>(RoomSessionChatEvent.FLOOD_EVENT, event =>
+    useRoomSessionManagerEvent<RoomSessionChatEvent>(RoomSessionChatEvent.FLOOD_EVENT, event =>
     {
         setFloodBlocked(true);
         setFloodBlockedSeconds(parseFloat(event.message));
@@ -208,7 +205,7 @@ const useChatInputWidgetState = () =>
         setSelectedUsername(userData.name);
     });
 
-    useNitroEvent<RoomEngineObjectEvent>(RoomEngineObjectEvent.DESELECTED, event => setSelectedUsername(''));
+    useRoomEngineEvent<RoomEngineObjectEvent>(RoomEngineObjectEvent.DESELECTED, event => setSelectedUsername(''));
 
     useEffect(() =>
     {

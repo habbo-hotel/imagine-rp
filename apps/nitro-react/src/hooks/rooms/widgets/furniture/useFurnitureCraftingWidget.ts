@@ -1,7 +1,7 @@
 import { CraftableProductsEvent, CraftComposer, CraftingRecipeEvent, CraftingRecipeIngredientParser, CraftingRecipesAvailableEvent, CraftingResultEvent, GetCraftableProductsComposer, GetCraftingRecipeComposer, RoomEngineTriggerWidgetEvent, RoomWidgetEnum } from '@nitrots/nitro-renderer';
 import { useEffect, useState } from 'react';
 import { GetRoomEngine, ICraftingIngredient, ICraftingRecipe, LocalizeText, SendMessageComposer } from '../../../../api';
-import { useMessageEvent, useNitroEvent } from '../../../events';
+import { useMessageEvent, useRoomEngineEvent } from '../../../events';
 import { useInventoryFurni } from '../../../inventory';
 import { useNotification } from './../../../notification';
 
@@ -49,7 +49,7 @@ const useFurnitureCraftingWidgetState = () =>
         if(!cache) SendMessageComposer(new GetCraftingRecipeComposer(recipe.name));
     }
 
-    useNitroEvent<RoomEngineTriggerWidgetEvent>(RoomEngineTriggerWidgetEvent.OPEN_WIDGET, event => 
+    useRoomEngineEvent<RoomEngineTriggerWidgetEvent>(RoomEngineTriggerWidgetEvent.OPEN_WIDGET, event => 
     {
         if (event.widget !== RoomWidgetEnum.CRAFTING) return;
 

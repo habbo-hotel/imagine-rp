@@ -16,7 +16,14 @@ const useFriendsState = () =>
     {
         const onlineFriends = friends.filter(friend => friend.online);
 
-        onlineFriends.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+        onlineFriends.sort((a, b) =>
+        {
+            if( a.name < b.name ) return -1;
+
+            if( a.name > b.name ) return 1;
+
+            return 0;
+        });
 
         return onlineFriends;
     }, [ friends ]);
@@ -25,7 +32,14 @@ const useFriendsState = () =>
     {
         const offlineFriends = friends.filter(friend => !friend.online);
 
-        offlineFriends.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+        offlineFriends.sort((a, b) =>
+        {
+            if( a.name < b.name ) return -1;
+
+            if( a.name > b.name ) return 1;
+
+            return 0;
+        });
 
         return offlineFriends;
     }, [ friends ]);

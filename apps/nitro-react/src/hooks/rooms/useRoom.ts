@@ -1,8 +1,8 @@
-import { AdjustmentFilter, ColorConverter, IRoomSession, NitroSprite, NitroTexture, RoomBackgroundColorEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomGeometry, RoomId, RoomObjectCategory, RoomObjectHSLColorEnabledEvent, RoomObjectOperationType, RoomSessionEvent, RoomVariableEnum, Vector3d } from '@nitrots/nitro-renderer';
+import { AdjustmentFilter, ColorConverter, IRoomSession, NitroContainer, NitroSprite, NitroTexture, RoomBackgroundColorEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomGeometry, RoomId, RoomObjectCategory, RoomObjectHSLColorEnabledEvent, RoomObjectOperationType, RoomSessionEvent, RoomVariableEnum, Vector3d } from '@nitrots/nitro-renderer';
 import { useEffect, useState } from 'react';
 import { useBetween } from 'use-between';
 import { CanManipulateFurniture, DispatchUiEvent, GetNitroInstance, GetRoomEngine, GetRoomSession, InitializeRoomInstanceRenderingCanvas, IsFurnitureSelectionDisabled, ProcessRoomObjectOperation, RoomWidgetUpdateBackgroundColorPreviewEvent, RoomWidgetUpdateRoomObjectEvent, SetActiveRoomId, StartRoomSession } from '../../api';
-import { useNitroEvent, useUiEvent } from '../events';
+import { useRoomEngineEvent, useRoomSessionManagerEvent, useUiEvent } from '../events';
 
 const useRoomState = () =>
 {
@@ -51,7 +51,7 @@ const useRoomState = () =>
         roomBackground.tint = originalRoomBackgroundColor;
     });
 
-    useNitroEvent<RoomObjectHSLColorEnabledEvent>(RoomObjectHSLColorEnabledEvent.ROOM_BACKGROUND_COLOR, event =>
+    useRoomEngineEvent<RoomObjectHSLColorEnabledEvent>(RoomObjectHSLColorEnabledEvent.ROOM_BACKGROUND_COLOR, event =>
     {
         if(RoomId.isRoomPreviewerId(event.roomId)) return;
 
@@ -59,7 +59,7 @@ const useRoomState = () =>
         else updateRoomBackgroundColor(0, 0, 0, true);
     });
 
-    useNitroEvent<RoomBackgroundColorEvent>(RoomBackgroundColorEvent.ROOM_COLOR, event =>
+    useRoomEngineEvent<RoomBackgroundColorEvent>(RoomBackgroundColorEvent.ROOM_COLOR, event =>
     {
         if(RoomId.isRoomPreviewerId(event.roomId)) return;
 
@@ -75,7 +75,7 @@ const useRoomState = () =>
         updateRoomFilter(ColorConverter.hslToRGB(((ColorConverter.rgbToHSL(color) & 0xFFFF00) + brightness)));
     });
 
-    useNitroEvent<RoomEngineEvent>([
+    useRoomEngineEvent<RoomEngineEvent>([
         RoomEngineEvent.INITIALIZED,
         RoomEngineEvent.DISPOSED
     ], event =>
@@ -98,7 +98,7 @@ const useRoomState = () =>
         }
     });
 
-    useNitroEvent<RoomSessionEvent>([
+    useRoomSessionManagerEvent<RoomSessionEvent>([
         RoomSessionEvent.CREATED,
         RoomSessionEvent.ENDED
     ], event =>
@@ -114,7 +114,7 @@ const useRoomState = () =>
         }
     });
 
-    useNitroEvent<RoomEngineObjectEvent>([
+    useRoomEngineEvent<RoomEngineObjectEvent>([
         RoomEngineObjectEvent.SELECTED,
         RoomEngineObjectEvent.DESELECTED,
         RoomEngineObjectEvent.ADDED,
@@ -205,7 +205,13 @@ const useRoomState = () =>
         const height = Math.floor(window.innerHeight);
         const renderer = nitroInstance.application.renderer;
 
-        if(renderer) renderer.resize(width, height);
+        if(renderer)
+        {
+            renderer.view.style.width = `${ width }px`;
+            renderer.view.style.height = `${ height }px`;
+            renderer.resolution = window.devicePixelRatio;
+            renderer.resize(width, height);
+        }
 
         const displayObject = roomEngine.getRoomInstanceDisplay(roomId, canvasId, width, height, RoomGeometry.SCALE_ZOOMED_IN);
         const canvas = GetRoomEngine().getRoomInstanceRenderingCanvas(roomId, canvasId);
@@ -214,7 +220,7 @@ const useRoomState = () =>
 
         const background = new NitroSprite(NitroTexture.WHITE);
         const filter = new AdjustmentFilter();
-        const master = canvas.master;
+        const master = (canvas.master as NitroContainer);
 
         background.tint = 0;
         background.width = width;
@@ -261,6 +267,9 @@ const useRoomState = () =>
             const width = Math.floor(window.innerWidth);
             const height = Math.floor(window.innerHeight);
 
+            renderer.view.style.width = `${ width }px`;
+            renderer.view.style.height = `${ height }px`;
+            renderer.resolution = window.devicePixelRatio;
             renderer.resize(width, height);
 
             background.width = width;

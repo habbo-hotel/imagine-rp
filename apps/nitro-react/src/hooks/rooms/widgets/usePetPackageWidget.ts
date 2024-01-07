@@ -1,7 +1,7 @@
 import { OpenPetPackageMessageComposer, RoomObjectCategory, RoomSessionPetPackageEvent } from '@nitrots/nitro-renderer';
 import { useState } from 'react';
 import { GetRoomEngine, LocalizeText, SendMessageComposer } from '../../../api';
-import { useNitroEvent } from '../../events';
+import { useRoomSessionManagerEvent } from '../../events';
 
 const usePetPackageWidgetState = () =>
 {
@@ -49,7 +49,7 @@ const usePetPackageWidgetState = () =>
         }
     }
 
-    useNitroEvent<RoomSessionPetPackageEvent>(RoomSessionPetPackageEvent.RSOPPE_OPEN_PET_PACKAGE_REQUESTED, event =>
+    useRoomSessionManagerEvent<RoomSessionPetPackageEvent>(RoomSessionPetPackageEvent.RSOPPE_OPEN_PET_PACKAGE_REQUESTED, event =>
     {
         if (!event) return;
 
@@ -60,7 +60,7 @@ const usePetPackageWidgetState = () =>
         setIsVisible(true);
     });
 
-    useNitroEvent<RoomSessionPetPackageEvent>(RoomSessionPetPackageEvent.RSOPPE_OPEN_PET_PACKAGE_RESULT, event =>
+    useRoomSessionManagerEvent<RoomSessionPetPackageEvent>(RoomSessionPetPackageEvent.RSOPPE_OPEN_PET_PACKAGE_RESULT, event =>
     {
         if (!event) return;
 

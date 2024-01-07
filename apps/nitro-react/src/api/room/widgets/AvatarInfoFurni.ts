@@ -9,6 +9,7 @@ export class AvatarInfoFurni implements IAvatarInfo
     public category: number = 0;
     public name: string = '';
     public description: string = '';
+    public image: HTMLImageElement = null;
     public isWallItem: boolean = false;
     public isStickie: boolean = false;
     public isRoomOwner: boolean = false;

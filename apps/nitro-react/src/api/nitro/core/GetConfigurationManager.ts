@@ -1,7 +1,7 @@
 import { IConfigurationManager } from '@nitrots/nitro-renderer';
-import { GetNitroInstance } from './GetNitroInstance';
+import { GetNitroCore } from './GetNitroCore';
 
 export function GetConfigurationManager(): IConfigurationManager
 {
-    return GetNitroInstance().configuration;
+    return GetNitroCore().configuration;
 }

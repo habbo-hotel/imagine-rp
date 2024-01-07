@@ -1,11 +1,10 @@
-import { NitroPoint } from '@nitrots/nitro-renderer';
+import { GetAssetManager, IGraphicAssetCollection, NitroPoint, NitroTilemap, PixiApplicationProxy, PixiInteractionEventProxy, POINT_STRUCT_SIZE } from '@nitrots/nitro-renderer';
 import { ActionSettings } from './ActionSettings';
 import { FloorAction, HEIGHT_SCHEME, MAX_NUM_TILE_PER_AXIS, TILE_SIZE } from './Constants';
-import { imageBase64, spritesheet } from './FloorplanResource';
 import { Tile } from './Tile';
-import { getScreenPositionForTile } from './Utils';
+import { getScreenPositionForTile, getTileFromScreenPosition } from './Utils';
 
-export class FloorplanEditor
+export class FloorplanEditor extends PixiApplicationProxy
 {
     private static _INSTANCE: FloorplanEditor = null;
 
@@ -15,107 +14,160 @@ export class FloorplanEditor
     private _tilemap: Tile[][];
     private _width: number;
     private _height: number;
-    private _isPointerDown: boolean;
+    private _isHolding: boolean;
     private _doorLocation: NitroPoint;
     private _lastUsedTile: NitroPoint;
-    private _renderer: CanvasRenderingContext2D;
+    private _tilemapRenderer: NitroTilemap;
     private _actionSettings: ActionSettings;
+    private _isInitialized: boolean;
 
-    private _image: HTMLImageElement;
+    private _assetCollection: IGraphicAssetCollection;
 
     constructor()
     {
         const width = TILE_SIZE * MAX_NUM_TILE_PER_AXIS + 20;
         const height = (TILE_SIZE * MAX_NUM_TILE_PER_AXIS) / 2 + 100;
 
-        const canvas = document.createElement('canvas');
-
-        canvas.height = height;
-        canvas.width = width;
-
-        canvas.style.touchAction = 'none';
-
-        this._renderer = canvas.getContext('2d');
-
-        this._image = new Image();
-
-        this._image.src = imageBase64;
+        super({
+            width: width,
+            height: height,
+            backgroundColor: 0x000000,
+            antialias: true,
+            autoDensity: true,
+            resolution: 1,
+            sharedLoader: true,
+            sharedTicker: true
+        });
 
         this._tilemap = [];
         this._doorLocation = new NitroPoint(0, 0);
         this._width = 0;
         this._height = 0;
-        this._isPointerDown = false;
+        this._isHolding = false;
         this._lastUsedTile = new NitroPoint(-1, -1);
         this._actionSettings = new ActionSettings();
     }
 
-    public onPointerRelease(): void 
+    public initialize(): void
     {
-        this._isPointerDown = false;
-    }
+        if(this._isInitialized) return;
 
-    public onPointerDown(event: PointerEvent): void
-    {
-        if(event.button === 2) return;
+        const collection = GetAssetManager().getCollection('floor_editor');
 
-        const location = new NitroPoint(event.offsetX, event.offsetY);
+        if(!collection) return;
 
-        this._isPointerDown = true;
+        this._assetCollection = collection;
+        this._tilemapRenderer = new NitroTilemap(collection.baseTexture);
+
+        this.registerEventListeners();
+
+        this.stage.addChild(this._tilemapRenderer);
         
-        this.tileHitDetection(location, true);
+        this._isInitialized = true;
     }
 
-    public onPointerMove(event: PointerEvent): void
+    private registerEventListeners(): void
     {
-        if(!this._isPointerDown) return;
-        
-        const location = new NitroPoint(event.offsetX, event.offsetY);
-        this.tileHitDetection(location, false);
-    }
+        //this._tilemapRenderer.interactive = true;
 
-    private tileHitDetection(tempPoint: NitroPoint, isClick: boolean = false): boolean
-    {
-        const mousePositionX = Math.floor(tempPoint.x);
-        const mousePositionY = Math.floor(tempPoint.y);
-
-        const width = TILE_SIZE;
-        const height = TILE_SIZE / 2;
-
-        for(let y = 0; y < this._tilemap.length; y++)
+        const tempPoint = new NitroPoint();
+        // @ts-ignore
+        this._tilemapRenderer.containsPoint = (position) =>
         {
-            for(let x = 0; x < this.tilemap[y].length; x++)
+            this._tilemapRenderer.worldTransform.applyInverse(position, tempPoint);
+            return this.tileHitDetection(tempPoint, false);
+        };
+
+        this._tilemapRenderer.on('pointerup', () =>
+        {
+            this._isHolding = false;
+        });
+
+        this._tilemapRenderer.on('pointerout', () =>
+        {
+            this._isHolding = false;
+        });
+
+        this._tilemapRenderer.on('pointerdown', (event: PixiInteractionEventProxy) =>
+        {
+            if(!(event.data.originalEvent instanceof PointerEvent) && !(event.data.originalEvent instanceof TouchEvent)) return;
+
+            const pointerEvent = event.data.originalEvent;
+            if((pointerEvent instanceof MouseEvent) && pointerEvent.button === 2) return;
+
+
+            const location = event.data.global;
+            this.tileHitDetection(location, true);
+        });
+
+        this._tilemapRenderer.on('click', (event: PixiInteractionEventProxy) =>
+        {
+            if(!(event.data.originalEvent instanceof PointerEvent)) return;
+
+            const pointerEvent = event.data.originalEvent;
+            if(pointerEvent.button === 2) return;
+
+            const location = event.data.global;
+            this.tileHitDetection(location, true, true);
+        });
+    }
+
+    private tileHitDetection(tempPoint: NitroPoint, setHolding: boolean, isClick: boolean = false): boolean
+    {
+        // @ts-ignore
+        const buffer = this._tilemapRenderer.pointsBuf;
+        const bufSize = POINT_STRUCT_SIZE;
+
+        const len = buffer.length;
+
+        if(setHolding)
+        {
+            this._isHolding = true;
+        }
+
+        for(let j = 0; j < len; j += bufSize)
+        {
+            const bufIndex = j + bufSize;
+            const data = buffer.slice(j, bufIndex);
+
+            const width = TILE_SIZE;
+            const height = TILE_SIZE / 2;
+
+            const mousePositionX = Math.floor(tempPoint.x);
+            const mousePositionY = Math.floor(tempPoint.y);
+
+            const tileStartX = data[2];
+            const tileStartY = data[3];
+
+            const centreX = tileStartX + (width / 2);
+            const centreY = tileStartY + (height / 2);
+
+            const dx = Math.abs(mousePositionX - centreX);
+            const dy = Math.abs(mousePositionY - centreY);
+
+            const solution = (dx / (width * 0.5) + dy / (height * 0.5) <= 1);//todo: improve this
+            if(solution)
             {
-                const [ tileStartX, tileStartY ] = getScreenPositionForTile(x, y);
-
-                const centreX = tileStartX + (width / 2);
-                const centreY = tileStartY + (height / 2);
-
-                const dx = Math.abs(mousePositionX - centreX);
-                const dy = Math.abs(mousePositionY - centreY);
-
-                const solution = (dx / (width * 0.5) + dy / (height * 0.5) <= 1);//todo: improve this
-                
-                if(solution)
+                if(this._isHolding)
                 {
-                    if(this._isPointerDown)
+                    const [ realX, realY ] = getTileFromScreenPosition(tileStartX, tileStartY);
+
+                    if(isClick)
                     {
-                        if(isClick)
-                        {
-                            this.onClick(x, y);
-                        }
-                    
-                        else if(this._lastUsedTile.x !== x || this._lastUsedTile.y !== y)
-                        {
-                            this._lastUsedTile.x = x;
-                            this._lastUsedTile.y = y;
-                            this.onClick(x, y);
-                        }
-                    
+                        this.onClick(realX, realY);
                     }
-                    return true;
+                    
+                    else if(this._lastUsedTile.x !== realX || this._lastUsedTile.y !== realY)
+                    {
+                        this._lastUsedTile.x = realX;
+                        this._lastUsedTile.y = realY;
+                        this.onClick(realX, realY);
+                    }
+                    
                 }
+                return true;
             }
+
         }
         return false;
     }
@@ -178,7 +230,7 @@ export class FloorplanEditor
 
     public renderTiles(): void
     {
-        this.clearCanvas();
+        this.tilemapRenderer.clear();
 
         for(let y = 0; y < this._tilemap.length; y++)
         {
@@ -194,10 +246,8 @@ export class FloorplanEditor
 
                 //if((tile.height === 'x') || tile.height === 'X') continue;
                 const [ positionX, positionY ] = getScreenPositionForTile(x, y);
-
-                const asset = spritesheet.frames[assetName];
-
-                this.renderer.drawImage(this._image, asset.frame.x, asset.frame.y, asset.frame.w, asset.frame.h, positionX, positionY, asset.frame.w, asset.frame.h);
+                
+                this._tilemapRenderer.tile(this._assetCollection.getTexture(`floor_editor_${ assetName }`), positionX, positionY);
             }
         }
     }
@@ -322,25 +372,20 @@ export class FloorplanEditor
 
     public clear(): void
     {
+        this._tilemapRenderer.interactive = false;
         this._tilemap = [];
         this._doorLocation.set(-1, -1);
         this._width = 0;
         this._height = 0;
-        this._isPointerDown = false;
+        this._isHolding = false;
         this._lastUsedTile.set(-1, -1);
         this._actionSettings.clear();
-        this.clearCanvas();
+        this._tilemapRenderer.clear();
     }
 
-    public clearCanvas(): void
+    public get tilemapRenderer(): NitroTilemap
     {
-        this.renderer.fillStyle = '0x000000';
-        this.renderer.fillRect(0, 0, this._renderer.canvas.width, this._renderer.canvas.height);
-    }
-
-    public get renderer(): CanvasRenderingContext2D
-    {
-        return this._renderer;
+        return this._tilemapRenderer;
     }
 
     public get tilemap(): Tile[][]
