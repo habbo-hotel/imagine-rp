@@ -1,41 +1,27 @@
 import { ExtendedProfileChangedMessageEvent, RelationshipStatusInfoEvent, RelationshipStatusInfoMessageParser, RoomEngineObjectEvent, RoomObjectCategory, RoomObjectType, UserCurrentBadgesComposer, UserCurrentBadgesEvent, UserProfileEvent, UserProfileParser, UserRelationshipsComposer } from '@nitrots/nitro-renderer';
 import { FC, useState } from 'react';
-import { CreateLinkEvent, GetRoomSession, GetSessionDataManager, GetUserProfile, LocalizeText, SendMessageComposer } from '../../api';
-import { Column, Flex, Grid, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../common';
+import { GetRoomSession, GetUserProfile, LocalizeText, SendMessageComposer } from '../../api';
+import { Column, Grid, NitroCardContentView, NitroCardHeaderView, NitroCardView } from '../../common';
 import { useMessageEvent, useRoomEngineEvent } from '../../hooks';
-import { BadgesContainerView } from './views/BadgesContainerView';
 import { FriendsContainerView } from './views/FriendsContainerView';
 import { UserContainerView } from './views/UserContainerView';
-import { CorpContainerView } from './views/CorpContainerView';
-import { GangContainerView } from './views/GangContainerView';
+import { RoleplayStatsView } from './views/RoleplayStatsView';
 
-export const UserProfileView: FC<{}> = props => 
+export function UserProfileView() 
 {
     const [ userProfile, setUserProfile ] = useState<UserProfileParser>(null);
-    const [ userBadges, setUserBadges ] = useState<string[]>([]);
     const [ userRelationships, setUserRelationships ] = useState<RelationshipStatusInfoMessageParser>(null);
 
     const onClose = () => 
     {
         setUserProfile(null);
-        setUserBadges([]);
         setUserRelationships(null);
     }
-
-    const onLeaveGroup = () => 
-    {
-        if (!userProfile || (userProfile.id !== GetSessionDataManager().userId)) return;
-
-        GetUserProfile(userProfile.id);
-    }
-
     useMessageEvent<UserCurrentBadgesEvent>(UserCurrentBadgesEvent, event => 
     {
         const parser = event.getParser();
 
         if (!userProfile || (parser.userId !== userProfile.id)) return;
-
-        setUserBadges(parser.badges);
     });
 
     useMessageEvent<RelationshipStatusInfoEvent>(RelationshipStatusInfoEvent, event => 
@@ -62,7 +48,6 @@ export const UserProfileView: FC<{}> = props =>
 
         if (!isSameProfile) 
         {
-            setUserBadges([]);
             setUserRelationships(null);
         }
 
@@ -104,8 +89,7 @@ export const UserProfileView: FC<{}> = props =>
                     </Column>
                     <Column size={ 5 }>
 
-                        <CorpContainerView />
-                        <GangContainerView />
+                        <RoleplayStatsView userID={ userProfile.id } />
                         { userRelationships &&
                             <FriendsContainerView relationships={ userRelationships } friendsCount={ userProfile.friendsCount } /> }
                     </Column>

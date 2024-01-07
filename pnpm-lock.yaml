@@ -376,6 +376,9 @@ importers:
       '@imagine-cms/client':
         specifier: '*'
         version: link:../../libs/client
+      '@imagine-cms/shared-ui':
+        specifier: '*'
+        version: link:../../libs/shared-ui
       '@imagine-cms/web':
         specifier: '*'
         version: link:../../libs/web

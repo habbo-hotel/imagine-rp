@@ -1,12 +1,10 @@
-import { RelationshipStatusInfoEvent, RelationshipStatusInfoMessageParser, RoomSessionFavoriteGroupUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserFigureUpdateEvent, UserRelationshipsComposer } from '@nitrots/nitro-renderer';
-import { Dispatch, FC, FocusEvent, KeyboardEvent, SetStateAction, useEffect, useState } from 'react';
-import { FaPencilAlt, FaTimes } from 'react-icons/fa';
-import { AvatarInfoUser, CloneObject, GetConfiguration, GetSessionDataManager, GetUserProfile, LocalizeText, SendMessageComposer } from '../../../../../api';
+import { RoomSessionFavoriteGroupUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserFigureUpdateEvent } from '@nitrots/nitro-renderer';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { FaTimes } from 'react-icons/fa';
+import { AvatarInfoUser, CloneObject, GetSessionDataManager, GetUserProfile } from '../../../../../api';
 import { Column, Flex, LayoutAvatarImageView, LayoutBadgeImageView, Text, UserProfileIconView } from '../../../../../common';
-import { useMessageEvent, useRoom, useRoomSessionManagerEvent } from '../../../../../hooks';
-import { InfoStandWidgetUserRelationshipsView } from './InfoStandWidgetUserRelationshipsView';
-import { InfoStandWidgetUserTagsView } from './InfoStandWidgetUserTagsView';
-import { RelationshipsContainerView } from '../../../../user-profile/views/RelationshipsContainerView';
+import { useRoomSessionManagerEvent } from '../../../../../hooks';
+import { useCorporationFetchOne, useGangFetchOne, useRPStatsFetchOne } from '@imagine-cms/client';
 
 interface InfoStandWidgetUserViewProps {
     avatarInfo: AvatarInfoUser;
@@ -14,36 +12,29 @@ interface InfoStandWidgetUserViewProps {
     onClose: () => void;
 }
 
-export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props => 
+export function InfoStandWidgetUserView({ avatarInfo = null, setAvatarInfo = null, onClose = null }: InfoStandWidgetUserViewProps) 
 {
-    const { avatarInfo = null, setAvatarInfo = null, onClose = null } = props;
-    const [ motto, setMotto ] = useState<string>(null);
-    const [ isEditingMotto, setIsEditingMotto ] = useState(false);
-    const [ relationships, setRelationships ] = useState<RelationshipStatusInfoMessageParser>(null);
-    const { roomSession = null } = useRoom();
+    const fetchRPStats = useRPStatsFetchOne();
+    const fetchCorp = useCorporationFetchOne();
+    const fetchGang = useGangFetchOne();
 
-    const saveMotto = (motto: string) => 
+    async function refresh() 
     {
-        if (!isEditingMotto || (motto.length > GetConfiguration<number>('motto.max.length', 38))) return;
-
-        roomSession.sendMottoMessage(motto);
-
-        setIsEditingMotto(false);
-    }
-
-    const onMottoBlur = (event: FocusEvent<HTMLInputElement>) => saveMotto(event.target.value);
-
-    const onMottoKeyDown = (event: KeyboardEvent<HTMLInputElement>) => 
-    {
-        event.stopPropagation();
-
-        switch (event.key) 
+        const rpStats = await fetchRPStats.fetch({ userID: avatarInfo?.webID });
+        if (rpStats.corporationID) 
         {
-            case 'Enter':
-                saveMotto((event.target as HTMLInputElement).value);
-                return;
+            fetchCorp.fetch({ id: rpStats.corporationID });
+        }
+        if (rpStats.gangID) 
+        {
+            fetchGang.fetch({ id: rpStats.gangID });
         }
     }
+
+    useEffect(() => 
+    {
+        refresh();
+    }, [ avatarInfo?.webID ]);
 
     useRoomSessionManagerEvent<RoomSessionUserBadgesEvent>(RoomSessionUserBadgesEvent.RSUBE_BADGES, event => 
     {
@@ -96,30 +87,6 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
         });
     });
 
-    useMessageEvent<RelationshipStatusInfoEvent>(RelationshipStatusInfoEvent, event => 
-    {
-        const parser = event.getParser();
-
-        if (!avatarInfo || (avatarInfo.webID !== parser.userId)) return;
-
-        setRelationships(parser);
-    });
-
-    useEffect(() => 
-    {
-        setIsEditingMotto(false);
-        setMotto(avatarInfo.motto);
-
-        SendMessageComposer(new UserRelationshipsComposer(avatarInfo.webID));
-
-        return () => 
-        {
-            setIsEditingMotto(false);
-            setMotto(null);
-            setRelationships(null);
-        }
-    }, [ avatarInfo ]);
-
     if (!avatarInfo) return null;
 
     return (
@@ -141,23 +108,19 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                             <LayoutAvatarImageView figure={ avatarInfo.figure } direction={ 4 } />
                         </Column>
                         <Column grow alignItems="center" gap={ 0 }>
-
-                            <Flex gap={ 1 }>
-                                <Flex center className="badge-image">
-                                    <h6>Job</h6>
-                                </Flex>
-                                <Flex center className="badge-image">
-                                    { avatarInfo.badges[0] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[0] } showInfo={ true } /> }
-                                </Flex>
-                            </Flex>
-                            <Flex gap={ 1 }>
-                                <Flex center className="badge-image">
-                                    <h6>Gang</h6>
-                                </Flex>
-                                <Flex center className="badge-image">
-                                    { avatarInfo.badges[0] && <LayoutBadgeImageView badgeCode={ avatarInfo.badges[0] } showInfo={ true } /> }
-                                </Flex>
-                            </Flex>
+                            <div>
+                                <div>
+                                    <h6 style={ { fontWeight: 600, margin: 0 } }>Job</h6>
+                                    { fetchCorp.data && <LayoutBadgeImageView badgeCode={ fetchCorp.data.badgeCode } showInfo={ true } /> }
+                                    { !fetchCorp.data && <p>Unemployed</p> }
+                                </div>
+                                <br />
+                                <div>
+                                    <h6 style={ { fontWeight: 600, margin: 0 } }>Gang</h6>
+                                    { fetchGang.data && <LayoutBadgeImageView badgeCode="FAN" showInfo={ true } /> }
+                                    { !fetchGang.data && <p>No gang affiliation</p> }
+                                </div>
+                            </div>
                         </Column>
                     </Flex>
                     <hr className="m-0" />
