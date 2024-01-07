@@ -34,7 +34,7 @@ export const NavigatorView: FC<{}> = props =>
             return;
         }
         fetchUser.fetch({ id: userInfo.userId });
-    }, [ userInfo.userId ]);
+    }, [ userInfo?.userId ]);
 
     useRoomSessionManagerEvent<RoomSessionEvent>(RoomSessionEvent.CREATED, event => 
     {

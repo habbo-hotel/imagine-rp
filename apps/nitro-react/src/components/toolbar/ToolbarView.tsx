@@ -22,7 +22,7 @@ export function ToolbarView(props: { isInRoom: boolean })
             return;
         }
         fetchUser.fetch({ id: userInfo.userId });
-    }, [ userInfo.userId ]);
+    }, [ userInfo?.userId ]);
 
     useRoomEngineEvent<NitroToolbarAnimateIconEvent>(NitroToolbarAnimateIconEvent.ANIMATE_ICON, event => 
     {

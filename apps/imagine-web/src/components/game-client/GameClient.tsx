@@ -29,7 +29,6 @@ export function GameClient() {
       <GameUI ssoTicket={ssoToken} />
       {
         showPreview && !showClient && (
-
           <Link to="/play">
             <div className="content">
               <div className="preview-overlay">

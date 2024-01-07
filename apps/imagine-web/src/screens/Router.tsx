@@ -106,7 +106,7 @@ const SITE_ROUTES: Array<{ path: string, view: any, guard?: any, }> = [
   },
   {
     path: '/play',
-    guard: undefined,
+    guard: UserGuard,
     view: PlayGameScreen,
   },
   {
