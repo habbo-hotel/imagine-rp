@@ -26,7 +26,7 @@ export function GameClient() {
 
   return (
     <GameClientElement $visible={showClient} $preview={showPreview}>
-      <GameUI ssoTicket={ssoToken} />
+      {showClient && <GameUI ssoTicket={ssoToken} />}
       {
         showPreview && !showClient && (
           <Link to="/play">
