@@ -1,14 +1,15 @@
 import { ConfigurationEvent, GetAssetManager, HabboWebTools, LegacyExternalInterface, Nitro, NitroCommunicationDemoEvent, NitroConfiguration, NitroEvent, NitroLocalizationEvent, NitroVersion, RoomEngineEvent } from '@nitrots/nitro-renderer';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { GetCommunication, GetConfiguration, GetNitroInstance, GetUIVersion } from './api';
 import { Base, TransitionAnimation, TransitionAnimationTypes } from './common';
 import { LoadingView } from './components/loading/LoadingView';
 import { MainView } from './components/main/MainView';
 import { useConfigurationEvent, useLocalizationEvent, useMainEvent, useRoomEngineEvent } from './hooks';
+import { ImagineContextProviders, LoadingScreen, ThemeProvider } from '@imagine-cms/web';
 
 NitroVersion.UI_VERSION = GetUIVersion();
 
-export const App: FC<{}> = props =>
+export function App() 
 {
     const [ isReady, setIsReady ] = useState(false);
     const [ isError, setIsError ] = useState(false);
@@ -16,17 +17,17 @@ export const App: FC<{}> = props =>
     const [ percent, setPercent ] = useState(0);
     const [ imageRendering, setImageRendering ] = useState<boolean>(true);
 
-    if(!GetNitroInstance())
+    if (!GetNitroInstance()) 
     {
         //@ts-ignore
-        if(!NitroConfig) throw new Error('NitroConfig is not defined!');
+        if (!NitroConfig) throw new Error('NitroConfig is not defined!');
 
         Nitro.bootstrap();
     }
 
-    const handler = useCallback(async (event: NitroEvent) =>
+    const handler = useCallback(async (event: NitroEvent) => 
     {
-        switch(event.type)
+        switch (event.type) 
         {
             case ConfigurationEvent.LOADED:
                 GetNitroInstance().localization.init();
@@ -58,15 +59,13 @@ export const App: FC<{}> = props =>
 
                 GetNitroInstance().init();
 
-                if(LegacyExternalInterface.available) LegacyExternalInterface.call('legacyTrack', 'authentication', 'authok', []);
+                if (LegacyExternalInterface.available) LegacyExternalInterface.call('legacyTrack', 'authentication', 'authok', []);
                 return;
             case NitroCommunicationDemoEvent.CONNECTION_ERROR:
                 setIsError(true);
                 setMessage('Connection Error');
                 return;
             case NitroCommunicationDemoEvent.CONNECTION_CLOSED:
-                //if(GetNitroInstance().roomEngine) GetNitroInstance().roomEngine.dispose();
-                //setIsError(true);
                 setMessage('Connection Error');
 
                 HabboWebTools.send(-1, 'client.init.handshake.fail');
@@ -80,17 +79,17 @@ export const App: FC<{}> = props =>
                 const assetUrls = GetConfiguration<string[]>('preload.assets.urls');
                 const urls: string[] = [];
 
-                if(assetUrls && assetUrls.length) for(const url of assetUrls) urls.push(NitroConfiguration.interpolate(url));
+                if (assetUrls && assetUrls.length) for (const url of assetUrls) urls.push(NitroConfiguration.interpolate(url));
 
                 const status = await GetAssetManager().downloadAssets(urls);
-                
-                if(status)
+
+                if (status) 
                 {
                     GetCommunication().init();
 
                     setPercent(prevValue => (prevValue + 20))
                 }
-                else
+                else 
                 {
                     setIsError(true);
                     setMessage('Assets Failed');
@@ -112,30 +111,34 @@ export const App: FC<{}> = props =>
     useConfigurationEvent(ConfigurationEvent.LOADED, handler);
     useConfigurationEvent(ConfigurationEvent.FAILED, handler);
 
-    useEffect(() =>
+    useEffect(() => 
     {
         GetNitroInstance().core.configuration.init();
-    
+
         const resize = (event: UIEvent) => setImageRendering(!(window.devicePixelRatio % 1));
 
         window.addEventListener('resize', resize);
 
         resize(null);
 
-        return () =>
+        return () => 
         {
             window.removeEventListener('resize', resize);
         }
     }, []);
-    
+
     return (
-        <Base fit overflow="hidden" className={ imageRendering && 'image-rendering-pixelated' }>
-            { (!isReady || isError) &&
-                <LoadingView isError={ isError } message={ message } percent={ percent } /> }
-            <TransitionAnimation type={ TransitionAnimationTypes.FADE_IN } inProp={ (isReady) }>
-                <MainView />
-            </TransitionAnimation>
-            <Base id="draggable-windows-container" />
-        </Base>
+        <ImagineContextProviders loadingScreen={ <LoadingScreen /> }>
+            <ThemeProvider>
+                <Base fit overflow="hidden" className={ imageRendering && 'image-rendering-pixelated' }>
+                    { (!isReady || isError) &&
+                        <LoadingView isError={ isError } message={ message } percent={ percent } /> }
+                    <TransitionAnimation type={ TransitionAnimationTypes.FADE_IN } inProp={ (isReady) }>
+                        <MainView />
+                    </TransitionAnimation>
+                    <Base id="draggable-windows-container" />
+                </Base>
+            </ThemeProvider></ImagineContextProviders>
+
     );
 }

@@ -373,6 +373,15 @@ importers:
 
   apps/nitro-react:
     dependencies:
+      '@imagine-cms/client':
+        specifier: '*'
+        version: link:../../libs/client
+      '@imagine-cms/web':
+        specifier: '*'
+        version: link:../../libs/web
+      '@imagine-cms/websocket':
+        specifier: '*'
+        version: link:../../libs/websocket
       '@nitrots/nitro-renderer':
         specifier: 1.6.6
         version: 1.6.6(@pixi/compressed-textures@6.5.10)

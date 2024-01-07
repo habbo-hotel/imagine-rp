@@ -1,1 +1,1 @@
-export const GetUIVersion = () => '2.2.0';
+export const GetUIVersion = () => 'nitro-2.2.0-imagine-rp';
