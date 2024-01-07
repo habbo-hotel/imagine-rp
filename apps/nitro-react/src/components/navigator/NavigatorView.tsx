@@ -193,26 +193,12 @@ export const NavigatorView: FC<{}> = props =>
         <>
             { isVisible &&
                 <NitroCardView uniqueKey="navigator" className="nitro-navigator">
-                    <NitroCardHeaderView headerText={ LocalizeText(isCreatorOpen ? 'navigator.createroom.title' : 'navigator.title') } onCloseClick={ event => setIsVisible(false) } />
-                    <NitroCardTabsView>
-                        { topLevelContexts && (topLevelContexts.length > 0) && topLevelContexts.map((context, index) => 
-                        {
-                            return (
-                                <NitroCardTabsItemView key={ index } isActive={ ((topLevelContext === context) && !isCreatorOpen) } onClick={ event => sendSearch('', context.code) }>
-                                    { LocalizeText(('navigator.toplevelview.' + context.code)) }
-                                </NitroCardTabsItemView>
-                            );
-                        }) }
-                        <NitroCardTabsItemView isActive={ isCreatorOpen } onClick={ event => setCreatorOpen(true) }>
-                            <FaPlus className="fa-icon" />
-                        </NitroCardTabsItemView>
-                    </NitroCardTabsView>
+                    <NitroCardHeaderView headerText="Bus Station" onCloseClick={ event => setIsVisible(false) } />
                     <NitroCardContentView position="relative">
                         { isLoading &&
                             <Base fit position="absolute" className="top-0 start-0 z-index-1 bg-muted opacity-0-5" /> }
                         { !isCreatorOpen &&
                             <>
-                                <NavigatorSearchView sendSearch={ sendSearch } />
                                 <Column innerRef={ elementRef } overflow="auto">
                                     { (searchResult && searchResult.results.map((result, index) => <NavigatorSearchResultView key={ index } searchResult={ result } />)) }
                                 </Column>

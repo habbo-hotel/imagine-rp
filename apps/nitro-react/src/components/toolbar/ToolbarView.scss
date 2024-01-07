@@ -17,7 +17,7 @@
             width: 50px;
             height: 45px;
             overflow: hidden;
-    
+
             .avatar-image {
                 margin-left: -5px;
                 margin-top: 25px;
@@ -75,7 +75,5 @@
     max-width: 120px;
     max-height: 150px;
     z-index: 500;
-    filter: drop-shadow(2px 1px 0 rgba($white, 1))
-        drop-shadow(-2px 1px 0 rgba($white, 1))
-        drop-shadow(0 -2px 0 rgba($white, 1));
+    filter: drop-shadow(2px 1px 0 rgba($white, 1)) drop-shadow(-2px 1px 0 rgba($white, 1)) drop-shadow(0 -2px 0 rgba($white, 1));
 }
