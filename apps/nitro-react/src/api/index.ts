@@ -1,7 +1,6 @@
 export * from './avatar';
 export * from './camera';
 export * from './catalog';
-export * from './chat-history';
 export * from './events';
 export * from './friends';
 export * from './GetRendererVersion';

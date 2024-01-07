@@ -9,7 +9,7 @@ import { ModToolsTicketsView } from './views/tickets/ModToolsTicketsView';
 import { ModToolsUserChatlogView } from './views/user/ModToolsUserChatlogView';
 import { ModToolsUserView } from './views/user/ModToolsUserView';
 
-export const ModToolsView: FC<{}> = props =>
+export const ModToolsView: FC<{}> = props => 
 {
     const [ isVisible, setIsVisible ] = useState(false);
     const [ currentRoomId, setCurrentRoomId ] = useState<number>(-1);
@@ -21,11 +21,11 @@ export const ModToolsView: FC<{}> = props =>
     useRoomEngineEvent<RoomEngineEvent>([
         RoomEngineEvent.INITIALIZED,
         RoomEngineEvent.DISPOSED
-    ], event =>
+    ], event => 
     {
-        if(RoomId.isRoomPreviewerId(event.roomId)) return;
+        if (RoomId.isRoomPreviewerId(event.roomId)) return;
 
-        switch(event.type)
+        switch (event.type) 
         {
             case RoomEngineEvent.INITIALIZED:
                 setCurrentRoomId(event.roomId);
@@ -36,31 +36,31 @@ export const ModToolsView: FC<{}> = props =>
         }
     });
 
-    useObjectSelectedEvent(event =>
+    useObjectSelectedEvent(event => 
     {
-        if(event.category !== RoomObjectCategory.UNIT) return;
+        if (event.category !== RoomObjectCategory.UNIT) return;
 
         const roomSession = GetRoomSession();
 
-        if(!roomSession) return;
+        if (!roomSession) return;
 
         const userData = roomSession.userDataManager.getUserDataByIndex(event.id);
 
-        if(!userData || userData.type !== RoomObjectType.USER) return;
+        if (!userData || userData.type !== RoomObjectType.USER) return;
 
         setSelectedUser({ userId: userData.webID, username: userData.name });
     });
 
-    useEffect(() =>
+    useEffect(() => 
     {
         const linkTracker: ILinkEventTracker = {
-            linkReceived: (url: string) =>
+            linkReceived: (url: string) => 
             {
                 const parts = url.split('/');
-        
-                if(parts.length < 2) return;
-        
-                switch(parts[1])
+
+                if (parts.length < 2) return;
+
+                switch (parts[1]) 
                 {
                     case 'show':
                         setIsVisible(true);
@@ -75,7 +75,7 @@ export const ModToolsView: FC<{}> = props =>
                         openRoomInfo(Number(parts[2]));
                         return;
                     case 'close-room-info':
-                        closeRoomInfo(Number(parts[2]));           
+                        closeRoomInfo(Number(parts[2]));
                         return;
                     case 'toggle-room-info':
                         toggleRoomInfo(Number(parts[2]));
@@ -84,7 +84,7 @@ export const ModToolsView: FC<{}> = props =>
                         openRoomChatlog(Number(parts[2]));
                         return;
                     case 'close-room-chatlog':
-                        closeRoomChatlog(Number(parts[2]));             
+                        closeRoomChatlog(Number(parts[2]));
                         return;
                     case 'toggle-room-chatlog':
                         toggleRoomChatlog(Number(parts[2]));
@@ -93,16 +93,16 @@ export const ModToolsView: FC<{}> = props =>
                         openUserInfo(Number(parts[2]));
                         return;
                     case 'close-user-info':
-                        closeUserInfo(Number(parts[2]));             
+                        closeUserInfo(Number(parts[2]));
                         return;
                     case 'toggle-user-info':
                         toggleUserInfo(Number(parts[2]));
                         return;
                     case 'open-user-chatlog':
-                        openUserChatlog(Number(parts[2]));   
+                        openUserChatlog(Number(parts[2]));
                         return;
                     case 'close-user-chatlog':
-                        closeUserChatlog(Number(parts[2]));              
+                        closeUserChatlog(Number(parts[2]));
                         return;
                     case 'toggle-user-chatlog':
                         toggleUserChatlog(Number(parts[2]));
@@ -124,23 +124,20 @@ export const ModToolsView: FC<{}> = props =>
                     <NitroCardHeaderView headerText={ 'Mod Tools' } onCloseClick={ event => setIsVisible(false) } />
                     <NitroCardContentView className="text-black" gap={ 1 }>
                         <Button gap={ 1 } onClick={ event => CreateLinkEvent(`mod-tools/toggle-room-info/${ currentRoomId }`) } disabled={ (currentRoomId <= 0) } className="position-relative">
-                            <Base className="icon icon-small-room position-absolute start-1"/> Room Tool
-                        </Button>
-                        <Button innerRef={ elementRef } gap={ 1 } onClick={ event => CreateLinkEvent(`mod-tools/toggle-room-chatlog/${ currentRoomId }`) } disabled={ (currentRoomId <= 0) } className="position-relative">
-                            <Base className="icon icon-chat-history position-absolute start-1"/> Chatlog Tool
+                            <Base className="icon icon-small-room position-absolute start-1" /> Room Tool
                         </Button>
                         <Button gap={ 1 } onClick={ () => CreateLinkEvent(`mod-tools/toggle-user-info/${ selectedUser.userId }`) } disabled={ !selectedUser } className="position-relative">
-                            <Base className="icon icon-user position-absolute start-1"/> User: { selectedUser ? selectedUser.username : '' }
+                            <Base className="icon icon-user position-absolute start-1" /> User: { selectedUser ? selectedUser.username : '' }
                         </Button>
                         <Button gap={ 1 } onClick={ () => setIsTicketsVisible(prevValue => !prevValue) } className="position-relative">
-                            <Base className="icon icon-tickets position-absolute start-1"/> Report Tool
+                            <Base className="icon icon-tickets position-absolute start-1" /> Report Tool
                         </Button>
                     </NitroCardContentView>
                 </NitroCardView> }
             { (openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={ roomId } roomId={ roomId } onCloseClick={ () => CreateLinkEvent(`mod-tools/close-room-info/${ roomId }`) } />) }
             { (openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={ roomId } roomId={ roomId } onCloseClick={ () => CreateLinkEvent(`mod-tools/close-room-chatlog/${ roomId }`) } />) }
-            { (openUserInfos.length > 0) && openUserInfos.map(userId => <ModToolsUserView key={ userId } userId={ userId } onCloseClick={ () => CreateLinkEvent(`mod-tools/close-user-info/${ userId }`) }/>) }
-            { (openUserChatlogs.length > 0) && openUserChatlogs.map(userId => <ModToolsUserChatlogView key={ userId } userId={ userId } onCloseClick={ () => CreateLinkEvent(`mod-tools/close-user-chatlog/${ userId }`) }/>) }
+            { (openUserInfos.length > 0) && openUserInfos.map(userId => <ModToolsUserView key={ userId } userId={ userId } onCloseClick={ () => CreateLinkEvent(`mod-tools/close-user-info/${ userId }`) } />) }
+            { (openUserChatlogs.length > 0) && openUserChatlogs.map(userId => <ModToolsUserChatlogView key={ userId } userId={ userId } onCloseClick={ () => CreateLinkEvent(`mod-tools/close-user-chatlog/${ userId }`) } />) }
             { isTicketsVisible && <ModToolsTicketsView onCloseClick={ () => setIsTicketsVisible(false) } /> }
         </>
     );

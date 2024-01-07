@@ -1,7 +1,6 @@
-import { GetGuestRoomResultEvent, NavigatorSearchComposer, RateFlatMessageComposer } from '@nitrots/nitro-renderer';
+import { GetGuestRoomResultEvent } from '@nitrots/nitro-renderer';
 import { FC, useEffect, useState } from 'react';
-import { CreateLinkEvent, GetRoomEngine, LocalizeText, SendMessageComposer } from '../../../../api';
-import { Base, classNames, Column, Flex, Text, TransitionAnimation, TransitionAnimationTypes } from '../../../../common';
+import { Column, Flex, Text, TransitionAnimation, TransitionAnimationTypes } from '../../../../common';
 import { useMessageEvent, useNavigator, useRoom } from '../../../../hooks';
 
 export const RoomToolsWidgetView: FC<{}> = props => 
@@ -14,41 +13,6 @@ export const RoomToolsWidgetView: FC<{}> = props =>
     const { navigatorData = null } = useNavigator();
     const { roomSession = null } = useRoom();
 
-    const handleToolClick = (action: string, value?: string) => 
-    {
-        switch (action) 
-        {
-            case 'settings':
-                CreateLinkEvent('navigator/toggle-room-info');
-                return;
-            case 'zoom':
-                setIsZoomedIn(prevValue => 
-                {
-                    let scale = GetRoomEngine().getRoomInstanceRenderingCanvasScale(roomSession.roomId, 1);
-
-                    if (!prevValue) scale /= 2;
-                    else scale *= 2;
-
-                    GetRoomEngine().setRoomInstanceRenderingCanvasScale(roomSession.roomId, 1, scale);
-
-                    return !prevValue;
-                });
-                return;
-            case 'chat_history':
-                CreateLinkEvent('chat-history/toggle');
-                return;
-            case 'like_room':
-                SendMessageComposer(new RateFlatMessageComposer(1));
-                return;
-            case 'toggle_room_link':
-                CreateLinkEvent('navigator/toggle-room-link');
-                return;
-            case 'navigator_search_tag':
-                CreateLinkEvent(`navigator/search/${ value }`);
-                SendMessageComposer(new NavigatorSearchComposer('hotel_view', `tag:${ value }`));
-                return;
-        }
-    }
 
     useMessageEvent<GetGuestRoomResultEvent>(GetGuestRoomResultEvent, event => 
     {
@@ -72,9 +36,6 @@ export const RoomToolsWidgetView: FC<{}> = props =>
 
     return (
         <Flex className="nitro-room-tools-container" gap={ 2 }>
-            <Column center className="nitro-room-tools p-2">
-                <Base pointer title={ LocalizeText('room.settings.button.text') } className="icon icon-cog" onClick={ () => handleToolClick('settings') } />
-            </Column>
             <Column justifyContent="center">
                 <TransitionAnimation type={ TransitionAnimationTypes.SLIDE_LEFT } inProp={ isOpen } timeout={ 300 }>
                     <Column center>
@@ -83,10 +44,6 @@ export const RoomToolsWidgetView: FC<{}> = props =>
                                 <Text wrap variant="white" fontSize={ 4 }>{ roomName }</Text>
                                 <Text variant="muted" fontSize={ 5 }>{ roomOwner }</Text>
                             </Column>
-                            { roomTags && roomTags.length > 0 &&
-                                <Flex gap={ 2 }>
-                                    { roomTags.map((tag, index) => <Text key={ index } small pointer variant="white" className="rounded bg-primary p-1" onClick={ () => handleToolClick('navigator_search_tag', tag) }>#{ tag }</Text>) }
-                                </Flex> }
                         </Column>
                     </Column>
                 </TransitionAnimation>
