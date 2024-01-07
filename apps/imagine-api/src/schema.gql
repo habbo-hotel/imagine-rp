@@ -1,0 +1,1333 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type BanModel {
+  id: Float
+  bannedUserID: Float
+  addedByUserID: Float
+  type: String
+  reason: String
+  createdAt: String
+  expiresAt: String
+}
+
+type SessionModel {
+  id: Float
+  userID: Float
+  createdAt: String
+  updatedAt: String
+}
+
+type SessionCreatedModel {
+  id: Float
+  userID: Float
+  accessToken: String
+}
+
+type SessionSSOModel {
+  ssoToken: String!
+}
+
+type SessionUpdateEmailModel {
+  success: Boolean!
+}
+
+type SessionUpdatePasswordModel {
+  success: Boolean!
+}
+
+type SessionUpdateLanguageModel {
+  success: Boolean!
+}
+
+type SessionDisconnectAccountModel {
+  success: Boolean!
+}
+
+type UserModel {
+  id: Float
+  username: String
+  email: String
+  rankID: Float
+  credits: Float
+  vipPoints: Float
+  activityPoints: Float
+  look: String
+  gender: UserGender
+  motto: String
+  accountCreatedAt: Float
+  onlineStatus: UserOnlineStatus
+  lastOnlineAt: Float
+  homeRoomID: Float
+  discordID: String
+  facebookID: String
+  googleID: String
+  language: String
+  rpStats: RPStatsModel
+  hasBetaCode: Boolean!
+  gameSSO: String
+  ipLast: String
+  ipRegistered: String
+  machineAddress: String
+  rank: RankModel
+}
+
+enum UserGender {
+  Male
+  Female
+}
+
+enum UserOnlineStatus {
+  Online
+  Offline
+}
+
+type RankScopesModel implements RankScopesInterface {
+  accessAdminPanel: Boolean
+  manageArticles: Boolean
+  manageUsers: Boolean
+  manageRooms: Boolean
+  manageBetaCodes: Boolean
+  managePermissions: Boolean
+  manageSupportTickets: Boolean
+  manageStaffApplications: Boolean
+  manageRadioRequests: Boolean
+  manageBugReports: Boolean
+  manageBans: Boolean
+  manageChatlogs: Boolean
+  manageGroups: Boolean
+  manageLanguages: Boolean
+  manageRanks: Boolean
+  manageSite: Boolean
+  manageWordFilter: Boolean
+  manageStore: Boolean
+  useNavigation: Boolean
+}
+
+interface RankScopesInterface {
+  accessAdminPanel: Boolean
+  manageArticles: Boolean
+  manageUsers: Boolean
+  manageRooms: Boolean
+  manageBetaCodes: Boolean
+  managePermissions: Boolean
+  manageSupportTickets: Boolean
+  manageStaffApplications: Boolean
+  manageRadioRequests: Boolean
+  manageBugReports: Boolean
+  manageBans: Boolean
+  manageChatlogs: Boolean
+  manageGroups: Boolean
+  manageLanguages: Boolean
+  manageRanks: Boolean
+  manageSite: Boolean
+  manageWordFilter: Boolean
+  manageStore: Boolean
+  useNavigation: Boolean
+}
+
+type RankFlagsModel implements RankFlagsInterface {
+  showOnStaffPage: Boolean
+  acceptingApplications: Boolean
+}
+
+interface RankFlagsInterface {
+  showOnStaffPage: Boolean
+  acceptingApplications: Boolean
+}
+
+type RankModel {
+  id: Float
+  name: String
+  badgeCode: String
+  backgroundColor: String
+  scopes: RankScopesModel
+  flags: RankFlagsModel
+  users: [UserModel!]
+}
+
+type RPStatsModel {
+  userID: Float
+  healthCurrent: Float
+  healthMax: Float
+  hungerCurrent: Float
+  hungerMax: Float
+  energyCurrent: Float
+  energyMax: Float
+  armorCurrent: Float
+  armorMax: Float
+  corporationID: Float
+  corporationRankID: Float
+  gangID: Float
+  gangRankID: Float
+  killDeathRatio: Float
+  killsTotal: Float
+  killsFistTotal: Float
+  killsMeleeTotal: Float
+  killsBombTotal: Float
+  killsGunTotal: Float
+  deathsTotal: Float
+  timesArrestedTotal: Float
+  arrestsTotal: Float
+  successfulEvasionsTotal: Float
+  gang: GangModel
+  gangRank: GangRankModel
+  corporation: CorporationModel
+  corporationRank: CorporationRankModel
+}
+
+type RoomModel {
+  id: Float
+  name: String
+  description: String
+  userID: Float
+  usersNow: Float
+  usersMax: Float
+  user: UserModel
+}
+
+type RoomEnterLogModel {
+  id: Float
+  roomID: Float
+  userID: Float
+  enterTimestamp: Float
+  exitTimestamp: Float
+  user: UserModel!
+}
+
+type PhotoModel {
+  id: Float
+  userID: Float
+  user: UserModel
+  photoURL: String
+  createdAt: Float
+}
+
+type PhotoCommentModel {
+  id: Float
+  userID: Float
+  comment: String
+  createdAt: Float
+  updatedAt: Float
+  photoID: Float
+  user: UserModel
+}
+
+type PhotoReactionModel {
+  id: Float
+  userID: Float
+  reaction: ReactionType
+  createdAt: Float
+  updatedAt: Float
+  photoID: Float
+  user: UserModel
+}
+
+enum ReactionType {
+  Like
+  Dislike
+}
+
+type GroupModel {
+  id: Float
+  name: String
+  description: String
+  badge: String
+  userID: Float
+  roomID: Float
+  user: UserModel
+  userCount: Float
+}
+
+type GroupMembershipModel {
+  id: Float
+  groupID: Float
+  userID: Float
+  createdAt: Float
+  user: UserModel
+  group: GroupModel
+}
+
+type ConfigModel {
+  siteName: String
+  logoURL: String
+  nitroURL: String
+  websocketURL: String
+  badgeURL: String
+  badgeEXT: String
+  figureURL: String
+  groupBadgeURL: String
+  discordURL: String
+  discordWidget: String
+  facebookURL: String
+  instagramURL: String
+  twitterURL: String
+  snapchatURL: String
+  dateFormat: String
+  softwareVersion: String
+  defaultLanguage: String
+  allowedLanguages: [String!]
+  betaCodesRequired: Boolean
+}
+
+type ArticleModel {
+  id: Float
+  name: String
+  description: String
+  content: String
+  imageURL: String
+  userID: Float
+  createdAt: Float
+  user: UserModel
+}
+
+type ArticleCommentModel {
+  id: Float
+  userID: Float
+  comment: String
+  createdAt: Float
+  updatedAt: Float
+  articleID: Float
+  user: UserModel
+}
+
+type ArticleReactionModel {
+  id: Float
+  userID: Float
+  reaction: ReactionType
+  createdAt: Float
+  updatedAt: Float
+  articleID: Float
+  user: UserModel
+}
+
+type ChatlogModel {
+  id: Float
+  userID: Float
+  user: UserModel
+  roomID: Float
+  room: RoomModel
+  message: String
+  createdAt: String
+}
+
+type DiscordAuthModel {
+  sessionID: Float
+  userID: Float
+  sessionToken: String
+}
+
+type FacebookAuthModel {
+  sessionID: Float
+  userID: Float
+  sessionToken: String
+}
+
+type FriendshipModel {
+  userID: Float
+  friendID: Float
+  friend: UserModel
+}
+
+type WordFilterModel {
+  id: Float
+  word: String
+  replacement: String
+}
+
+type LanguageModel {
+  id: Float
+  hidden: Boolean
+  language: String
+  flagURL: String
+  createdAt: Timestamp
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
+
+type LanguagePhraseModel {
+  id: Float
+  key: String
+  type: LanguagePhraseType
+  description: String
+  createdAt: Timestamp
+}
+
+enum LanguagePhraseType {
+  Site
+  Game
+}
+
+type GoogleAuthModel {
+  sessionID: Float
+  userID: Float
+  sessionToken: String
+}
+
+type UserBadgeModel {
+  id: Float
+  userID: Float
+  slotID: Float
+  badgeCode: String
+}
+
+type SupportTicketModel {
+  id: Float
+  reportingUserID: Float
+  offendingUserID: Float
+  staffUserID: Float
+}
+
+type BetaCodeModel {
+  id: Float
+  betaCode: String
+  userID: Float
+  user: UserModel
+}
+
+type StaffApplicationModel {
+  id: Float
+  userID: Float
+  rankID: Float
+  accepted: Boolean
+  reviewingUserID: Float
+  content: String
+  createdAt: Float
+  updatedAt: Float
+  reviewedAt: Float
+  user: UserModel
+  reviewingUser: UserModel
+}
+
+type RadioRequestModel {
+  id: Float
+  userID: Float
+  content: String
+  status: RadioRequestStatus
+  reviewingUserID: Float
+  createdAt: Float
+  updatedAt: Float
+  reviewedAt: Float
+  user: UserModel
+  reviewingUser: UserModel
+}
+
+enum RadioRequestStatus {
+  Requested
+  Approved
+  Rejected
+}
+
+type BugReportModel {
+  id: Float
+  reportingUserID: Float
+  title: String
+  content: String
+  url: String
+  severity: Float
+  createdAt: Float
+  updatedAt: Float
+  resolvedAt: Float
+  resolvingUserID: Float
+  reportingUser: UserModel
+  resolvingUser: UserModel
+}
+
+type FurnitureModel {
+  id: Float
+  valueType: FurnitureValueType
+  publicName: String
+  itemName: String
+  createdAt: Float
+}
+
+enum FurnitureValueType {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+type FurniturePurchaseLogModel {
+  id: Float
+  furnitureID: Float
+  userID: Float
+  itemIDs: [Float!]
+  costCredits: Float
+  costPoints: Float
+  quantity: Float
+  createdAt: Float
+  averageCostCredits: Float
+  averageCostPoints: Float
+}
+
+type FurniturePurchaseLogOverviewModel {
+  furnitureID: Float
+  averageCostCredits: Float
+  averageCostPoints: Float
+  totalSells: Float
+}
+
+type UserFurnitureModel {
+  id: Float
+  userID: Float
+  roomID: Float
+  itemID: Float
+  createdAt: Float
+}
+
+type StorePackageBenefitsModel {
+  credits: Float
+  pixels: Float
+  points: Float
+  rankID: Float
+  itemIDs: [Float!]
+  badgeCodes: [String!]
+}
+
+type StorePackageModel {
+  id: Float
+  title: String
+  description: String
+  content: String
+  imageURL: String
+  isRecurring: Boolean
+  totalCost: String
+  currency: String
+  benefits: StorePackageBenefitsModel
+  createdAt: Float
+  updatedAt: Float
+}
+
+type GangModel {
+  id: Float
+  name: String
+  description: String
+  badgeCode: String
+  userID: Float
+  user: UserModel
+}
+
+type CorporationModel {
+  id: Float
+  name: String
+  description: String
+  badgeCode: String
+  userID: Float
+  roomID: Float
+  user: UserModel
+  room: RoomModel
+}
+
+type CorporationRankModel {
+  id: Float
+  corporationID: Float
+  corporationRankID: Float
+  name: String
+}
+
+type CorporationMemberModel {
+  corporationID: Float
+  corporationRankID: Float
+  userID: Float
+}
+
+type GangRankModel {
+  id: Float
+  gangID: Float
+  gangRankID: Float
+  name: String
+}
+
+type GangMemberModel {
+  gangID: Float
+  gangRankID: Float
+  userID: Float
+}
+
+type Query {
+  sessionSSOCreate: SessionSSOModel!
+  sessionByJWT(jwt: String!): SessionModel!
+  session(id: Float!): SessionModel!
+  sessions(other: ExtraArgs): [SessionModel!]!
+  usersOnlineCount: Float!
+  user(filter: UserFilterOneInput): UserModel!
+  users(filter: UserFilterManyInput!): [UserModel!]!
+  rank(filter: RankFilterOneInput): RankModel!
+  ranks(filter: RankFilterManyInput!): [RankModel!]!
+  article(filter: ArticleFilterOneInput): ArticleModel!
+  articles(filter: ArticleFilterManyInput): [ArticleModel!]!
+  articleComment(filter: ArticleCommentFilterOneInput!): ArticleCommentModel!
+  articleComments(filter: ArticleCommentFilterManyInput): [ArticleCommentModel!]!
+  articleReaction(filter: ArticleReactionFilterOneInput!): ArticleReactionModel!
+  articleReactions(filter: ArticleReactionFilterManyInput): [ArticleReactionModel!]!
+  config: ConfigModel!
+  ban(id: Float!): BanModel!
+  bans(other: ExtraArgs): [BanModel!]!
+  wordFilter(id: Float!): WordFilterModel!
+  wordFilters(other: ExtraArgs): [WordFilterModel!]!
+  chatlog(id: Float!): ChatlogModel!
+  chatlogs(other: ExtraArgs, userID: Float, roomID: Float): [ChatlogModel!]!
+  room(filter: RoomFilterOneInput!): RoomModel!
+  rooms(filter: RoomFilterManyInput!): [RoomModel!]!
+  roomEnterLog(filter: RoomEnterLogFilterOneInput!): RoomEnterLogModel!
+  roomEnterLogs(filter: RoomEnterLogFilterManyInput!): [RoomEnterLogModel!]!
+  group(filter: GroupFilterOneInput!): GroupModel!
+  groups(filter: GroupFilterManyInput!): [GroupModel!]!
+  groupMemberships(filter: GroupMembershipFilterManyInput!): [GroupMembershipModel!]!
+  photo(filter: PhotoFilterOneInput!): PhotoModel!
+  photos(filter: PhotoFilterManyInput): [PhotoModel!]!
+  photoComment(filter: PhotoCommentFilterOneInput!): PhotoCommentModel!
+  photoComments(filter: PhotoCommentFilterManyInput): [PhotoCommentModel!]!
+  photoReaction(filter: PhotoReactionFilterOneInput!): PhotoReactionModel!
+  photoReactions(filter: PhotoReactionFilterManyInput): [PhotoReactionModel!]!
+  language(id: Float!): LanguageModel!
+  languages: [LanguageModel!]!
+  languagePhrase(id: Float!): LanguagePhraseModel!
+  languagePhrases: [LanguagePhraseModel!]!
+  friendships(filter: FriendshipFilterManyInput!): [FriendshipModel!]!
+  userBadges(filter: UserBadgeFilterManyInput!): [UserBadgeModel!]!
+  supportTickets(filter: SupportTicketFilterManyInput): [SupportTicketModel!]!
+  supportTicket(filter: SupportTicketFilterOneInput): SupportTicketModel!
+  betaCodes(filter: BetaCodeFilterManyInput): [BetaCodeModel!]!
+  betaCode(filter: BetaCodeFilterOneInput): BetaCodeModel!
+  staffApplication(filter: StaffApplicationFilterOneInput!): StaffApplicationModel!
+  staffApplications(filter: StaffApplicationFilterManyInput!): [StaffApplicationModel!]!
+  radioRequest(filter: RadioRequestFilterOneInput!): RadioRequestModel!
+  radioRequests(filter: RadioRequestFilterManyInput!): [RadioRequestModel!]!
+  bugReport(filter: BugReportFilterOneInput!): BugReportModel!
+  bugReports(filter: BugReportFilterManyInput!): [BugReportModel!]!
+  furniture(filter: FurnitureFilterOneInput): FurnitureModel!
+  furnitures(filter: FurnitureFilterManyInput): [FurnitureModel!]!
+  furniturePurchaseLog(filter: FurniturePurchaseLogFilterOneInput): FurniturePurchaseLogModel!
+  furniturePurchaseLogs(filter: FurniturePurchaseLogFilterManyInput): [FurniturePurchaseLogModel!]!
+  furniturePurchaseLogsOverviewRecentlyAdded(filter: FurniturePurchaseLogOverviewFilterManyInput): [FurniturePurchaseLogOverviewModel!]!
+  furniturePurchaseLogsOverviewTrending(filter: FurniturePurchaseLogOverviewFilterManyInput): [FurniturePurchaseLogOverviewModel!]!
+  furniturePurchaseLogsOverviewTopCredits(filter: FurniturePurchaseLogOverviewFilterManyInput): [FurniturePurchaseLogOverviewModel!]!
+  furniturePurchaseLogsOverviewTopCostPoints(filter: FurniturePurchaseLogOverviewFilterManyInput): [FurniturePurchaseLogOverviewModel!]!
+  furniturePurchaseLogOverviewLeastSells(filter: FurniturePurchaseLogOverviewFilterManyInput): [FurniturePurchaseLogOverviewModel!]!
+  furniturePurchaseLogsOverviewTopSells(filter: FurniturePurchaseLogOverviewFilterManyInput): [FurniturePurchaseLogOverviewModel!]!
+  furniturePurchaseLogOverview(filter: FurniturePurchaseLogOverviewFilterOneInput): FurniturePurchaseLogOverviewModel!
+  furniturePurchaseLogOverviewTotalSellsForTimeRange(filter: FurniturePurchaseLogOverviewAverageSellsForTimeRangeInput!): Float
+  userFurniture(filter: UserFurnitureFilterOneInput!): UserFurnitureModel!
+  userFurnitures(filter: UserFurnitureFilterManyInput): [UserFurnitureModel!]!
+  storePackage(filter: StorePackageFilterOneInput!): StorePackageModel!
+  storePackages(filter: StorePackageFilterManyInput): [StorePackageModel!]!
+  gangs(filter: GangFilterManyInput!): [GangModel!]!
+  gang(filter: GangFilterOneInput!): GangModel!
+  gangRanks(filter: GangRankFilterManyInput!): [GangRankModel!]!
+  gangMembers(filter: GangMemberFilterManyInput!): [GangMemberModel!]!
+  corporations(filter: CorporationFilterManyInput!): [CorporationModel!]!
+  corporation(filter: CorporationFilterOneInput!): CorporationModel!
+  corporationRanks(filter: CorporationRankFilterManyInput!): [CorporationRankModel!]!
+  corporationMembers(filter: CorporationMemberFilterManyInput!): [CorporationMemberModel!]!
+  rpStat(filter: RPStatsFilterOneInput!): RPStatsModel!
+  rpStats(filter: RPStatsFilterManyInput!): [RPStatsModel!]!
+}
+
+input ExtraArgs {
+  skip: Float
+  take: Float
+  order: JSONObject
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+input UserFilterOneInput {
+  id: Float
+  username: String
+}
+
+input UserFilterManyInput {
+  ids: [Float!]
+  usernames: [String!]
+  online: Boolean
+  ipLast: [String!]
+  ipRegistered: [String!]
+  machineAddress: [String!]
+  rankIDs: [Float!]
+  orderBy: [UserOrderBy!]
+  skip: Float
+  limit: Float
+}
+
+enum UserOrderBy {
+  ID_DESC
+  CREDITS_ASC
+  PIXELS_ASC
+  POINTS_ASC
+}
+
+input RankFilterOneInput {
+  id: Float!
+}
+
+input RankFilterManyInput {
+  ids: [Float!]
+  staffOnly: Boolean
+  limit: Float
+}
+
+input ArticleFilterOneInput {
+  id: Float!
+}
+
+input ArticleFilterManyInput {
+  ids: [Float!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input ArticleCommentFilterOneInput {
+  id: Float!
+}
+
+input ArticleCommentFilterManyInput {
+  ids: [Float!]
+  articleIDs: [Float!]
+  userIDs: [Float!]
+}
+
+input ArticleReactionFilterOneInput {
+  id: Float!
+}
+
+input ArticleReactionFilterManyInput {
+  ids: [Float!]
+  articleIDs: [Float!]
+  userIDs: [Float!]
+}
+
+input RoomFilterOneInput {
+  id: Float!
+}
+
+input RoomFilterManyInput {
+  ids: [Float!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input RoomEnterLogFilterOneInput {
+  id: Float!
+}
+
+input RoomEnterLogFilterManyInput {
+  ids: [Float!]
+  userIDs: [Float!]
+  roomIDs: [Float!]
+  limit: Float
+}
+
+input GroupFilterOneInput {
+  id: Float!
+}
+
+input GroupFilterManyInput {
+  ids: [Float!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input GroupMembershipFilterManyInput {
+  groupIDs: [Float!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input PhotoFilterOneInput {
+  id: Float!
+}
+
+input PhotoFilterManyInput {
+  ids: [Float!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input PhotoCommentFilterOneInput {
+  id: Float!
+}
+
+input PhotoCommentFilterManyInput {
+  ids: [Float!]
+  photoIDs: [Float!]
+  userIDs: [Float!]
+}
+
+input PhotoReactionFilterOneInput {
+  id: Float!
+}
+
+input PhotoReactionFilterManyInput {
+  ids: [Float!]
+  photoIDs: [Float!]
+  userIDs: [Float!]
+}
+
+input FriendshipFilterManyInput {
+  userID: Float!
+  skip: Float
+  limit: Float
+}
+
+input UserBadgeFilterManyInput {
+  badgeCodes: [String!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input SupportTicketFilterManyInput {
+  ids: [Float!]
+  reportingUserIDs: [Float!]
+  offendingUserIDs: [Float!]
+  staffUserIDs: [Float!]
+  limit: Float
+}
+
+input SupportTicketFilterOneInput {
+  id: Float!
+}
+
+input BetaCodeFilterManyInput {
+  ids: [Float!]
+  betaCodes: [String!]
+  userIDs: [Float!]
+  limit: Float
+}
+
+input BetaCodeFilterOneInput {
+  id: Float
+}
+
+input StaffApplicationFilterOneInput {
+  id: Float!
+}
+
+input StaffApplicationFilterManyInput {
+  ids: [Float!]
+  rankIDs: [Float!]
+  userIDs: [Float!]
+  limit: Float
+}
+
+input RadioRequestFilterOneInput {
+  id: Float!
+}
+
+input RadioRequestFilterManyInput {
+  ids: [Float!]
+  userIDs: [Float!]
+  reviewingUserIDs: [Float!]
+  statuses: [RadioRequestStatus!]
+  limit: Float
+}
+
+input BugReportFilterOneInput {
+  id: Float!
+}
+
+input BugReportFilterManyInput {
+  ids: [Float!]
+  isOpen: Boolean
+  severity: [Float!]
+  urls: [String!]
+  reportingUserIDs: [Float!]
+  resolvingUserIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input FurnitureFilterOneInput {
+  id: Float!
+}
+
+input FurnitureFilterManyInput {
+  ids: [Float!]
+  publicName: String
+  itemName: String
+  valueTypes: [FurnitureValueType!]
+  skip: Float
+  limit: Float
+  orderBy: [FurnitureOrderBy!]
+}
+
+enum FurnitureOrderBy {
+  GREATEST_VALUE_TYPE
+  RECENTLY_ADDED
+}
+
+input FurniturePurchaseLogFilterOneInput {
+  id: Float!
+}
+
+input FurniturePurchaseLogFilterManyInput {
+  ids: [Float!]
+  furnitureIDs: [Float!]
+  userIDs: [Float!]
+  itemIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input FurniturePurchaseLogOverviewFilterManyInput {
+  skip: Float
+  limit: Float
+}
+
+input FurniturePurchaseLogOverviewFilterOneInput {
+  furnitureID: Float!
+}
+
+input FurniturePurchaseLogOverviewAverageSellsForTimeRangeInput {
+  furnitureID: Float!
+  startDate: Float!
+  endDate: Float!
+}
+
+input UserFurnitureFilterOneInput {
+  id: Float!
+}
+
+input UserFurnitureFilterManyInput {
+  ids: [Float!]
+  userIDs: [Float!]
+  roomIDs: [Float!]
+  itemIDs: [Float!]
+  valueTypes: [FurnitureValueType!]
+  skip: Float
+  limit: Float
+}
+
+input StorePackageFilterOneInput {
+  id: Float!
+}
+
+input StorePackageFilterManyInput {
+  ids: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input GangFilterManyInput {
+  ids: [Float!]
+  nameContains: String
+  skip: Float
+  limit: Float
+}
+
+input GangFilterOneInput {
+  id: Float!
+}
+
+input GangRankFilterManyInput {
+  gangIDs: [Float!]
+  gangRankIDs: [Float!]
+  nameSearch: String
+  skip: Float
+  limit: Float
+}
+
+input GangMemberFilterManyInput {
+  gangIDs: [Float!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input CorporationFilterManyInput {
+  ids: [Float!]
+  nameContains: String
+  skip: Float
+  limit: Float
+}
+
+input CorporationFilterOneInput {
+  id: Float!
+}
+
+input CorporationRankFilterManyInput {
+  corporationIDs: [Float!]
+  corporationRankID: [Float!]
+  nameSearch: String
+  skip: Float
+  limit: Float
+}
+
+input CorporationMemberFilterManyInput {
+  corporationIDs: [Float!]
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+}
+
+input RPStatsFilterOneInput {
+  userID: Float!
+}
+
+input RPStatsFilterManyInput {
+  userIDs: [Float!]
+  skip: Float
+  limit: Float
+  orderBy: RPStatsOrderBy
+}
+
+enum RPStatsOrderBy {
+  killDeathRatio
+  killsTotal
+  killsFistTotal
+  killsMeleeTotal
+  killsBombTotal
+  killsGunTotal
+  deathsTotal
+  timesArrestedTotal
+  arrestsTotal
+  successfulEvasionsTotal
+}
+
+type Mutation {
+  sessionCreate(username: String!, password: String!): SessionCreatedModel!
+  sessionUpdateEmail(input: SessionUpdateEmailInput!): SessionUpdateEmailModel!
+  sessionUpdatePassword(input: SessionUpdatePasswordInput!): SessionUpdatePasswordModel!
+  sessionUpdateLanguage(input: SessionUpdateLanguageInput!): SessionUpdateLanguageModel!
+  sessionDisconnectDiscord(input: SessionDisconnectAccountInput!): SessionDisconnectAccountModel!
+  sessionDisconnectFacebook(input: SessionDisconnectAccountInput!): SessionDisconnectAccountModel!
+  sessionDisconnectGoogle(input: SessionDisconnectAccountInput!): SessionDisconnectAccountModel!
+  userCreate(input: UserCreateInput!): SessionCreatedModel!
+  userUpdate(id: Float!, userChanges: UserUpdateInput!): Boolean!
+  userDelete(id: Float!): Boolean!
+  rankCreate(newRank: RankCreateInput!): RankModel!
+  rankUpdate(filter: RankFilterOneInput, input: RankUpdateInput!): Boolean!
+  rankDelete(id: Float!): Boolean!
+  articleCreate(newArticle: ArticleCreateInput!): ArticleModel!
+  articleUpdate(id: Float!, articleChanges: ArticleUpdateInput!): Boolean!
+  articleDelete(id: Float!): Boolean!
+  articleCommentCreate(input: ArticleCommentCreateInput!): ArticleCommentModel!
+  articleCommentUpdate(filter: ArticleCommentFilterOneInput, input: ArticleCommentCreateInput!): ArticleCommentModel!
+  articleCommentDelete(id: Float!): Boolean!
+  articleReactionUpdate(filter: ArticleReactionFilterOneInput, input: ArticleReactionCreateInput!): ArticleReactionModel!
+  articleReactionDelete(id: Float!): Boolean!
+  configUpdate(configUpdateInput: ConfigUpdateInput!): Boolean!
+  banCreate(newBan: BanCreateInput!): BanModel!
+  banUpdate(id: Float!, banChanges: BanUpdateInput!): Boolean!
+  banDelete(id: Float!): Boolean!
+  wordFilterCreate(newWordFilter: WordFilterCreateInput!): WordFilterModel!
+  wordFilterUpdate(id: Float!, wordFilterChanges: WordFilterUpdateInput!): Boolean!
+  wordFilterDelete(id: Float!): Boolean!
+  chatlogDelete(id: Float!): Boolean!
+  roomDelete(id: Float!): Boolean!
+  groupDelete(id: Float!): Boolean!
+  photoDelete(id: Float!): Boolean!
+  photoCommentCreate(input: PhotoCommentCreateInput!): PhotoCommentModel!
+  photoCommentUpdate(filter: PhotoCommentFilterOneInput, input: PhotoCommentCreateInput!): PhotoCommentModel!
+  photoCommentDelete(id: Float!): Boolean!
+  photoReactionUpdate(filter: PhotoReactionFilterOneInput, input: PhotoReactionCreateInput!): PhotoReactionModel!
+  photoReactionDelete(id: Float!): Boolean!
+  languageCreate(input: LanguageInput!): LanguageModel!
+  languageUpdate(id: Float!, input: LanguageInput!): LanguageModel!
+  languageDelete(id: Float!): Boolean!
+  languagePhraseCreate(input: LanguagePhraseInput!): LanguagePhraseModel!
+  languagePhraseUpdate(id: Float!, input: LanguagePhraseInput!): LanguagePhraseModel!
+  languagePhraseDelete(id: Float!): Boolean!
+  discordUserAuthenticate(input: DiscordAuthInput!): DiscordAuthModel!
+  facebookUserAuthenticate(input: FacebookAuthInput!): FacebookAuthModel!
+  googleUserAuthenticate(input: GoogleAuthInput!): GoogleAuthModel!
+  forgotPasswordRequestCreate(input: ForgotPasswordRequestCreateInput!): Boolean!
+  forgotPasswordRequestRedeem(input: ForgotPasswordRequestRedeemInput!): Boolean!
+  betaCodeCreate: BetaCodeModel!
+  betaCodeDelete(filter: BetaCodeFilterOneInput): Boolean!
+  staffApplicationCreate(input: StaffApplicationCreateInput!): StaffApplicationModel!
+  staffApplicationReview(filter: StaffApplicationFilterOneInput!, input: StaffApplicationReviewInput!): Boolean!
+  staffApplicationDelete(filter: StaffApplicationFilterOneInput!): Boolean!
+  radioRequestCreate(input: RadioRequestCreateInput!): RadioRequestModel!
+  radioRequestUpdate(filter: RadioRequestFilterOneInput!, input: RadioRequestCreateInput!): Boolean!
+  radioRequestReview(filter: RadioRequestFilterOneInput!, input: RadioRequestReviewInput!): Boolean!
+  bugReportCreate(input: BugReportCreateInput!): BugReportModel!
+  bugReportUpdate(filter: BugReportFilterOneInput!, input: BugReportUpdateInput!): Boolean!
+  bugReportResolve(filter: BugReportFilterOneInput!): Boolean!
+  bugReportOpen(filter: BugReportFilterOneInput!): Boolean!
+  bugReportDelete(filter: BugReportFilterOneInput!): Boolean!
+  storePackageCreate(input: StorePackageCreateInput!): StorePackageModel!
+  gangCreate(filter: GangCreateInput!): GangModel!
+  gangUpdate(filter: GangUpdateInput!): Boolean!
+  gangDelete(filter: GangFilterOneInput!): Boolean!
+  corporationCreate(filter: CorporationCreateInput!): CorporationModel!
+  corporationUpdate(filter: CorporationUpdateInput!): Boolean!
+  corporationDelete(filter: CorporationFilterOneInput!): Boolean!
+}
+
+input SessionUpdateEmailInput {
+  email: String!
+  password: String!
+}
+
+input SessionUpdatePasswordInput {
+  currentPassword: String!
+  newPassword: String!
+}
+
+input SessionUpdateLanguageInput {
+  language: String!
+}
+
+input SessionDisconnectAccountInput {
+  confirm: Boolean!
+}
+
+input UserCreateInput {
+  username: String!
+  password: String!
+  email: String!
+  betaCode: String
+  gender: String
+  look: String
+}
+
+input UserUpdateInput {
+  password: String
+  email: String
+  gender: UserGender
+  look: String
+}
+
+input RankCreateInput {
+  name: String!
+  badgeCode: String!
+  backgroundColor: String!
+  scopes: RankScopesInput!
+  flags: RankFlagsInput!
+}
+
+input RankScopesInput {
+  accessAdminPanel: Boolean
+  manageArticles: Boolean
+  manageUsers: Boolean
+  manageRooms: Boolean
+  manageBetaCodes: Boolean
+  managePermissions: Boolean
+  manageSupportTickets: Boolean
+  manageStaffApplications: Boolean
+  manageRadioRequests: Boolean
+  manageBugReports: Boolean
+  manageBans: Boolean
+  manageChatlogs: Boolean
+  manageGroups: Boolean
+  manageLanguages: Boolean
+  manageRanks: Boolean
+  manageSite: Boolean
+  manageWordFilter: Boolean
+  manageStore: Boolean
+  useNavigation: Boolean
+}
+
+input RankFlagsInput {
+  showOnStaffPage: Boolean
+  acceptingApplications: Boolean
+}
+
+input RankUpdateInput {
+  name: String
+  badgeCode: String
+  backgroundColor: String!
+  scopes: RankScopesInput
+  flags: RankFlagsInput
+}
+
+input ArticleCreateInput {
+  name: String!
+  description: String!
+  content: String!
+  imageURL: String!
+}
+
+input ArticleUpdateInput {
+  name: String!
+  description: String!
+  content: String!
+  imageURL: String!
+}
+
+input ArticleCommentCreateInput {
+  articleID: Float!
+  comment: String!
+}
+
+input ArticleReactionCreateInput {
+  articleID: Float!
+  reaction: ReactionType!
+}
+
+input ConfigUpdateInput {
+  siteName: String
+  logoURL: String
+  nitroURL: String
+  websocketURL: String
+  badgeURL: String
+  badgeEXT: String
+  figureURL: String
+  groupBadgeURL: String
+  discordURL: String
+  discordWidget: String
+  facebookURL: String
+  instagramURL: String
+  twitterURL: String
+  snapchatURL: String
+  dateFormat: String
+  defaultLanguage: String
+  allowedLanguages: [String!]
+  betaCodesRequired: Boolean
+}
+
+input BanCreateInput {
+  bannedUserID: Float!
+  reason: String!
+  expiresAt: String!
+}
+
+input BanUpdateInput {
+  bannedUserID: Float!
+  reason: String!
+  expiresAt: String!
+}
+
+input WordFilterCreateInput {
+  word: String!
+  replacement: String!
+}
+
+input WordFilterUpdateInput {
+  word: String!
+  replacement: String!
+}
+
+input PhotoCommentCreateInput {
+  photoID: Float!
+  comment: String!
+}
+
+input PhotoReactionCreateInput {
+  photoID: Float!
+  reaction: ReactionType!
+}
+
+input LanguageInput {
+  hidden: Boolean!
+  language: String!
+  flagURL: String!
+}
+
+input LanguagePhraseInput {
+  key: String!
+  type: LanguagePhraseType!
+  description: String!
+}
+
+input DiscordAuthInput {
+  discordAuthToken: String!
+}
+
+input FacebookAuthInput {
+  facebookAuthToken: String!
+}
+
+input GoogleAuthInput {
+  googleAuthToken: String!
+}
+
+input ForgotPasswordRequestCreateInput {
+  emailAddress: String!
+}
+
+input ForgotPasswordRequestRedeemInput {
+  requestCode: String!
+  newPassword: String!
+}
+
+input StaffApplicationCreateInput {
+  rankID: Float!
+  content: String!
+}
+
+input StaffApplicationReviewInput {
+  accepted: Boolean!
+}
+
+input RadioRequestCreateInput {
+  content: String!
+}
+
+input RadioRequestReviewInput {
+  status: RadioRequestStatus!
+}
+
+input BugReportCreateInput {
+  title: String!
+  content: String!
+  url: String!
+}
+
+input BugReportUpdateInput {
+  title: String
+  content: String
+  url: String
+  severity: Float
+}
+
+input StorePackageCreateInput {
+  title: String!
+  description: String!
+  content: String!
+  imageURL: String!
+  isRecurring: Boolean!
+  totalCost: String!
+  currency: String!
+  benefits: StorePackageBenefitsInput!
+}
+
+input StorePackageBenefitsInput {
+  credits: Float!
+  pixels: Float!
+  points: Float!
+  rankID: Float!
+  itemIDs: [Float!]!
+  badgeCodes: [String!]
+}
+
+input GangCreateInput {
+  name: String!
+  description: String!
+  badgeCode: String!
+}
+
+input GangUpdateInput {
+  name: String
+  description: String
+  badgeCode: String
+}
+
+input CorporationCreateInput {
+  name: String!
+  description: String!
+  badgeCode: String!
+  roomID: Float!
+}
+
+input CorporationUpdateInput {
+  name: String
+  description: String
+  badgeCode: String
+  roomID: Float
+}
