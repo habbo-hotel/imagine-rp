@@ -15,3 +15,6 @@ export const MOCK_USER: UserWire = {
   onlineStatus: UserOnlineStatus.Offline,
   homeRoomID: -1,
 }
+
+// @ts-ignore
+export const NITRO_CLIENT_URL = import.meta.env.VITE_NITRO_CLIENT_URL
