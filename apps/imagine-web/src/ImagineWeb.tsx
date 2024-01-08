@@ -3,11 +3,16 @@ import { ThemeProvider } from './site-ui/theme/ThemeProvider';
 import { ImagineContextProviders, LoadingScreen } from '@imagine-cms/web';
 import { Route, Switch } from 'wouter';
 import { IMAGINE_ROUTES } from './site-ui/ImagineWeb.const';
+import { GameClient } from './site-ui/components/game-client/GameClient';
+import { ToastContainer } from 'react-toastify';
 export function ImagineWeb() {
 
   return (
     <ImagineContextProviders loadingScreen={<LoadingScreen />}>
       <ThemeProvider>
+
+        <GameClient />
+        <ToastContainer />
         <Switch>
           <>
             {

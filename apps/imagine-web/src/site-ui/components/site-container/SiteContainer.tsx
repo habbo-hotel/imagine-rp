@@ -16,8 +16,6 @@ export function SiteContainer({ children }: SiteContainerProps) {
     <>
       <SiteBody />
       <SiteContainerElement>
-        <GameClient />
-        <ToastContainer />
         {
           !showClient && (
             <>
