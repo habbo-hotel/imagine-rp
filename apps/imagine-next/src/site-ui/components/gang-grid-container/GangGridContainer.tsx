@@ -7,9 +7,9 @@ import Link from 'next/Link';
 
 export function GangGridContainer({ gang }: GangGridContainerProps) {
   return (
-    <Link to={`/gangs/${gang.id}`}>
+    <Link href={`/gangs/${gang.id}`}>
       <GangGridContainerElement>
-        <Link to={`/profile/${gang.user.username}`}>
+        <Link href={`/profile/${gang.user.username}`}>
           <GangGridContainerAvatar>
             <Avatar look={gang.user.look} />
           </GangGridContainerAvatar>

@@ -8,7 +8,7 @@ import Link from 'next/Link';
 export function CorpGridContainer({ corporation }: CorpGridContainerProps) {
   const { config } = useContext(configContext);
   return (
-    <Link to={`/corps/${corporation.id}`}>
+    <Link href={`/corps/${corporation.id}`}>
       <CorpGridContainerElement>
         <CorpGridContainerBadge src={`${config!.badgeURL}/${corporation.badgeCode}.${config!.badgeEXT}`} />
         <CorpGridContainerInfo>

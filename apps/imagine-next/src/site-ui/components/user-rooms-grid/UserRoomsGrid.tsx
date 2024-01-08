@@ -1,6 +1,5 @@
-import { Card } from '../card/Card';
-import { GridLarge } from '../grid/Grid.remix';
 'use client'
+import { GridLarge } from '../grid/Grid.remix';
 import React, { useEffect, useState } from 'react';
 import { ButtonNoBorder } from '../button/Button.remix';
 import { useRoomFetchMany } from '@imagine-cms/client';

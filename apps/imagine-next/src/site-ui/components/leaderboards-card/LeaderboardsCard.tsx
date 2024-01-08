@@ -33,7 +33,7 @@ export function LeaderboardsCard({ title, value, query }: LeaderboardsCardProps)
                   <Avatar look={user.look} size="m" direction={2} headDirection={2} gesture="sml" headOnly />
                 </td>
                 <td width="75%">
-                  <Link to={`/profile/${user.username}`}>
+                  <Link href={`/profile/${user.username}`}>
                     <b className="notranslate">{user.username}</b>
                   </Link>
                   <b /> <br />{value(user)}

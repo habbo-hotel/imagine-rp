@@ -1,5 +1,5 @@
-import { useCorporationFetchMany } from '@imagine-cms/client';
 'use client'
+import { useCorporationFetchMany } from '@imagine-cms/client';
 import React, { useEffect } from 'react';
 import { CorpGridContainerMock } from '../../components/corp-grid-container/CorpGridContainer.mock';
 import { CorpGridContainer } from '../../components/corp-grid-container/CorpGridContainer';

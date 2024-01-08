@@ -9,7 +9,7 @@ import { configContext } from '@imagine-cms/web';
 export function LatestArticleContainer({ article }: LatestArticleContainerProps) {
   const { config } = useContext(configContext);
   return (
-    <Link to={`/articles/${article.id}`}>
+    <Link href={`/articles/${article.id}`}>
       <LatestArticleGridContainerElement>
         <div style={{ flex: 1 }}>
           <LatestArticleImage src={article.imageURL} />

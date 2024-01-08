@@ -5,6 +5,7 @@ import { UsersOnlineContextProvider, WebsocketContextProvider } from '@imagine-c
 import { SiteBody } from '../site-ui/components/site-body/SiteBody.styled';
 import { SiteContainer } from '../site-ui/components/site-container/SiteContainer';
 import { ThemeProvider } from '../site-ui/theme/ThemeProvider';
+import Head from 'next/head';
 
 export const metadata: Metadata = {
   title: 'Imagine',
@@ -18,6 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="stylesheet" href="/css/fontawesome.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      </Head>
       <body>
         <ImagineContextProviders loadingScreen={<LoadingScreen />}>
           <WebsocketContextProvider>

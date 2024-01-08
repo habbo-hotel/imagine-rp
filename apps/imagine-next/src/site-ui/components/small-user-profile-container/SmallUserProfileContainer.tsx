@@ -9,7 +9,7 @@ import { SmallUserProfileContainerAvatarContainer, SmallUserProfileContainerBann
 export function SmallUserProfileContainer({ children, user, showOnlineStatus = true, showMotto = true, showRank = true, ...props }: SmallUserProfileContainerProps) {
   return (
     <div>
-      <Link to={`/profile/${user.username}`}>
+      <Link href={`/profile/${user.username}`}>
         <SmallUserProfileContainerUserContainer {...props}>
           <SmallUserProfileContainerBanner>
             <SmallUserProfileContainerAvatarContainer style={{ background: user.rank?.backgroundColor }}>
@@ -25,7 +25,7 @@ export function SmallUserProfileContainer({ children, user, showOnlineStatus = t
             </SmallUserProfileUsernameContainer>
             {
               showRank && (
-                <Link to={`/ranks/${user.rank!.id}`}>
+                <Link href={`/ranks/${user.rank!.id}`}>
                   <SmallUserProfileRankContainer className="notranslate">
                     {user.rank!.name}
                   </SmallUserProfileRankContainer>

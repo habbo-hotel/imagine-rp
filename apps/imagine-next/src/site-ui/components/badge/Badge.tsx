@@ -1,6 +1,6 @@
+'use client'
 import { BadgeProps } from './Badge.types';
 import { configContext } from '@imagine-cms/web';
-'use client'
 import React, { useContext, useMemo, useState } from 'react';
 
 export function Badge({ badge, ...props }: BadgeProps) {

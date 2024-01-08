@@ -36,7 +36,7 @@ export function GangViewScreen() {
           <GangGridContainerAvatar>
             {fetchGang.data &&
 
-              <Link to={`/profile/${fetchGang.data.user.username}`}>
+              <Link href={`/profile/${fetchGang.data.user.username}`}>
                 <Avatar look={fetchGang.data.user.look} style={{ cursor: 'pointer' }} />
               </Link>}
           </GangGridContainerAvatar>

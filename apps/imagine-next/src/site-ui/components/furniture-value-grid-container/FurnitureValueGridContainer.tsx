@@ -38,7 +38,7 @@ export function FurnitureValueGridContainer({ furniture }: FurnitureValueGridCon
   }, [furniture.id]);
 
   return (
-    <Link to={`/values/${furniture.id}`}>
+    <Link href={`/values/${furniture.id}`}>
       <FurnitureValueGridContainerElement>
         <h2>{furniture.publicName}</h2>
         <br />

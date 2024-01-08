@@ -1,0 +1,1 @@
+export { PlayGameScreen as default } from "../../site-ui/screens/play-game-screen/PlayGameScreen";

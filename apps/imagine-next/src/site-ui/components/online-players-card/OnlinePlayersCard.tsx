@@ -1,7 +1,7 @@
+'use client'
 import { Card } from '../card/Card';
 import { Grid } from '../grid/Grid';
 import { GridLarge } from '../grid/Grid.remix';
-'use client'
 import React, { useEffect, useState } from 'react';
 import { useUserFetchMany } from '@imagine-cms/client';
 import { ButtonNoBorder } from '../button/Button.remix';

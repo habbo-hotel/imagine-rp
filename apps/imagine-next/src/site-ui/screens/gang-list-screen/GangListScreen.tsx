@@ -1,5 +1,5 @@
-import { useGangFetchMany } from '@imagine-cms/client';
 'use client'
+import { useGangFetchMany } from '@imagine-cms/client';
 import React, { useEffect } from 'react';
 import { GangGridContainerMock } from '../../components/gang-grid-container/GangGridContainer.mock';
 import { GangGridContainer } from '../../components/gang-grid-container/GangGridContainer';

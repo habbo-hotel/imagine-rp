@@ -1,15 +1,15 @@
+'use client'
 import { Form } from '../../components/form/Form';
 import { Input } from '../../components/input/Input';
 import { Button } from '../../components/button/Button';
 import { ButtonBrand } from '../../components/button/Button.remix';
-'use client'
 import React, { SyntheticEvent, useContext, useState } from 'react';
 import { GuestContainer } from '../../components/guest-container/GuestContainer';
 import { configContext, localStorageService, sessionContext } from '@imagine-cms/web';
 import { UserCreateInput, UserGender, useUserCreate, useUserFetchOne } from '@imagine-cms/client';
 import { toast } from 'react-toastify';
-import { ACTION_NAVIGATE } from 'next/navigation';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export function RegisterScreen() {
   const createUser = useUserCreate();
@@ -46,7 +46,7 @@ export function RegisterScreen() {
       const matchingUser = await fetchUser.fetch({ id: newSession.userID });
       setSession(matchingUser as any);
       toast.success(`Welcome back, ${matchingUser.username}`)
-      ACTION_NAVIGATE('/me');
+      redirect('/me');
     } catch (e: any) {
       toast.error(`Failed to create user`);
       throw e;

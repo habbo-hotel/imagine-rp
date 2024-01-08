@@ -1,9 +1,9 @@
+'use client'
 import { Form } from '../form/Form';
 import { toast } from 'react-toastify';
 import { Textarea } from '../textarea/Textarea';
 import { sessionContext } from '@imagine-cms/web';
 import { ButtonSuccess } from '../button/Button.remix';
-'use client'
 import React, { SyntheticEvent, useContext, useState } from 'react';
 import { RankCreateApplicationFormProps } from './RankCreateApplicationForm.types';
 import { useStaffApplicationCreate, useStaffApplicationFetchMany } from '@imagine-cms/client';

@@ -1,6 +1,6 @@
+'use client'
 import { AvatarProps } from './Avatar.types';
 import { configContext } from '@imagine-cms/web';
-'use client'
 import React, { useContext, useMemo, useState } from 'react';
 
 export function Avatar({ look, action, headOnly = false, size, direction, headDirection, gesture, overrideImgSrc, ...props }: AvatarProps) {

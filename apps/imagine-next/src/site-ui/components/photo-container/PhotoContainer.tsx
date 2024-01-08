@@ -5,7 +5,7 @@ import { PhotoContainerProps } from './PhotoContainer.types';
 
 export function PhotoContainer({ story, ...props }: PhotoContainerProps) {
   return (
-    <Link to={`/photos/${story.id}`}>
+    <Link href={`/photos/${story.id}`}>
       <img src={story.photoURL} loading="lazy" {...props} />
     </Link>
 

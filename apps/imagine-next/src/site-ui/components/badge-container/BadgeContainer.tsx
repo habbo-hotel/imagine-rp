@@ -7,7 +7,7 @@ import Link from 'next/Link';
 
 export function BadgeContainer({ badge }: BadgeContainerProps) {
   return (
-    <Link to={`/badges/${badge.code}`}>
+    <Link href={`/badges/${badge.code}`}>
       <BadgeHolder>
         <Badge badge={badge} />
       </BadgeHolder>

@@ -1,7 +1,8 @@
+
+'use client'
 import { toast } from 'react-toastify';
 import { Form } from '../../components/form/Form';
 import { Input } from '../../components/input/Input';
-'use client'
 import React, { SyntheticEvent, useState } from 'react';
 import { ButtonBrand } from '../../components/button/Button.remix';
 import { useForgotPasswordRequestCreate } from '@imagine-cms/client';

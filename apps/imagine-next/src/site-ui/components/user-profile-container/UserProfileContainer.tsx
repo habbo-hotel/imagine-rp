@@ -1,9 +1,9 @@
+'use client'
 import DayJS from 'dayjs';
 import Link from 'next/Link';
 import { Badge } from '../badge/Badge';
 import { Avatar } from '../avatar/Avatar';
 import { configContext } from '@imagine-cms/web';
-'use client'
 import React, { useContext, useEffect, useMemo } from 'react';
 import { UserProfileContainerProps } from './UserProfileContainer.types';
 import { UserBadgeContainerGrid } from '../user-badge-container-grid/UserBadgeContainerGrid';
@@ -38,7 +38,7 @@ export function UserProfileContainer({ user }: UserProfileContainerProps) {
         <InformationContainer>
           <div>
             <div style={{ display: 'flex', gap: 8 }}>
-              <Link to={`/ranks/${user.rank.id}`}>
+              <Link href={`/ranks/${user.rank.id}`}>
                 <Badge badge={{ code: user.rank.badgeCode }} style={{ height: 45, marginTop: 10 }} />
               </Link>
               <h2 className="notranslate" style={{ color: user.rank.backgroundColor }}>
@@ -54,7 +54,7 @@ export function UserProfileContainer({ user }: UserProfileContainerProps) {
             <div>Job</div>
             {user.rpStats.corporationID
               ? (
-                <Link to={`/corps/${user.rpStats.corporationID}`}>
+                <Link href={`/corps/${user.rpStats.corporationID}`}>
                   <b style={{ cursor: 'pointer' }}>{corporationFetchOne.data?.name}</b>
                 </Link>
               )
@@ -65,7 +65,7 @@ export function UserProfileContainer({ user }: UserProfileContainerProps) {
             <div>Gang</div>
             {user.rpStats.gangID
               ? (
-                <Link to={`/gangs/${user.rpStats.gangID}`}>
+                <Link href={`/gangs/${user.rpStats.gangID}`}>
                   <b style={{ cursor: 'pointer' }}>{gangFetchOne.data?.name}</b>
                 </Link>
               )

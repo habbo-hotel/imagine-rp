@@ -194,6 +194,9 @@ importers:
       '@imagine-cms/client':
         specifier: '*'
         version: link:../../libs/client
+      '@imagine-cms/types':
+        specifier: '*'
+        version: link:../../libs/types
       '@imagine-cms/web':
         specifier: '*'
         version: link:../../libs/web

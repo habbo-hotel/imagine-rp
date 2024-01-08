@@ -1,0 +1,1 @@
+export { CorpListcreen as default } from "../../site-ui/screens/corp-list-screen/CorpListScreen";

@@ -5,10 +5,11 @@ import { GridLargeSmall } from '../../components/grid/Grid.remix';
 import { ArticleCommentsCard } from './article-comments-card/ArticleCommentsCard';
 import { LongUserContainer } from '../../components/long-user-container/LongUserContainer';
 import { ArticleContentContainer, ArticleContentElement, ArticleHeaderBackground, ArticleHeaderContainer, ArticleHeaderContent, ArticleHeaderOverlay } from './ArticleViewScreen.styled';
+import { useParams } from 'next/navigation';
 
 export function ArticleViewScreen() {
   const fetchArticle = useArticleFetchOne();
-  const [_, params] = useRoute<{ articleID: string }>('/articles/:articleID');
+  const params = useParams<{ articleID: string }>();
   const articleID = Number(params!.articleID);
 
   useEffect(() => {

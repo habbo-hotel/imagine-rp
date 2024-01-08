@@ -1,9 +1,9 @@
+'use client'
 import Link from 'next/Link';
 import { Grid } from '../grid/Grid';
 import { Card } from '../card/Card';
 import { Badge } from '../badge/Badge';
 import { GridLarge } from '../grid/Grid.remix';
-'use client'
 import React, { useEffect, useState } from 'react';
 import { useUserFetchMany } from '@imagine-cms/client';
 import { ButtonBrand, ButtonNoBorder } from '../button/Button.remix';
@@ -41,10 +41,10 @@ export function RankListContainer({ rank, showApplicationsButton = true }: RankL
   return (
     <Card>
       <RankListContainerHeader>
-        <Link to={`/ranks/${rank.id}`}>
+        <Link href={`/ranks/${rank.id}`}>
           <h1 style={{ cursor: 'pointer' }}>{rank.name}</h1>
         </Link>
-        <Link to={`/ranks/${rank.id}`}>
+        <Link href={`/ranks/${rank.id}`}>
           <Badge badge={{ code: rank.badgeCode }} style={{ cursor: 'pointer' }} />
         </Link>
       </RankListContainerHeader>
@@ -77,7 +77,7 @@ export function RankListContainer({ rank, showApplicationsButton = true }: RankL
       </GridLarge>
       {
         rank.flags?.acceptingApplications && showApplicationsButton && (
-          <Link to={`/ranks/${rank.id}`}>
+          <Link href={`/ranks/${rank.id}`}>
             <ButtonBrand>Apply for Role</ButtonBrand>
           </Link>
         )

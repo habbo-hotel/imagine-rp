@@ -1,0 +1,1 @@
+export { ForgotPasswordLinkSentScreen as default } from "../../../site-ui/screens/forgot-password-link-sent-screen/ForgotPasswordLinkSentScreen";

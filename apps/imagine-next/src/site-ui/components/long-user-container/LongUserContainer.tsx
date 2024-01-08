@@ -8,7 +8,7 @@ import { LongUserContainerElement, LongUserContainerInformation } from './LongUs
 
 export function LongUserContainer({ user }: LongUserContainerProps) {
   return (
-    <Link to={`/profile/${user.username}`}>
+    <Link href={`/profile/${user.username}`}>
       <LongUserContainerElement>
         <Avatar look={user.look ?? '-'} headOnly size="l" direction={2} headDirection={2} />
         <LongUserContainerInformation>

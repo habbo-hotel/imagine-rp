@@ -1,5 +1,5 @@
-import { usePhotoFetchOne } from '@imagine-cms/client';
 'use client'
+import { usePhotoFetchOne } from '@imagine-cms/client';
 import React, { useEffect } from 'react';
 import { PhotoViewScreenImagePreview } from './PhotoViewScreen.styled';
 import { PhotoCommentsCard } from './photo-comments-card/PhotoCommentsCard';
@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 export function PhotoViewScreen() {
-  const [_, params] = useParams<{ photoID: string }>();
+  const params = useParams<{ photoID: string }>();
   const photoID = Number(params!.photoID);
 
   const fetchPhoto = usePhotoFetchOne();

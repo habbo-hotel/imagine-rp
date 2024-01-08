@@ -1,8 +1,9 @@
+
+'use client'
 import Link from 'next/Link';
 import { toast } from 'react-toastify';
 import { Form } from '../../components/form/Form';
 import { Input } from '../../components/input/Input';
-'use client'
 import React, { SyntheticEvent, useState } from 'react';
 import { Button } from '../../components/button/Button';
 import { useSignInWithUsernameAndPassword } from '@imagine-cms/web';

@@ -1,5 +1,5 @@
-import { useCorporationFetchOne, useCorporationRankFetchMany } from '@imagine-cms/client';
 'use client'
+import { useCorporationFetchOne, useCorporationRankFetchMany } from '@imagine-cms/client';
 import React, { useContext, useEffect } from 'react';
 import { GridLarge } from '../../components/grid/Grid.remix';
 import { configContext } from '@imagine-cms/web';
@@ -10,6 +10,7 @@ import { SmallUserProfileContainer } from '../../components/small-user-profile-c
 import { RoomGridContainer } from '../../components/room-grid-container/RoomGridContainer';
 import { CorpRankGridContainer } from '../../components/corp-rank-grid-container/CorpRankGridContainer';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 
 export function CorpViewScreen() {
   const { config } = useContext(configContext);

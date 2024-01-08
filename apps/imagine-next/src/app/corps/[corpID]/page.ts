@@ -1,0 +1,1 @@
+export { CorpViewScreen as default } from "../../../site-ui/screens/corp-view-screen/CorpViewScreen";

@@ -1,0 +1,1 @@
+export { RankListScreen as default } from "../../site-ui/screens/rank-list-screen/RankListScreen";

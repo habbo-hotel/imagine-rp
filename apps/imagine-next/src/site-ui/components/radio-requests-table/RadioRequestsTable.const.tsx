@@ -9,7 +9,7 @@ export const RADIO_REQUEST_TABLE_COLUMNS: TableColumn<RadioRequestFragment>[] = 
   {
     name: 'User',
     cell: ({ user }) => (
-      <Link to={`/profile/${user.username}`}>
+      <Link href={`/profile/${user.username}`}>
         <span className="notranslate">
           {user.username}
         </span>

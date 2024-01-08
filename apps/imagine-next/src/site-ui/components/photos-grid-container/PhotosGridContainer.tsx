@@ -1,6 +1,6 @@
+'use client'
 import Link from 'next/Link';
 import { usePhotoFetchMany } from '@imagine-cms/client';
-'use client'
 import React, { useEffect, useMemo, useState } from 'react';
 import { PhotosGridContainerChild, PhotosGridContainerContent, PhotosGridContainerElement, PhotosGridContainerPagination } from './PhotosGridContainer.styled';
 
@@ -59,7 +59,7 @@ export function PhotosGridContainer() {
         }
         {
           stories.map(_ => (
-            <Link key={`photo_${_.id}`} to={`/photos/${_.id}`}>
+            <Link key={`photo_${_.id}`} href={`/photos/${_.id}`}>
               <PhotosGridContainerChild>
                 <img src={_.photoURL} loading="lazy" />
               </PhotosGridContainerChild>

@@ -1,0 +1,1 @@
+export { PhotoViewScreen as default } from "../../../site-ui/screens/photo-view-screen/PhotoViewScreen";

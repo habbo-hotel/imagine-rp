@@ -1,0 +1,1 @@
+export { GangViewScreen as default } from "../../../site-ui/screens/gang-view-screen/GangViewScreen";
