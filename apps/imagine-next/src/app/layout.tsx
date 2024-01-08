@@ -6,6 +6,7 @@ import { SiteBody } from '../site-ui/components/site-body/SiteBody';
 import { ImagineContextProviders, LoadingScreen } from '@imagine-cms/web'
 import { SiteContainer } from '../site-ui/components/site-container/SiteContainer';
 import { UsersOnlineContextProvider, WebsocketContextProvider } from '@imagine-cms/websocket'
+import { Transition } from '../site-ui/components/transition/Transition';
 
 export const metadata: Metadata = {
   title: 'Imagine',
@@ -30,7 +31,10 @@ export default function RootLayout({
               <ThemeProvider>
                 <SiteBody />
                 <SiteContainer>
-                  {children}
+                  <Transition>
+
+                    {children}
+                  </Transition>
                 </SiteContainer>
               </ThemeProvider>
             </UsersOnlineContextProvider>

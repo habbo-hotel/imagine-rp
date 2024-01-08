@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p 5176",
     "build": "next build",
-    "start": "next start -p 5176",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -14,6 +14,7 @@
     "react": "^18",
     "react-dom": "^18",
     "next": "14.0.4",
+    "framer-motion": "10.17.9",
     "@emotion/react": "11.11.3",
     "@emotion/styled": "11.11.0",
     "react-toastify": "9.1.3",
