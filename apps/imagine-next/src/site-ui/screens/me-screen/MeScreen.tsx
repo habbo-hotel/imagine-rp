@@ -1,5 +1,5 @@
-import { MOCK_USER } from '../../site-ui.const';
 'use client'
+import { MOCK_USER } from '../../site-ui.const';
 import React, { useContext } from 'react';
 import { sessionContext } from '@imagine-cms/web';
 import { GridLarge } from '../../components/grid/Grid.remix';

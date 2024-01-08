@@ -4,9 +4,9 @@ import type { Metadata } from 'next'
 import { ThemeProvider } from '../site-ui/theme/ThemeProvider';
 import { SiteBody } from '../site-ui/components/site-body/SiteBody';
 import { ImagineContextProviders, LoadingScreen } from '@imagine-cms/web'
-import { SiteContainer } from '../site-ui/components/site-container/SiteContainer';
 import { UsersOnlineContextProvider, WebsocketContextProvider } from '@imagine-cms/websocket'
 import { Transition } from '../site-ui/components/transition/Transition';
+import { SiteContainer } from '../shared/site-container/SiteContainer';
 
 export const metadata: Metadata = {
   title: 'Imagine',

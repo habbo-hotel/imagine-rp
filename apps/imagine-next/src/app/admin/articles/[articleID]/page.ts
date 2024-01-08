@@ -1,0 +1,1 @@
+export { NewsArticlesEditArticleScreen as default } from "../../../../admin-ui/screens/news-articles-edit-article-screen/NewsArticlesEditArticleScreen";

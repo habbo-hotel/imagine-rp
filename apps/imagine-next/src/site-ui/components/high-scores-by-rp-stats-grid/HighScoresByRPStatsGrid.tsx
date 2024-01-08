@@ -43,7 +43,7 @@ export function HighScoresByRPStatsGrid({ children, orderBy }: HighScoresByRPSta
       <Grid>
         {
           rpStatsFetchMany.loading && (
-            <SmallUserProfileContainerMock showMotto={false} showRank={false}>
+            <SmallUserProfileContainerMock showMothref={false} showRank={false}>
               -
               {children}
             </SmallUserProfileContainerMock>
@@ -53,7 +53,7 @@ export function HighScoresByRPStatsGrid({ children, orderBy }: HighScoresByRPSta
           rpStatsFetchMany.data?.map((_, i) => {
             const leaderboardRanking = (i + 1) + (page * HIGH_SCORES_PAGE_SIZE);
             return (
-              <SmallUserProfileContainerLazy userID={_.userID} showMotto={false} showRank={false}>
+              <SmallUserProfileContainerLazy userID={_.userID} showMothref={false} showRank={false}>
                 <div>
                   <div>
                     {_[orderBy]}&nbsp;{children}

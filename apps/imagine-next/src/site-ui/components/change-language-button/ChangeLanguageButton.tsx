@@ -30,6 +30,10 @@ export function ChangeLanguageButton() {
     if (userLanguage) {
       setCookie(GOOGLE_TRANSLATE_COOKIE, userLanguage);
     }
+    // @ts-ignore
+    if (typeof google === 'undefined') {
+      return;
+    }
     // @ts-ignore - google is a global dep imported in the index.html
     new google.translate.TranslateElement({ layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL, pageLanguage: 'en', includedLanguages: allowedLanguages.toString(',') }, GOOGLE_TRANSLATE_ELEMENT);
     const newInterval = setInterval(syncGoogleAndProfileLanguage, FIVE_SECONDS_IN_MS);

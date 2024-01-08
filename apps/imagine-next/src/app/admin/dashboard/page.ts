@@ -1,0 +1,1 @@
+export { DashboardScreen as default } from "../../../admin-ui/screens/dashboard-screen/DashboardScreen";

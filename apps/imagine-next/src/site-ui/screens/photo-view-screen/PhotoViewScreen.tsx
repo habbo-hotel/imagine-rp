@@ -31,10 +31,10 @@ export function PhotoViewScreen() {
               <PhotoViewScreenImagePreview src={fetchPhoto.data.photoURL} />
               <h2>Meet the author</h2>
               <div style={{ display: 'flex', width: 'fit-content' }}>
-                {fetchPhoto.data.user ? <SmallUserProfileContainer user={fetchPhoto.data.user as any} showMotto={false} showRank={false} /> : <SmallUserProfileContainerMock showMotto={false} showRank={false} />}
+                {fetchPhoto.data.user ? <SmallUserProfileContainer user={fetchPhoto.data.user as any} showMothref={false} showRank={false} /> : <SmallUserProfileContainerMock showMothref={false} showRank={false} />}
               </div>
             </div>
-            <PhotoCommentsCard photo={fetchPhoto.data} />
+            <PhotoCommentsCard phohref={fetchPhoto.data} />
           </GridLarge>
         )
       }

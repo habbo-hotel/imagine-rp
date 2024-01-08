@@ -51,13 +51,13 @@ export function RankListContainer({ rank, showApplicationsButton = true }: RankL
       <Grid>      {
         fetchRankUsers.loading && (
           <>
-            <SmallUserProfileContainerMock showMotto={false} showRank={false} />
+            <SmallUserProfileContainerMock showMothref={false} showRank={false} />
           </>
         )
       }
         {
           fetchRankUsers.data?.map(_ => (
-            <SmallUserProfileContainer key={`rank_${rank.id}_user_${_.id}`} user={_ as any} showMotto={false} showRank={false} />
+            <SmallUserProfileContainer key={`rank_${rank.id}_user_${_.id}`} user={_ as any} showMothref={false} showRank={false} />
           ))
         }
       </Grid>

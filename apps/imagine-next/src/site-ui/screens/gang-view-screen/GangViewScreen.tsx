@@ -60,7 +60,7 @@ export function GangViewScreen() {
               <div style={{ maxWidth: 200 }}>
                 {
                   fetchGang.data
-                    ? <SmallUserProfileContainer user={fetchGang.data.user as any} showMotto={false} showRank={false} />
+                    ? <SmallUserProfileContainer user={fetchGang.data.user as any} showMothref={false} showRank={false} />
                     : <i className="fa fa-spinner fa-spin" />
                 }
               </div>

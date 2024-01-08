@@ -1,0 +1,1 @@
+export { ConfigurationOverviewScreen as default } from "../../../admin-ui/screens/configuration-overview-screen/ConfigurationOverviewScreen";

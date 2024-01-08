@@ -56,7 +56,7 @@ export function CorpViewScreen() {
               <div style={{ maxWidth: 200 }}>
                 {
                   fetchCorp.data
-                    ? <SmallUserProfileContainer user={fetchCorp.data.user as any} showMotto={false} showRank={false} />
+                    ? <SmallUserProfileContainer user={fetchCorp.data.user as any} showMothref={false} showRank={false} />
                     : <i className="fa fa-spinner fa-spin" />
                 }
               </div>
