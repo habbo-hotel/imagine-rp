@@ -1,9 +1,16 @@
 import React from 'react';
+import { useLocation } from 'wouter';
 import { Link } from '../../blocks/link/Link';
-import { SITE_URL, ScopeGuard, UserGuard } from '@imagine-cms/web';
+import { ScopeGuard } from '@imagine-cms/web';
 import { SiteSidebarElement } from './SiteSidebar.styled';
+import { ButtonBrand } from '../../../site-ui/components/button/Button.remix';
 
 export function SiteSidebar() {
+  const [, setLocation] = useLocation();
+
+  function onViewCerberusAbout() {
+    setLocation('/admin/cerberus');
+  }
   return (
     <SiteSidebarElement>
       <ul>
@@ -12,13 +19,6 @@ export function SiteSidebar() {
             <i className="fa fa-home" />
           </li>
         </Link>
-        <ScopeGuard scope="manageBetaCodes" redirect={false}>
-          <Link href="/admin/beta-codes">
-            <li>
-              <i className="fa fa-vial" />
-            </li>
-          </Link>
-        </ScopeGuard>
         <ScopeGuard scope="manageUsers" redirect={false}>
           <Link href="/admin/users">
             <li>
@@ -58,21 +58,14 @@ export function SiteSidebar() {
       </ul>
       <footer>
         <ul>
-          <UserGuard redirect={false}>
-            <Link href="/logout">
-              <li>
-                <i className="fa fa-sign-out" style={{ color: 'red' }} />
-              </li>
-            </Link>
-          </UserGuard>
           <Link to="/me">
-            <li>
-              <i className="fa fa-external-link" />
-            </li>
+            <ButtonBrand>
+              Go to site
+            </ButtonBrand>
           </Link>
         </ul>
         <div className="notranslate">
-          <b>Cerberus</b>
+          <b style={{ cursor: 'pointer' }} onClick={onViewCerberusAbout}>Cerberus</b>
           <div>
             by&nbsp;<a href="https://github.com/habbo-hotel" target="_blank" style={{ cursor: 'pointer' }} className="lechris" rel="noreferrer"><b>LeChris</b></a>
           </div>

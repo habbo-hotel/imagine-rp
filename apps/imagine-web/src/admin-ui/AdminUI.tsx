@@ -12,11 +12,12 @@ import { ConfigurationOverviewScreen } from "./screens/configuration-overview-sc
 import { NewsArticlesEditArticleScreen } from "./screens/news-articles-edit-article-screen/NewsArticlesEditArticleScreen";
 import { NewsArticlesCreateArticleScreen } from "./screens/news-articles-create-article-screen/NewsArticlesCreateArticleScreen";
 import { AdminContainer } from "./components/admin-container/AdminContainer";
+import { CerberusScreen } from "./screens/cerberus-screen/CerberusScreen";
 
 export const ADMIN_ROUTES: RouteDeclaration[] = [
   {
-    path: '/admin/dashboard',
-    view: DashboardScreen,
+    path: '/admin/cerberus',
+    view: CerberusScreen,
     layout: AdminContainer,
     guard: RouteScopeGuard('accessAdminPanel'),
   },

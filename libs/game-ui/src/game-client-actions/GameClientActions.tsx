@@ -1,12 +1,15 @@
 import { useLocation } from 'wouter';
-import { configContext, themeContext } from '@imagine-cms/web';
+import { ScopeGuard, configContext, sessionContext, themeContext } from '@imagine-cms/web';
 import React, { useContext, useEffect, useState } from 'react';
 import { GameClientActionsElement } from './GameClientActions.styled';
 import { websocketContext } from '@imagine-cms/websocket';
+import { Avatar } from '@imagine-cms/shared-ui';
+import { MOCK_USER } from '../../../../apps/imagine-web/src/site-ui/site-ui.const';
 
 export function GameClientActions() {
   const [, setLocation] = useLocation();
   const { config } = useContext(configContext);
+  const { session } = useContext(sessionContext);
   const { setTheme } = useContext(themeContext);
   const { client } = useContext(websocketContext);
   const [isExpanded, setExpanded] = useState<boolean>(false);
@@ -29,9 +32,9 @@ export function GameClientActions() {
   }, []);
 
 
-  function onViewHome(): void {
+  function onViewProfile(): void {
     setTheme({ showClient: false });
-    setLocation('/me');
+    setLocation(session ? `/profile/${session.username}` : '/login');
   }
 
   function onReloadClient(): void {
@@ -41,6 +44,11 @@ export function GameClientActions() {
   function onViewCommunity(): void {
     setTheme({ showClient: false });
     setLocation('/community');
+  }
+
+  function onViewAdminPanel(): void {
+    setTheme({ showClient: false });
+    setLocation('/admin/dashboard');
   }
 
   async function onToggleFullScreen(): Promise<void> {
@@ -55,7 +63,15 @@ export function GameClientActions() {
   return (
     <>
       <GameClientActionsElement>
-        <button className="action" onClick={onViewHome}>{config.siteName}</button>
+        <button className="action" onClick={onViewProfile} style={{ maxWidth: 200, overflow: 'hidden' }}>
+          <Avatar look={session?.look ?? MOCK_USER.look} headOnly={true} style={{ height: 35 }} />
+          {session?.username ?? config.siteName}
+        </button>
+        <ScopeGuard redirect={false} scope="accessAdminPanel">
+          <button className="action" style={{ marginRight: 4 }} onClick={onViewAdminPanel}>
+            <i className="fa fa-shield" /> Admin
+          </button>
+        </ScopeGuard>
         <button className="action" onClick={onToggleFullScreen}>
           <i className={`fas ${isExpanded ? 'fa-compress' : 'fa-expand'}`} />
         </button>

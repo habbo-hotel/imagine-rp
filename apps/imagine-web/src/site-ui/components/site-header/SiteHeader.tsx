@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'wouter';
 import { SiteNav } from '../site-nav/SiteNav';
 import { SiteLogo } from '../site-logo/SiteLogo';
-import { ADMIN_URL, GuestGuard, ScopeGuard, UserGuard, configContext } from '@imagine-cms/web';
+import { GuestGuard, ScopeGuard, UserGuard, configContext } from '@imagine-cms/web';
 import { OnlineUserCount } from '../online-user-count/OnlineUserCount';
 import { ToggleThemeButton } from '../toggle-theme-button/ToggleThemeButton';
 import { ButtonBrand, ButtonDanger, ButtonNoBorder } from '../button/Button.remix';

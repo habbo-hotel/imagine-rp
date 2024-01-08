@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ADMIN_SIDEBAR_WIDTH = 150;
+export const ADMIN_SIDEBAR_WIDTH = 180;
 
 export const SiteContainerElement = styled.div`
   display: flex;

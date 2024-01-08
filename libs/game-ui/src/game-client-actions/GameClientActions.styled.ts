@@ -17,6 +17,9 @@ export const GameClientActionsElement = styled.div`
         border-radius: 5px;
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
         color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
         text-transform: uppercase;
         letter-spacing: 1px;

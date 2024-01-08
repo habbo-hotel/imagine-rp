@@ -4,7 +4,7 @@ import { GridLarge } from '../grid/Grid.remix';
 import { SiteLogo } from '../site-logo/SiteLogo';
 import React, { useEffect, useState } from 'react';
 import { SiteMobileHeaderElement } from './SiteMobileHeader.styled';
-import { ADMIN_URL, GuestGuard, ScopeGuard, UserGuard } from '@imagine-cms/web';
+import { GuestGuard, ScopeGuard, UserGuard } from '@imagine-cms/web';
 import { ButtonDanger, ButtonNoBorder, ButtonBrand } from '../button/Button.remix';
 
 export function SiteMobileHeader() {
@@ -41,12 +41,12 @@ export function SiteMobileHeader() {
                   </Link>
                 </UserGuard>
                 <ScopeGuard scope="accessAdminPanel" redirect={false}>
-                  <a href={ADMIN_URL} style={{ width: '100%' }}>
+                  <Link to="/admin/dashboard" style={{ width: '100%' }}>
                     <ButtonDanger style={{ width: '100%' }}>
                       <i className="fa fa-cog" style={{ marginRight: 8 }} />
                       Admin
                     </ButtonDanger>
-                  </a>
+                  </Link>
                 </ScopeGuard>
                 <UserGuard>
                   <Link to="/play">
