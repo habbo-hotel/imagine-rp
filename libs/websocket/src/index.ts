@@ -1,3 +1,4 @@
+'use client';
 export * from './Websocket.client';
 export * from './WebsocketContextProvider';
 export * from './WebsocketContext';

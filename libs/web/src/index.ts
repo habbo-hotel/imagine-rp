@@ -1,3 +1,4 @@
+'use client';
 export * from './app';
 export * from './components';
 export * from './context';

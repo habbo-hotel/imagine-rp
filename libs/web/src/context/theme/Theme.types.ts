@@ -2,6 +2,18 @@ import { ReactNode } from 'react';
 
 export type SiteTheme = 'light' | 'dark';
 
+export function getThemePreference() {
+  // Check if 'window' is defined
+  if (typeof window !== "undefined") {
+    // Use 'matchMedia' to check for dark mode preference
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light';
+  } else {
+    // Default to 'dark' if 'window' is not defined
+    return 'dark';
+  }
+}
+
+
 export interface ThemeContext {
   theme: SiteTheme;
   showClient: boolean;
@@ -12,7 +24,7 @@ export interface ThemeContext {
 }
 
 export const defaultThemeContextInterface: ThemeContext = {
-  theme: window.matchMedia("(prefers-color-scheme: dark)") ? 'dark' : 'light',
+  theme: getThemePreference(),
   showClient: false,
   showFooter: true,
   showModalOverlay: true,
