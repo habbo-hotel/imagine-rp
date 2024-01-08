@@ -30,10 +30,9 @@ import { RoomListScreen } from './screens/room-list-screen/RoomListScreen';
 import { HighScoresRoleplayScreen } from './screens/high-scores-roleplay-screen/HighScoresRoleplayScreen';
 import { HighScoresEconomyScreen } from './screens/high-scores-economy-screen/HighScoresEconomyScreen';
 import { HighScoresCrimeScreen } from './screens/high-scores-crime-screen/HighScoresCrimeScreen';
-import { RouteDeclaration } from '../ImagineWeb.types';
 import { SiteContainer } from './components/site-container/SiteContainer';
 
-export const SITE_ROUTES: RouteDeclaration[] = [
+export const SITE_ROUTES: any[] = [
   {
     path: '/',
     guard: undefined,
@@ -41,7 +40,7 @@ export const SITE_ROUTES: RouteDeclaration[] = [
     view: LandingScreen,
   },
   {
-    path: '/about',
+    path: '/imagine',
     guard: undefined,
     layout: SiteContainer,
     view: ImagineScreen,
