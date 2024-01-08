@@ -8,7 +8,7 @@ export const SiteSidebarElement = styled.div`
   top: 0;
   left: 0;
   min-height: 100%;
-  width: ${ADMIN_SIDEBAR_WIDTH};
+  width: ${ADMIN_SIDEBAR_WIDTH}px;
   
   ul {
     list-style-type: none;
