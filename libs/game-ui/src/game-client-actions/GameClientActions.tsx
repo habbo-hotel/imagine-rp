@@ -1,10 +1,9 @@
 import { useLocation } from 'wouter';
-import { ScopeGuard, configContext, sessionContext, themeContext } from '@imagine-cms/web';
+import { Avatar } from '@imagine-cms/shared-ui';
 import React, { useContext, useEffect, useState } from 'react';
 import { GameClientActionsElement } from './GameClientActions.styled';
-import { websocketContext } from '@imagine-cms/websocket';
-import { Avatar } from '@imagine-cms/shared-ui';
-import { MOCK_USER } from '../../../../apps/imagine-web/src/site-ui/site-ui.const';
+import { usersOnlineContext, websocketContext } from '@imagine-cms/websocket';
+import { ScopeGuard, configContext, sessionContext, themeContext } from '@imagine-cms/web';
 
 export function GameClientActions() {
   const [, setLocation] = useLocation();
@@ -12,22 +11,16 @@ export function GameClientActions() {
   const { session } = useContext(sessionContext);
   const { setTheme } = useContext(themeContext);
   const { client } = useContext(websocketContext);
-  const [isExpanded, setExpanded] = useState<boolean>(false);
+  const { usersOnline } = useContext(usersOnlineContext);
   const [serverTime, setServerTime] = useState('0:00pm');
-  const [userCount, setUserCount] = useState(0);
+  const [isExpanded, setExpanded] = useState<boolean>(false);
 
   async function onServerTimeReceived(serverTime: any) {
     console.log('GameClientActions onServerTimeReceived: ', serverTime)
     setServerTime(serverTime.toLowerCase());
   }
 
-  async function onUserCountReceived(userCount: any) {
-    console.log('GameClientActions onUserCountReceived:', userCount)
-    setUserCount(userCount);
-  }
-
   useEffect(() => {
-    client.registerCallback('user_count', onUserCountReceived)
     client.registerCallback('server_time', onServerTimeReceived)
   }, []);
 
@@ -64,7 +57,7 @@ export function GameClientActions() {
     <>
       <GameClientActionsElement>
         <button className="action" onClick={onViewProfile} style={{ maxWidth: 200, overflow: 'hidden' }}>
-          <Avatar look={session?.look ?? MOCK_USER.look} headOnly={true} style={{ height: 35 }} />
+          <Avatar look={session?.look ?? '-'} headOnly={true} style={{ height: 35 }} />
           {session?.username ?? config.siteName}
         </button>
         <ScopeGuard redirect={false} scope="accessAdminPanel">
@@ -80,7 +73,7 @@ export function GameClientActions() {
         </button>
         <button className="action" onClick={onViewCommunity}>
           <i className="fas fa-users" style={{ marginRight: 4 }} />
-          {userCount}
+          {usersOnline}
         </button>
         <div className="action" style={{ fontWeight: 400 }}>
           <i className="fas fa-clock" style={{ marginRight: 4 }} />

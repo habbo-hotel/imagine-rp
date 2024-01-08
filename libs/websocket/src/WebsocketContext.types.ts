@@ -11,5 +11,5 @@ export const defaultWebsocketContextInterface: WebsocketContext = {
 
 export interface WebsocketContextProviderProps {
   children: ReactNode;
-  ssoTicket: string;
+  ssoTicket?: string;
 }

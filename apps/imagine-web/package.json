@@ -31,7 +31,8 @@
     "@imagine-cms/web": "*",
     "@imagine-cms/client": "*",
     "@imagine-cms/game-ui": "*",
-    "@imagine-cms/shared-ui": "*"
+    "@imagine-cms/shared-ui": "*",
+    "@imagine-cms/websocket": "*"
   },
   "devDependencies": {
     "@types/node": "20.6.2",

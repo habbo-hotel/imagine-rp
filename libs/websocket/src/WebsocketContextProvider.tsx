@@ -11,6 +11,9 @@ export function WebsocketContextProvider({ children, ssoTicket }: WebsocketConte
   async function onWebsocketConnected() {
     await client.connect();
     client.startPingInterval();
+    if (!ssoTicket) {
+      return;
+    }
     await client.sendTextEvent('sup', ssoTicket);
   }
 

@@ -6,27 +6,32 @@ import { IMAGINE_ROUTES } from './site-ui/ImagineWeb.const';
 import { GameClient } from './site-ui/components/game-client/GameClient';
 import { ToastContainer } from 'react-toastify';
 import { SiteBody } from './site-ui/components/site-body/SiteBody.styled';
+import { UsersOnlineContextProvider, WebsocketContextProvider } from '@imagine-cms/websocket';
 export function ImagineWeb() {
 
   return (
     <ImagineContextProviders loadingScreen={<LoadingScreen />}>
-      <ThemeProvider>
-        <SiteBody />
-        <GameClient />
-        <ToastContainer />
-        <Switch>
-          <>
-            {
-              IMAGINE_ROUTES.map(route => {
-                const Component = route.guard ? <route.guard redirect><route.view /></route.guard> : <route.view />
-                const Container = route.layout ? <route.layout>{Component}</route.layout> : <>{Component}</>
+      <WebsocketContextProvider>
+        <UsersOnlineContextProvider>
+          <ThemeProvider>
+            <SiteBody />
+            <GameClient />
+            <ToastContainer />
+            <Switch>
+              <>
+                {
+                  IMAGINE_ROUTES.map(route => {
+                    const Component = route.guard ? <route.guard redirect><route.view /></route.guard> : <route.view />
+                    const Container = route.layout ? <route.layout>{Component}</route.layout> : <>{Component}</>
 
-                return <Route key={`route_${route.path}`} path={route.path} children={Container} />
-              })
-            }
-          </>
-        </Switch>
-      </ThemeProvider >
+                    return <Route key={`route_${route.path}`} path={route.path} children={Container} />
+                  })
+                }
+              </>
+            </Switch>
+          </ThemeProvider >
+        </UsersOnlineContextProvider>
+      </WebsocketContextProvider>
     </ImagineContextProviders>
   )
 }
