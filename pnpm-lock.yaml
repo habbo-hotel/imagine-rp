@@ -258,6 +258,9 @@ importers:
       '@originjs/vite-plugin-commonjs':
         specifier: 1.0.3
         version: 1.0.3
+      '@types/draft-js':
+        specifier: 0.11.17
+        version: 0.11.17
       '@types/node':
         specifier: 20.6.2
         version: 20.6.2
@@ -5199,6 +5202,13 @@ packages:
       '@types/node': 20.10.5
     dev: true
 
+  /@types/draft-js@0.11.17:
+    resolution: {integrity: sha512-th0OwSPftG2r5rvGxS7nt8I7hcWMlrQ9OJcNx6MdXAwO797W78IGEsGWonO+turVBWEd3qylZRGBVtpEX9vSYQ==}
+    dependencies:
+      '@types/react': 18.2.21
+      immutable: 3.7.6
+    dev: true
+
   /@types/earcut@2.1.4:
     resolution: {integrity: sha512-qp3m9PPz4gULB9MhjGID7wpo3gJ4bTGXm7ltNDsmOvsPduTeHp8wSW9YckBj3mljeOh4F0m2z/0JKAALRKbmLQ==}
     dev: false
@@ -9918,7 +9928,6 @@ packages:
   /immutable@3.7.6:
     resolution: {integrity: sha512-AizQPcaofEtO11RZhPPHBOJRdo/20MKQF9mBLnVkBoyHi1/zXK8fzVdnEpSV9gxqtnh6Qomfp3F0xT5qP/vThw==}
     engines: {node: '>=0.8.0'}
-    dev: false
 
   /immutable@4.3.4:
     resolution: {integrity: sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==}

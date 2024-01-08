@@ -1,12 +1,11 @@
 import { Link } from 'wouter';
 import { toast } from 'react-toastify';
-import { UserGuard } from '@imagine-cms/web';
+import { GuestGuard, UserGuard } from '@imagine-cms/web';
 import { Card } from '../../../components/card/Card';
 import React, { SyntheticEvent, useState } from 'react';
 import { useArticleCommentCreate } from '@imagine-cms/client';
 import { Textarea } from '../../../components/textarea/Textarea';
 import { ButtonBrand } from '../../../components/button/Button.remix';
-import { GuestGuard } from '../../../components/guest-guard/GuestGuard';
 import { ArticlePostCommentCardForm } from './ArticlePostCommentCard.styled';
 import { ArticlePostCommentCardProps } from './ArticlePostCommentCard.types';
 
