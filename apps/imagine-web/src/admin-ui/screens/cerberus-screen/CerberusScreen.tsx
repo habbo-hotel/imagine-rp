@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { configContext } from '@imagine-cms/web';
 import { Card } from '../../blocks/card/Card';
+import { configContext } from '@imagine-cms/web';
+import { YoutubeVideo } from '../../../site-ui/components/youtube-video/YoutubeVideo';
 import { ImagineLogoContainer } from '../../../site-ui/screens/imagine-screen/ImagineScreen.styled';
-import { YoutubeVideoElement } from '../../../site-ui/components/youtube-video/YoutubeVideo.styled';
 
 export function CerberusScreen() {
   const { config } = useContext(configContext);
@@ -24,7 +24,7 @@ export function CerberusScreen() {
       </Card>
       <br />
       <Card>
-        <YoutubeVideoElement videoID="uR7URJZHhhY" startAt={31} />
+        <YoutubeVideo videoID="lPhpdir6p6M" startAt={5} />
       </Card>
     </>
   )
