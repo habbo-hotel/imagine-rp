@@ -3,7 +3,7 @@ import { Badge } from '../../blocks/badge/Badge';
 import { RankFragment } from '@imagine-cms/client';
 import { Button } from '../../blocks/button/Button';
 import { TableColumn } from "react-data-table-component";
-import { Link } from '../../blocks/link/Link';
+import Link from 'next/link';
 
 export const RANKS_TABLE_COLUMNS: TableColumn<RankFragment>[] = [
   {

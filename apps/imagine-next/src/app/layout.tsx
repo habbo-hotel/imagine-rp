@@ -2,12 +2,12 @@ import 'dotenv/config';
 import './fontawesome.css';
 import Head from 'next/head';
 import type { Metadata } from 'next'
-import { ThemeProvider } from '../site-ui/theme/ThemeProvider';
 import { SiteBody } from '../site-ui/components/site-body/SiteBody';
-import { ImagineContextProviders, LoadingScreen } from '@imagine-cms/web'
+import { ImagineContextProviders, LoadingScreen, ThemeProvider } from '@imagine-cms/web'
 import { UsersOnlineContextProvider, WebsocketContextProvider } from '@imagine-cms/websocket'
 import { Transition } from '../site-ui/components/transition/Transition';
 import { SiteContainer } from '../shared/site-container/SiteContainer';
+import { GameClient } from '../site-ui/components/game-client/GameClient';
 
 export const metadata: Metadata = {
   title: 'Imagine',
@@ -33,9 +33,9 @@ export default function RootLayout({
               <UsersOnlineContextProvider>
                 <ThemeProvider>
                   <SiteBody />
+                  <GameClient />
                   <SiteContainer>
                     <Transition>
-
                       {children}
                     </Transition>
                   </SiteContainer>

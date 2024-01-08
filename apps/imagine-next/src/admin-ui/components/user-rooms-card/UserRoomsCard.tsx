@@ -3,7 +3,7 @@ import { Card } from '../../blocks/card/Card';
 import { useRoomFetchMany } from '@imagine-cms/client';
 import { UserRoomsCardProps } from './UserRoomsCard.types';
 import { Button } from '../../blocks/button/Button';
-import { Link } from '../../blocks/link/Link';
+import Link from 'next/link';
 
 export function UserRoomsCard({ user }: UserRoomsCardProps) {
   const fetchRooms = useRoomFetchMany();

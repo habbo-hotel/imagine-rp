@@ -7,7 +7,6 @@ export const ADMIN_URL = process.env.NEXT_ADMIN_URL!;
 
 // @ts-ignore
 export const GRAPHQL_URL = process.env.NEXT_GRAPHQL_URL!;
-console.log(process.env, GRAPHQL_URL)
 
 // @ts-ignore
 export const DISCORD_REDIRECT_URL = process.env.NEXT_DISCORD_REDIRECT_URL!;

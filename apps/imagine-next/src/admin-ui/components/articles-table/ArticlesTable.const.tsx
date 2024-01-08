@@ -3,7 +3,7 @@ import { Button } from '../../blocks/button/Button';
 import { ArticleFragment } from '@imagine-cms/client';
 import { TableColumn } from "react-data-table-component";
 import { SmallUserContainer } from '../small-user-container/SmallUserContainer';
-import { Link } from '../../blocks/link/Link';
+import Link from 'next/link';
 
 export const ARTICLES_TABLE_COLUMNS: TableColumn<ArticleFragment>[] = [
   {

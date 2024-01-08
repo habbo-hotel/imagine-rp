@@ -1,6 +1,6 @@
+'use client'
 import Link from 'next/Link';
 import { GameClientElement } from './GameClient.styled';
-'use client'
 import React, { useContext, useEffect, useState } from 'react';
 import { configContext, sessionContext, themeContext, useSSOCreate } from '@imagine-cms/web';
 import { GameUI } from '@imagine-cms/game-ui';
@@ -12,8 +12,6 @@ export function GameClient() {
   const { session } = useContext(sessionContext);
   const { showClient } = useContext(themeContext);
   const [showPreview] = useState(true);
-
-  console.log(NITRO_CLIENT_URL)
 
   useEffect(() => {
     generateSSO.runQuery();

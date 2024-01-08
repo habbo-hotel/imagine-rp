@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../../blocks/button/Button';
 import { Avatar } from '../../blocks/avatar/Avatar';
 import { SmallUserContainerProps } from './SmallUserContainer.types';
-import { Link } from '../../blocks/link/Link';
+import Link from 'next/link';
 
 export function SmallUserContainer({ user, ...props }: SmallUserContainerProps) {
   return (
