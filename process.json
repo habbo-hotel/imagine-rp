@@ -15,6 +15,12 @@
       "watch_delay": 1000
     },
     {
+      "name": "imagine-next",
+      "cwd": "./apps/imagine-next",
+      "script": "pnpm",
+      "args": "run start"
+    },
+    {
       "name": "imagine-web",
       "cwd": "./apps/imagine-web",
       "script": "pnpm",

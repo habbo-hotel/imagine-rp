@@ -9,6 +9,9 @@
       "@imagine-cms/imagine-web": [
         "apps/imagine-web/src"
       ],
+      "@imagine-cms/imagine-next": [
+        "apps/imagine-next/src"
+      ],
       "@imagine-cms/nitro-react": [
         "apps/nitro-react/src"
       ],
