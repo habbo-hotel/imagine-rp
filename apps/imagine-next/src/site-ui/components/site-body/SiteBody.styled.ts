@@ -52,4 +52,12 @@ body {
 .skiptranslate iframe {
   visibility: hidden !important;
 }
+
+
+a {
+  color: ${({ theme }) => theme.color.s60};
+  text-decoration: none;
+  cursor: pointer;
+}
+
 `

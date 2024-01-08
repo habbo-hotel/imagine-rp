@@ -1,11 +1,11 @@
 import 'dotenv/config';
+import Head from 'next/head';
 import type { Metadata } from 'next'
+import { ThemeProvider } from '../site-ui/theme/ThemeProvider';
 import { ImagineContextProviders, LoadingScreen } from '@imagine-cms/web'
-import { UsersOnlineContextProvider, WebsocketContextProvider } from '@imagine-cms/websocket'
 import { SiteBody } from '../site-ui/components/site-body/SiteBody.styled';
 import { SiteContainer } from '../site-ui/components/site-container/SiteContainer';
-import { ThemeProvider } from '../site-ui/theme/ThemeProvider';
-import Head from 'next/head';
+import { UsersOnlineContextProvider, WebsocketContextProvider } from '@imagine-cms/websocket'
 
 export const metadata: Metadata = {
   title: 'Imagine',
@@ -30,7 +30,6 @@ export default function RootLayout({
               <ThemeProvider>
                 <SiteBody />
                 <SiteContainer>
-
                   {children}
                 </SiteContainer>
               </ThemeProvider>
