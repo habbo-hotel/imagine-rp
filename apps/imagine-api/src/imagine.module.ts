@@ -63,6 +63,10 @@ import {RPStatsModule} from './rp-stats/rp-stats.module';
       database: IMAGINE_DATABASE_NAME,
       entities: [...databaseEntities],
       synchronize: false,
+      extra: {
+        max: 30,
+        min: 10,
+      },
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
