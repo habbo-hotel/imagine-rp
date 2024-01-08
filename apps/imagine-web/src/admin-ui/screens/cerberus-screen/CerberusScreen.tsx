@@ -9,6 +9,7 @@ export function CerberusScreen() {
 
   return (
     <>
+      <h1>Cerberus</h1>
       <Card header="About">
         <div style={{ display: 'flex', gap: 16 }}>
           <ImagineLogoContainer>
@@ -24,7 +25,8 @@ export function CerberusScreen() {
       </Card>
       <br />
       <Card>
-        <YoutubeVideo videoID="lPhpdir6p6M" startAt={5} />
+        <YoutubeVideo videoID="7Kn0V5mpJe4" startAt={15} />
+        <div>WE MAKING IT OUT OF THE PRESCHOOL WITH THIS ONE 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥💯💯💯💯💯💯💯💯💯</div>
       </Card>
     </>
   )
