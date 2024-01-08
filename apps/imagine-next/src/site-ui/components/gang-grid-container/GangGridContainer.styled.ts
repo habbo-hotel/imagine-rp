@@ -1,5 +1,5 @@
 'use client';
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const GangGridContainerElement = styled.div`
   align-items: center;

@@ -1,5 +1,5 @@
 'use client';
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Progress } from "../progress/Progress";
 
 export const HealthProgress = styled(Progress)`

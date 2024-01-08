@@ -1,5 +1,5 @@
 'use client';
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const ArticleHeaderContainer = styled.div`
   border:${({ theme }) => `2px solid ${theme.color.s40}`};

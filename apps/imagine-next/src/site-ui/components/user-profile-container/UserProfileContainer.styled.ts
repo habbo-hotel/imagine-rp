@@ -1,5 +1,5 @@
 'use client';
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const UserProfileContainerElement = styled.div`
   background: url('/img/alt-user-header.png');

@@ -1,5 +1,5 @@
 'use client';
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { GridSizes } from "../../theme/ThemeProvider.types";
 
 export const GridElement = styled.div <{ $size: GridSizes }>`
