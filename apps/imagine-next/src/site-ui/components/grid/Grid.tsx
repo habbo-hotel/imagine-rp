@@ -5,7 +5,7 @@ import { GridElement } from './Grid.styled';
 
 export function Grid({ children, size = 'normal', ...props }: GridProps) {
   return (
-    <GridElement {...props} $size={size}>
+    <GridElement {...props as any} $size={size}>
       <>
         {children}
       </>

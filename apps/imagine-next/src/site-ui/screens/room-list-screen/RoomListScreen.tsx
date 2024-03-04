@@ -1,7 +1,7 @@
+'use client'
 import { Grid } from '../../components/grid/Grid';
 import { Card } from '../../components/card/Card';
 import { useRoomFetchMany } from '@imagine-cms/client';
-'use client'
 import React, { useEffect, useMemo, useState } from 'react';
 import { GridLarge } from '../../components/grid/Grid.remix';
 import { ButtonNoBorder } from '../../components/button/Button.remix';

@@ -1,6 +1,6 @@
+'use client'
 import { toast } from 'react-toastify';
 import { Card } from '../../components/card/Card';
-'use client'
 import React, { useContext, useEffect, useMemo } from 'react';
 import { LoadingMessage } from '../../components/loading-message/LoadingMessage';
 import { useDiscordUserAuthenticate, useUserFetchOne } from '@imagine-cms/client';

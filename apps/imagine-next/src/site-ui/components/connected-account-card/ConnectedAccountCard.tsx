@@ -10,7 +10,7 @@ export function ConnectedAccountCard({ connected, icon, onToggle, ...props }: Co
     onToggle();
   }
   return (
-    <ConnectedAccountCardContainer {...props}>
+    <ConnectedAccountCardContainer {...props as any}>
       <ConnectedAccountCardInformationContainer $connected={connected}>
         {icon}
       </ConnectedAccountCardInformationContainer>

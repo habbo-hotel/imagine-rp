@@ -5,7 +5,7 @@ import { CardContent, CardElement, CardHeader } from './Card.styled';
 
 export function Card({ children, header, headerImage, ...props }: CardProps) {
   return (
-    <CardElement {...props}>
+    <CardElement {...props as any}>
       {
         header && (
 

@@ -14,7 +14,7 @@ export function RankListContainerMock() {
         <Badge badge={{ code: 'ADM' }} style={{ cursor: 'pointer' }} />
       </RankListContainerHeader>
       <Grid>
-        <SmallUserProfileContainerMock showMothref={false} showRank={false} />
+        <SmallUserProfileContainerMock showMotto={false} showRank={false} />
       </Grid>
     </Card>
   )

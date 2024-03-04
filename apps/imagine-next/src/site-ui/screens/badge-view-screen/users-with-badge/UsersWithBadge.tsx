@@ -1,7 +1,7 @@
+'use client'
 import { Card } from '../../../components/card/Card';
 import { Grid } from '../../../components/grid/Grid';
 import { useUserBadgeFetchMany } from '@imagine-cms/client';
-'use client'
 import React, { useEffect, useMemo, useState } from 'react';
 import { UsersWithBadgeProps } from './UsersWithBadge.types';
 import { GridLarge } from '../../../components/grid/Grid.remix';

@@ -20,7 +20,7 @@ export const SiteSidebarElement = styled.div`
     color: ${({ theme }) => theme.color.s60};
     cursor: pointer;
     text-decoration: none;
-    font-size: ${({ theme }) => theme.fontSize.threeUnits};
+    font-size: ${({ theme }) => theme.fontSize.twoUnits};
     margin-bottom: ${({ theme }) => theme.space.twoUnits};
     &:hover {
       color: ${({ theme }) => theme.color.s30};

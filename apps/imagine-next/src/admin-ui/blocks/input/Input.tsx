@@ -3,5 +3,5 @@ import { InputProps } from './Input.types';
 import { InputElement } from './Input.styled';
 
 export function Input({ ...props }: InputProps) {
-  return <InputElement {...props} />
+  return <InputElement {...props as any} />
 }

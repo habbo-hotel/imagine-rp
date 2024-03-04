@@ -1,6 +1,6 @@
 'use client';
 import styled from "@emotion/styled";
-import { GridSizes } from "../../theme/ThemeProvider.types";
+import { GridSizes } from "@imagine-cms/web";
 
 export const GridElement = styled.div <{ $size: GridSizes }>`
   display: grid;

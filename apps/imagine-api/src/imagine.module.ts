@@ -28,8 +28,6 @@ import {
   IMAGINE_DATABASE_PASS,
   IMAGINE_DATABASE_USER,
   IMAGINE_GRAPHQL_PLAYGROUND,
-  IMAGINE_REDIS_HOST,
-  IMAGINE_REDIS_PORT,
 } from './imagine.constant';
 import { GoogleModule } from './google/google.module';
 import { UserBadgeModule } from './user-badge/user-badge.module';

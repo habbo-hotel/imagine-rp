@@ -30,13 +30,13 @@ export function GangRankGridContainer({ gang, rank }: GangRankGridContainerProps
       {
         fetchGangMembers.loading && (
           <>
-            <SmallUserProfileContainerMock showMothref={false} showRank={false} />
+            <SmallUserProfileContainerMock showMotto={false} showRank={false} />
           </>
         )
       }
       {
         fetchGangMembers.data?.map(_ => (
-          <SmallUserProfileContainerLazy key={`gang_member_${gang.id}_${_.userID}`} userID={_.userID} showMothref={false} showRank={false} />
+          <SmallUserProfileContainerLazy key={`gang_member_${gang.id}_${_.userID}`} userID={_.userID} showMotto={false} showRank={false} />
         ))
       }
       {

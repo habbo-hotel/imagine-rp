@@ -8,6 +8,6 @@ export function Textarea({ value, onChange, ...props }: TextareaProps) {
   }
 
   return (
-    <TextareaElement value={value} onChange={onChangeValue} {...props} />
+    <TextareaElement value={value} onChange={onChangeValue} {...props as any} />
   )
 }

@@ -13,8 +13,6 @@ export const IMAGINE_DATABASE_NAME = process.env.DATABASE_NAME;
 export const IMAGINE_DATABASE_PASS = process.env.DATABASE_PASS;
 export const IMAGINE_DATABASE_USER = process.env.DATABASE_USER;
 
-export const IMAGINE_REDIS_HOST = process.env.REDIS_HOST;
-export const IMAGINE_REDIS_PORT = process.env.REDIS_PORT;
 
 export const IMAGINE_GRAPHQL_PLAYGROUND =
   process.env.GRAPHQL_PLAYGROUND === 'true';

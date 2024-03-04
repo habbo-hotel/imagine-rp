@@ -30,13 +30,13 @@ export function CorpRankGridContainer({ corporation, rank }: CorpRankGridContain
       {
         fetchCorpMembers.loading && (
           <>
-            <SmallUserProfileContainerMock showMothref={false} showRank={false} />
+            <SmallUserProfileContainerMock showMotto={false} showRank={false} />
           </>
         )
       }
       {
         fetchCorpMembers.data?.map(_ => (
-          <SmallUserProfileContainerLazy key={`corp_member_${corporation.id}_${_.userID}`} userID={_.userID} showMothref={false} showRank={false} />
+          <SmallUserProfileContainerLazy key={`corp_member_${corporation.id}_${_.userID}`} userID={_.userID} showMotto={false} showRank={false} />
         ))
       }
       {

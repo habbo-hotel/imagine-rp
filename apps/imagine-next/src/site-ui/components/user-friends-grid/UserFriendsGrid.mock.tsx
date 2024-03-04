@@ -9,7 +9,7 @@ export function UserFriendsGridMock() {
     <>
       <h2>Friends</h2>
       <GridLarge>
-        <SmallUserProfileContainerMock showMothref={false} showRank={false} />
+        <SmallUserProfileContainerMock showMotto={false} showRank={false} />
       </GridLarge>
       <GridLarge>&nbsp;</GridLarge>
     </>
