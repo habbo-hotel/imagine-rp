@@ -19,12 +19,6 @@
       "cwd": "./apps/imagine-next",
       "script": "pnpm",
       "args": "run dev"
-    },
-    {
-      "name": "nitro-react",
-      "cwd": "./apps/nitro-react",
-      "script": "pnpm",
-      "args": "run start"
     }
   ]
 }
