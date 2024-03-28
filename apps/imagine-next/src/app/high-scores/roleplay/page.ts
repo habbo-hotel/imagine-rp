@@ -1,1 +1,0 @@
-export { HighScoresRoleplayScreen as default } from "../../../site-ui/screens/high-scores-roleplay-screen/HighScoresRoleplayScreen";

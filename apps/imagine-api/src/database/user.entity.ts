@@ -41,10 +41,10 @@ export class UserEntity {
   @Column()
   credits: number = IMAGINE_DEFAULT_CREDITS;
 
-  @Column({name: 'vip_points'})
+  @Column({name: 'points'})
   vipPoints: number = IMAGINE_DEFAULT_VIP_POINTS;
 
-  @Column({name: 'activity_points'})
+  @Column({name: 'pixels'})
   activityPoints: number = IMAGINE_DEFAULT_ACTIVITY_POINTS;
 
   @Column()
@@ -65,10 +65,10 @@ export class UserEntity {
   @Column({name: 'last_online'})
   lastOnlineAt!: number;
 
-  @Column({name: 'ip_last'})
+  @Column({name: 'ip_current'})
   ipLast!: string;
 
-  @Column({name: 'ip_reg'})
+  @Column({name: 'ip_register'})
   ipRegistered!: string;
 
   @Column({name: 'machine_id', nullable: true})

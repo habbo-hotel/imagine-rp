@@ -9,18 +9,18 @@ export class GangRankModel {
   @Field(() => Number, {nullable: true})
   gangID!: number;
 
-  @Field(() => Number, {nullable: true})
-  gangRankID!: number;
-
   @Field(() => String, {nullable: true})
   name!: string;
+
+  @Field(() => String, {nullable: true})
+  description!: string;
 
   static fromEntity(entity: GangRankEntity): GangRankModel {
     return {
       id: entity.id!,
       gangID: entity.gangID,
-      gangRankID: entity.gangRankID,
       name: entity.name,
+      description: entity.desciption,
     };
   }
 }

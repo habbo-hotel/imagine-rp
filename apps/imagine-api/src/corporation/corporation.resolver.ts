@@ -82,8 +82,9 @@ export class CorporationResolver {
       userID: session.id!,
       name: input.name,
       description: input.description,
-      badgeCode: input.badgeCode,
       roomID: input.roomID,
+      badgeCode: input.badgeCode,
+      tags: '',
       createdAt,
     });
     return CorporationModel.fromEntity(newCorporation);

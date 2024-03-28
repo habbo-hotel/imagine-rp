@@ -9,18 +9,18 @@ export class CorporationRankModel {
   @Field(() => Number, {nullable: true})
   corporationID!: number;
 
-  @Field(() => Number, {nullable: true})
-  corporationRankID!: number;
-
   @Field(() => String, {nullable: true})
   name!: string;
+
+  @Field(() => String, {nullable: true})
+  description!: string;
 
   static fromEntity(entity: CorporationRankEntity): CorporationRankModel {
     return {
       id: entity.id!,
       corporationID: entity.corporationID,
-      corporationRankID: entity.corporationRankID,
       name: entity.name,
+      description: entity.description,
     };
   }
 }

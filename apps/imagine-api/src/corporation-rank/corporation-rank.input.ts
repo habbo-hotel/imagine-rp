@@ -5,7 +5,7 @@ import {GLOBAL_MAX_RESOURCE_LIMIT} from '../imagine.constant';
 @InputType()
 export class CorporationRankFilterManyInput {
   @Field(() => [Number], {nullable: true})
-  corporationIDs?: number[];
+  ids?: number[];
 
   @Field(() => [Number], {nullable: true})
   corporationRankID?: number[];

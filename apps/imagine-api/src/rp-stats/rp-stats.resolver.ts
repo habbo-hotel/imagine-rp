@@ -31,11 +31,11 @@ export class RPStatsResolver {
 
   @ResolveField(() => GangRankModel, {nullable: true})
   async gangRank(
-    @Parent() {gangID, gangRankID}: RPStatsEntity
+    @Parent() {gangID, gangPositionID: gangRankID}: RPStatsEntity
   ): Promise<GangRankModel> {
     const matchingGangRank = await this.gangRankRepo.findOneOrFail({
       gangID,
-      gangRankID,
+      id: gangRankID,
     });
     return GangRankModel.fromEntity(matchingGangRank);
   }
@@ -52,11 +52,11 @@ export class RPStatsResolver {
 
   @ResolveField(() => CorporationRankModel, {nullable: true})
   async corporationRank(
-    @Parent() {corporationID, corporationRankID}: RPStatsEntity
+    @Parent() {corporationID, corporationPositionID: corporationRankID}: RPStatsEntity
   ): Promise<CorporationRankModel> {
     const matchingCorpRank = await this.corporationRankRepo.findOneOrFail({
       corporationID,
-      corporationRankID,
+      id: corporationRankID,
     });
     return CorporationRankModel.fromEntity(matchingCorpRank);
   }
@@ -66,7 +66,7 @@ export class RPStatsResolver {
     @Args('filter') filter: RPStatsFilterOneInput
   ): Promise<RPStatsModel> {
     const matchingRPStat: RPStatsEntity = await this.rpStatsRepo.findOneOrFail({
-      id: filter.userID,
+      userID: filter.userID,
     });
     return RPStatsModel.fromEntity(matchingRPStat);
   }
@@ -77,10 +77,10 @@ export class RPStatsResolver {
   ): Promise<RPStatsModel[]> {
     const matchingRPStats: RPStatsEntity[] = await this.rpStatsRepo.find({
       where: {
-        id: filter.userIDs && In(filter.userIDs),
+        userID: filter.userIDs && In(filter.userIDs),
       },
       order: {
-        [filter.orderBy ?? 'id']: 'DESC',
+        id: 'DESC',
       },
       skip: filter.skip,
       take: filter.limit,

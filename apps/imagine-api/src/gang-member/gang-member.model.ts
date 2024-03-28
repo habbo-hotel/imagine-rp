@@ -15,7 +15,7 @@ export class GangMemberModel {
   static fromRPStatsEntity(rpStatsEntity: RPStatsEntity): GangMemberModel {
     return {
       gangID: rpStatsEntity.gangID!,
-      gangRankID: rpStatsEntity.gangRankID!,
+      gangRankID: rpStatsEntity.gangPositionID!,
       userID: rpStatsEntity.id,
     };
   }

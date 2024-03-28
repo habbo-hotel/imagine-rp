@@ -5,18 +5,18 @@ export class GangEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
+  @Column({name: 'user_id'})
+  userID!: number;
+
   @Column()
   name!: string;
 
-  @Column({name: 'desc'})
+  @Column()
   description!: string;
 
-  @Column({name: 'badge'})
+  @Column({name: 'badge_code'})
   badgeCode!: string;
 
-  @Column({name: 'owner_id'})
-  userID!: number;
-
-  @Column({name: 'created'})
+  @Column({name: 'created_at'})
   createdAt!: number;
 }

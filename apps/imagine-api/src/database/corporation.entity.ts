@@ -1,25 +1,28 @@
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
-@Entity('rp_jobs')
+@Entity('rp_corporations')
 export class CorporationEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column()
-  name!: string;
-
-  @Column({name: 'desc'})
-  description!: string;
-
-  @Column({name: 'badge'})
-  badgeCode!: string;
-
-  @Column({name: 'owner_id'})
+  @Column({name: 'user_id'})
   userID!: number;
 
   @Column({name: 'room_id'})
   roomID!: number;
 
-  @Column({name: 'created'})
+  @Column()
+  name!: string;
+
+  @Column()
+  description!: string;
+
+  @Column({name: 'badge_code'})
+  badgeCode!: string;
+  
+  @Column({name: 'tags'})
+  tags!: string;
+  
+  @Column({name: 'created_at'})
   createdAt!: number;
 }

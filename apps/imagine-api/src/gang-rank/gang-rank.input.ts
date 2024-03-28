@@ -5,10 +5,10 @@ import {GLOBAL_MAX_RESOURCE_LIMIT} from '../imagine.constant';
 @InputType()
 export class GangRankFilterManyInput {
   @Field(() => [Number], {nullable: true})
-  gangIDs?: number[];
+  ids?: number[];
 
   @Field(() => [Number], {nullable: true})
-  gangRankIDs?: number[];
+  gangIDs?: number[];
 
   @Field(() => String, {nullable: true})
   nameSearch?: string;

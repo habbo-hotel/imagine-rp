@@ -18,9 +18,8 @@ export class CorporationRankResolver {
     const matchingCorporationRanks: CorporationRankEntity[] =
       await this.corporationRankRepo.find({
         where: {
-          corporationID: filter.corporationIDs && In(filter.corporationIDs),
-          corporationRankID:
-            filter.corporationRankID && In(filter.corporationRankID),
+          corporationID: filter.ids && In(filter.ids),
+          id:  filter.ids && In(filter.ids),
           name: filter.nameSearch && ILike(`%${filter.nameSearch}%`),
         },
         skip: filter.skip,

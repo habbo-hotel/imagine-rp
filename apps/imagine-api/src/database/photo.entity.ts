@@ -7,11 +7,19 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { RoomEntity } from './room.entity';
 
-@Entity('cms_user_photos')
+@Entity('camera_web')
 export class PhotoEntity implements PhotoWire {
   @PrimaryGeneratedColumn()
   id!: number;
+
+  @Column({name: 'room_id'})
+  roomID!: number;
+
+  @ManyToOne(() => RoomEntity)
+  @JoinColumn({name: 'room_id'})
+  room?: RoomEntity;
 
   @Column({name: 'user_id'})
   userID!: number;
@@ -20,9 +28,9 @@ export class PhotoEntity implements PhotoWire {
   @JoinColumn({name: 'user_id'})
   user?: UserEntity;
 
-  @Column({name: 'image_url'})
+  @Column({name: 'url'})
   photoURL!: string;
 
-  @Column({name: 'date'})
+  @Column({name: 'timestamp'})
   createdAt!: number;
 }

@@ -1,19 +1,22 @@
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
-@Entity('rp_jobs_ranks')
+@Entity('rp_corporations_positions')
 export class CorporationRankEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({name: 'job'})
-  corporationID!: number;
+  @Column({name: 'order_id'})
+  orderID!: number;
 
-  @Column({name: 'rank'})
-  corporationRankID!: number;
+  @Column({name: 'corporation_id'})
+  corporationID!: number;
 
   @Column()
   name!: string;
 
   @Column()
-  pay!: string;
+  description!: string;
+
+  @Column({ name: 'salary'})
+  salary!: number;
 }

@@ -2,7 +2,7 @@ import {ObjectType} from '@nestjs/graphql';
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 import {RankFlagsWire, RankScopesWire} from '@imagine-cms/types';
 
-@Entity('ranks')
+@Entity('permission_groups')
 @ObjectType()
 export class RankEntity {
   @PrimaryGeneratedColumn()
@@ -11,10 +11,10 @@ export class RankEntity {
   @Column()
   name!: string;
 
-  @Column({name: 'badgeid'})
+  @Column({name: 'badge'})
   badgeCode!: string;
 
-  @Column({name: 'tab_colour'})
+  @Column({name: 'prefix_color'})
   backgroundColor!: string;
 
   @Column({type: 'json'})

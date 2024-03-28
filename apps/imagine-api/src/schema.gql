@@ -151,26 +151,10 @@ type RPStatsModel {
   userID: Float
   healthCurrent: Float
   healthMax: Float
-  hungerCurrent: Float
-  hungerMax: Float
-  energyCurrent: Float
-  energyMax: Float
-  armorCurrent: Float
-  armorMax: Float
   corporationID: Float
   corporationRankID: Float
   gangID: Float
   gangRankID: Float
-  killDeathRatio: Float
-  killsTotal: Float
-  killsFistTotal: Float
-  killsMeleeTotal: Float
-  killsBombTotal: Float
-  killsGunTotal: Float
-  deathsTotal: Float
-  timesArrestedTotal: Float
-  arrestsTotal: Float
-  successfulEvasionsTotal: Float
   gang: GangModel
   gangRank: GangRankModel
   corporation: CorporationModel
@@ -505,20 +489,20 @@ type StorePackageModel {
 
 type GangModel {
   id: Float
+  userID: Float
   name: String
   description: String
   badgeCode: String
-  userID: Float
   user: UserModel
 }
 
 type CorporationModel {
   id: Float
+  userID: Float
+  roomID: Float
   name: String
   description: String
   badgeCode: String
-  userID: Float
-  roomID: Float
   user: UserModel
   room: RoomModel
 }
@@ -526,8 +510,8 @@ type CorporationModel {
 type CorporationRankModel {
   id: Float
   corporationID: Float
-  corporationRankID: Float
   name: String
+  description: String
 }
 
 type CorporationMemberModel {
@@ -539,8 +523,8 @@ type CorporationMemberModel {
 type GangRankModel {
   id: Float
   gangID: Float
-  gangRankID: Float
   name: String
+  description: String
 }
 
 type GangMemberModel {
@@ -934,8 +918,8 @@ input GangFilterOneInput {
 }
 
 input GangRankFilterManyInput {
+  ids: [Float!]
   gangIDs: [Float!]
-  gangRankIDs: [Float!]
   nameSearch: String
   skip: Float
   limit: Float
@@ -960,7 +944,7 @@ input CorporationFilterOneInput {
 }
 
 input CorporationRankFilterManyInput {
-  corporationIDs: [Float!]
+  ids: [Float!]
   corporationRankID: [Float!]
   nameSearch: String
   skip: Float
@@ -982,20 +966,6 @@ input RPStatsFilterManyInput {
   userIDs: [Float!]
   skip: Float
   limit: Float
-  orderBy: RPStatsOrderBy
-}
-
-enum RPStatsOrderBy {
-  killDeathRatio
-  killsTotal
-  killsFistTotal
-  killsMeleeTotal
-  killsBombTotal
-  killsGunTotal
-  deathsTotal
-  timesArrestedTotal
-  arrestsTotal
-  successfulEvasionsTotal
 }
 
 type Mutation {

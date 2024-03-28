@@ -1,22 +1,16 @@
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 
-@Entity('rp_gangs_ranks')
+@Entity('rp_gangs_positions')
 export class GangRankEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({name: 'gang'})
+  @Column({name: 'gang_id'})
   gangID!: number;
-
-  @Column({name: 'rank'})
-  gangRankID!: number;
 
   @Column()
   name!: string;
 
   @Column()
-  commands!: string;
-
-  @Column()
-  limit!: number;
+  desciption!: string;
 }

@@ -15,8 +15,8 @@ export class GangRankResolver {
   ): Promise<GangRankModel[]> {
     const matchingGangRanks: GangRankEntity[] = await this.gangRankRepo.find({
       where: {
+        id: filter.ids && In(filter.ids),
         gangID: filter.gangIDs && In(filter.gangIDs),
-        gangRankID: filter.gangRankIDs && In(filter.gangRankIDs),
         name: filter.nameSearch && ILike(`%${filter.nameSearch}%`),
       },
       skip: filter.skip,

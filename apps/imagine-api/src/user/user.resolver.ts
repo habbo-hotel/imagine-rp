@@ -29,12 +29,13 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import {
-  RPStatsChangeRepository,
   RPStatsRepository,
 } from '../database/rp-stats.repository';
 import {RPStatsModel} from '../rp-stats/rp-stats.model';
 import {SessionCreatedModel} from '../session/session.model';
 import {SessionService} from '../session/session.service';
+import { GovernmentFacilityService } from '../government/facility.service';
+import { CorporationRankRepository } from '../database/corporation-rank.repository';
 
 @Resolver(() => UserModel)
 export class UserResolver {
@@ -42,15 +43,16 @@ export class UserResolver {
     private readonly userRepo: UserRepository,
     private readonly rankRepo: RankRepository,
     private readonly rpStatsRepo: RPStatsRepository,
-    private readonly rpStatsChangeRepo: RPStatsChangeRepository,
     private readonly configRepo: ConfigRepository,
     private readonly betaCodeRepo: BetaCodeRepository,
-    private readonly sessionService: SessionService
+    private readonly sessionService: SessionService,
+    private readonly corporationPositionRepo: CorporationRankRepository,
+    private readonly governmentFacilityService: GovernmentFacilityService,
   ) {}
 
   @ResolveField(() => RPStatsModel, {nullable: true})
   async rpStats(@Parent() {id}: UserEntity): Promise<RPStatsModel> {
-    const matchingRPStats = await this.rpStatsRepo.findOneOrFail({id: id});
+    const matchingRPStats = await this.rpStatsRepo.findOneOrFail({userID: id});
     return RPStatsModel.fromEntity(matchingRPStats);
   }
 
@@ -214,6 +216,20 @@ export class UserResolver {
   ): Promise<SessionCreatedModel> {
     const config = await this.configRepo.findOneOrFail({});
 
+
+    const matchingBetaCode = config.betaCodesRequired ? await this.betaCodeRepo.findOne({
+      where: {
+        betaCode: input.betaCode,
+        userID: IsNull(),
+      },
+    }) : undefined;
+
+    if (config.betaCodesRequired) {
+      if (!matchingBetaCode) {
+        throw new BadRequestException('invalid beta code');
+      }
+    }
+
     const newUser = await this.userRepo.create({
       ...DEFAULT_USER_VALUES,
       ...input,
@@ -225,24 +241,19 @@ export class UserResolver {
     });
 
     if (config.betaCodesRequired) {
-      const matchingBetaCode = await this.betaCodeRepo.findOne({
-        where: {
-          betaCode: input.betaCode,
-          userID: IsNull(),
-        },
-      });
-      if (!matchingBetaCode) {
-        await this.userRepo.delete({id: newUser.id!});
-        throw new BadRequestException('invalid beta code');
-      }
       await this.betaCodeRepo.update(
         {id: matchingBetaCode!.id!},
         {userID: newUser.id!}
       );
     }
 
-    await this.rpStatsChangeRepo.create({
-      id: newUser.id!,
+    const welfareCorp = await this.governmentFacilityService.getWelfareCorp();
+    const welfareCorpPosition = await this.corporationPositionRepo.findOneOrFail({ corporationID: welfareCorp.id!, orderID: 1 })
+
+    await this.rpStatsRepo.create({
+      userID: newUser.id!,
+      corporationID: welfareCorp.id!,
+      corporationPositionID: welfareCorpPosition.id!,
     } as any);
 
     const newSession = await this.sessionService.generateSession(newUser.id!);
