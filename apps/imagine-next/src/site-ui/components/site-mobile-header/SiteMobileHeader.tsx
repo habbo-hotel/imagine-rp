@@ -6,7 +6,7 @@ import { SiteLogo } from '../site-logo/SiteLogo';
 import React, { useEffect, useState } from 'react';
 import { SiteMobileHeaderElement } from './SiteMobileHeader.styled';
 import { GuestGuard, ScopeGuard, UserGuard } from '@imagine-cms/web';
-import { ButtonDanger, ButtonNoBorder, ButtonBrand } from '../button/Button.remix';
+import { ButtonDanger, ButtonClear, ButtonBrand } from '../button/Button.remix';
 import { usePathname } from 'next/navigation';
 
 export function SiteMobileHeader() {
@@ -36,10 +36,10 @@ export function SiteMobileHeader() {
               <GridLarge style={{ marginTop: 16 }}>
                 <UserGuard>
                   <Link href="/settings">
-                    <ButtonNoBorder>
+                    <ButtonClear>
                       <i className="fa fa-wrench" style={{ marginRight: 8 }} />
                       Settings
-                    </ButtonNoBorder>
+                    </ButtonClear>
                   </Link>
                 </UserGuard>
                 <ScopeGuard scope="accessAdminPanel" redirect={false}>

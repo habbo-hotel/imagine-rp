@@ -1,6 +1,6 @@
-import {Args, Mutation, Resolver} from '@nestjs/graphql';
-import {UserRepository} from '../database/user.repository';
-import {ForgotPasswordService} from './forgot-password.service';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { UserRepository } from '../database/user.repository';
+import { ForgotPasswordService } from './forgot-password.service';
 import {
   ForgotPasswordRequestCreateInput,
   ForgotPasswordRequestRedeemInput,
@@ -11,15 +11,15 @@ export class ForgotPasswordRequestResolver {
   constructor(
     private readonly userRepo: UserRepository,
     private readonly forgotPasswordService: ForgotPasswordService
-  ) {}
+  ) { }
 
   @Mutation(() => Boolean)
   async forgotPasswordRequestCreate(
-    @Args('input', {type: () => ForgotPasswordRequestCreateInput})
+    @Args('input', { type: () => ForgotPasswordRequestCreateInput })
     input: ForgotPasswordRequestCreateInput
   ): Promise<boolean> {
     const matchingUser = await this.userRepo.findOneOrFail({
-      email: input.emailAddress,
+      username: input.username,
     });
     await this.forgotPasswordService.createForgotPasswordRequest(
       matchingUser.id!
@@ -29,7 +29,7 @@ export class ForgotPasswordRequestResolver {
 
   @Mutation(() => Boolean)
   async forgotPasswordRequestRedeem(
-    @Args('input', {type: () => ForgotPasswordRequestRedeemInput})
+    @Args('input', { type: () => ForgotPasswordRequestRedeemInput })
     input: ForgotPasswordRequestRedeemInput
   ): Promise<boolean> {
     await this.forgotPasswordService.redeemForgotPasswordRequest(

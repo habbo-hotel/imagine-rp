@@ -16,8 +16,6 @@ export function SiteContainer({ children }: SiteContainerProps) {
         {
           !showClient && (
             <>
-              <SiteHeader />
-              <SiteMobileHeader />
               <PageContainerElement>
                 {children}
               </PageContainerElement>

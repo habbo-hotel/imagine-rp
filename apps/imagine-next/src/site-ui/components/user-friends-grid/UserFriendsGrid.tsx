@@ -2,7 +2,7 @@
 import { Grid } from '../grid/Grid';
 import { GridLarge } from '../grid/Grid.remix';
 import React, { useEffect, useState } from 'react';
-import { ButtonNoBorder } from '../button/Button.remix';
+import { ButtonClear } from '../button/Button.remix';
 import { useFriendshipFetchMany } from '@imagine-cms/client';
 import { UserFriendsGridProps } from './UserFriendsGrid.types';
 import { SmallUserProfileContainer } from '../small-user-profile-container/SmallUserProfileContainer';
@@ -63,15 +63,15 @@ export function UserFriendsGrid({ user }: UserFriendsGridProps) {
       <br />
       <GridLarge>
         {canGoDown ?
-          <ButtonNoBorder onClick={goBackOnePage}>
+          <ButtonClear onClick={goBackOnePage}>
             <i className={friendshipFetch.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-left'} />
-          </ButtonNoBorder>
+          </ButtonClear>
           : <div />}
         {
           canGoUp && (
-            <ButtonNoBorder onClick={goUpOnePage}>
+            <ButtonClear onClick={goUpOnePage}>
               <i className={friendshipFetch.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-right'} />
-            </ButtonNoBorder>
+            </ButtonClear>
           )
         }
       </GridLarge>

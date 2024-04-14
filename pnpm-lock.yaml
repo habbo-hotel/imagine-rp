@@ -246,6 +246,9 @@ importers:
       next:
         specifier: 14.0.4
         version: 14.0.4(@babel/core@7.23.6)(react-dom@18.2.0)(react@18.2.0)
+      polished:
+        specifier: 4.3.1
+        version: 4.3.1
       query-string:
         specifier: 8.1.0
         version: 8.1.0
@@ -835,8 +838,8 @@ packages:
       zen-observable-ts: 1.2.5
     dev: true
 
-  /@apollo/client@3.9.5(@types/react@18.2.21)(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.9.19):
-    resolution: {integrity: sha512-7y+c8MTPU+hhTwvcGVtMMGIgWduzrvG1mz5yJMRyqYbheBkkky3Lki6ADWVSBXG1lZoOtPYvB2zDgVfKb2HSsw==}
+  /@apollo/client@3.9.11(@types/react@18.2.21)(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.9.19):
+    resolution: {integrity: sha512-H7e9m7cRcFO93tokwzqrsbnfKorkpV24xU30hFH5u2g6B+c1DMo/ouyF/YrBPdrTzqxQCjTUmds/FLmJ7626GA==}
     peerDependencies:
       graphql: ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
@@ -864,7 +867,7 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      rehackt: 0.0.5(@types/react@18.2.21)(react@18.2.0)
+      rehackt: 0.0.6(@types/react@18.2.21)(react@18.2.0)
       response-iterator: 0.2.6
       subscriptions-transport-ws: 0.9.19(graphql@16.8.0)
       symbol-observable: 4.0.0
@@ -916,7 +919,7 @@ packages:
   /@apollo/react-hooks@4.0.0(@types/react@18.2.21)(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.9.19):
     resolution: {integrity: sha512-fCu0cbne3gbUl0QbA8X4L33iuuFVQbC5Jo2MIKRK8CyawR6PoxDpFdFA1kc6033ODZuZZ9Eo4RdeJFlFIIYcLA==}
     dependencies:
-      '@apollo/client': 3.9.5(@types/react@18.2.21)(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.9.19)
+      '@apollo/client': 3.9.11(@types/react@18.2.21)(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)(subscriptions-transport-ws@0.9.19)
     transitivePeerDependencies:
       - '@types/react'
       - graphql
@@ -11204,6 +11207,13 @@ packages:
       - utf-8-validate
     dev: true
 
+  /polished@4.3.1:
+    resolution: {integrity: sha512-OBatVyC/N7SCW/FaDHrSd+vn0o5cS855TOmYi4OkdWUMSJCET/xip//ch8xGUvtr3i44X9LVyWwQlRMTN3pwSA==}
+    engines: {node: '>=10'}
+    dependencies:
+      '@babel/runtime': 7.23.6
+    dev: false
+
   /postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
     dev: false
@@ -11685,8 +11695,8 @@ packages:
     dependencies:
       jsesc: 0.5.0
 
-  /rehackt@0.0.5(@types/react@18.2.21)(react@18.2.0):
-    resolution: {integrity: sha512-BI1rV+miEkaHj8zd2n+gaMgzu/fKz7BGlb4zZ6HAiY9adDmJMkaDcmuXlJFv0eyKUob+oszs3/2gdnXUrzx2Tg==}
+  /rehackt@0.0.6(@types/react@18.2.21)(react@18.2.0):
+    resolution: {integrity: sha512-l3WEzkt4ntlEc/IB3/mF6SRgNHA6zfQR7BlGOgBTOmx7IJJXojDASav+NsgXHFjHn+6RmwqsGPFgZpabWpeOdw==}
     peerDependencies:
       '@types/react': '*'
       react: '*'

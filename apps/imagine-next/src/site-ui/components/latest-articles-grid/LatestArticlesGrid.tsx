@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { ButtonNoBorder } from '../button/Button.remix';
+import { ButtonClear } from '../button/Button.remix';
 import { useArticleFetchMany } from '@imagine-cms/client';
 import { GridLarge } from '../grid/Grid.remix';
 import { LatestArticlesGridProps } from './LatestArticlesGrid.types';
@@ -59,15 +59,15 @@ export function LatestArticlesGrid({ showHeader = true }: LatestArticlesGridProp
       </GridLarge>
       <GridLarge style={{ marginTop: 16 }}>
         {canGoDown ?
-          <ButtonNoBorder onClick={goBackOnePage}>
+          <ButtonClear onClick={goBackOnePage}>
             <i className={fetchArticles.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-left'} />
-          </ButtonNoBorder>
+          </ButtonClear>
           : <div />}
         {
           canGoUp && (
-            <ButtonNoBorder onClick={goUpOnePage}>
+            <ButtonClear onClick={goUpOnePage}>
               <i className={fetchArticles.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-right'} />
-            </ButtonNoBorder>
+            </ButtonClear>
           )
         }
       </GridLarge>

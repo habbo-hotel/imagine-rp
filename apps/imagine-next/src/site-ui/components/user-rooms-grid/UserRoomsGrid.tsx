@@ -1,7 +1,7 @@
 'use client'
 import { GridLarge } from '../grid/Grid.remix';
 import React, { useEffect, useState } from 'react';
-import { ButtonNoBorder } from '../button/Button.remix';
+import { ButtonClear } from '../button/Button.remix';
 import { useRoomFetchMany } from '@imagine-cms/client';
 import { UserRoomsGridProps } from './UserRoomsGrid.types';
 import { RoomGridContainer } from '../room-grid-container/RoomGridContainer';
@@ -62,15 +62,15 @@ export function UserRoomsGrid({ user }: UserRoomsGridProps) {
       <br />
       <GridLarge>
         {canGoDown ?
-          <ButtonNoBorder onClick={goBackOnePage}>
+          <ButtonClear onClick={goBackOnePage}>
             <i className={fetchRooms.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-left'} />
-          </ButtonNoBorder>
+          </ButtonClear>
           : <div />}
         {
           canGoUp && (
-            <ButtonNoBorder onClick={goUpOnePage}>
+            <ButtonClear onClick={goUpOnePage}>
               <i className={fetchRooms.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-right'} />
-            </ButtonNoBorder>
+            </ButtonClear>
           )
         }
       </GridLarge>

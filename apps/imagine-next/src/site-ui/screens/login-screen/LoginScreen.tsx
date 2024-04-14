@@ -6,9 +6,10 @@ import { Form } from '../../components/form/Form';
 import { Input } from '../../components/input/Input';
 import React, { SyntheticEvent, useState } from 'react';
 import { Button } from '../../components/button/Button';
-import { useSignInWithUsernameAndPassword } from '@imagine-cms/web';
-import { ButtonBrand } from '../../components/button/Button.remix';
-import { GuestContainer } from '../../components/guest-container/GuestContainer';
+import { GuestGuard, useSignInWithUsernameAndPassword } from '@imagine-cms/web';
+import { ButtonBrand, ButtonClear } from '../../components/button/Button.remix';
+import { Grid } from '../../components/grid/Grid';
+import { DiscordLoginButton } from '../../components/discord-login-button/DiscordLoginButton';
 
 export function LoginScreen() {
   const [username, setUsername] = useState('');
@@ -24,28 +25,25 @@ export function LoginScreen() {
   }
 
   return (
-    <GuestContainer>
-      <div>
-        <h1>welcome among us</h1>
-        <h4>It's time to give way to your imagination to create your most beautiful apartments</h4>
-        <Form onSubmit={onLogin}>
-          <label>Username</label>
-          <Input type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.currentTarget.value ?? '')} />
-          <label>Password</label>
-          <Input type="password" name="password" placeholder="Password" required value={password} onChange={(e: any) => setPassword(e?.currentTarget?.value ?? '')} />
-          <div style={{ display: 'flex', flex: 1, gap: 16, justifyContent: 'space-between', alignItems: 'center' }}>
-            <Link href="/forgot-password">
-              Forgot Password?
+    <GuestGuard>
+      <h1>sign in</h1>
+      <Form onSubmit={onLogin}>
+        <label>Username</label>
+        <Input type="text" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.currentTarget.value ?? '')} />
+        <label>Password</label>
+        <Input type="password" name="password" placeholder="Password" required value={password} onChange={(e: any) => setPassword(e?.currentTarget?.value ?? '')} />
+        <div style={{ display: 'flex', flex: 1, gap: 16, justifyContent: 'space-between', alignItems: 'center' }}>
+          <Link href="/forgot-password">
+            Forgot Password?
+          </Link>
+          <div style={{ display: 'flex', flex: 1, gap: 16, justifyContent: 'flex-end' }}>
+            <Link href="/register">
+              <ButtonClear type="button">Create Account</ButtonClear>
             </Link>
-            <div style={{ display: 'flex', flex: 1, gap: 16, justifyContent: 'flex-end' }}>
-              <Link href="/register">
-                <ButtonBrand type="button">Create Account</ButtonBrand>
-              </Link>
-              <Button type="submit">Login</Button>
-            </div>
+            <ButtonBrand type="submit">Sign In</ButtonBrand>
           </div>
-        </Form>
-      </div>
-    </GuestContainer>
+        </div>
+      </Form>
+    </GuestGuard>
   )
 }

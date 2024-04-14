@@ -8,17 +8,18 @@ import { ButtonBrand } from '../../components/button/Button.remix';
 import { useForgotPasswordRequestCreate } from '@imagine-cms/client';
 import { GuestContainer } from '../../components/guest-container/GuestContainer';
 import { redirect } from 'next/navigation'
+import Link from 'next/link';
 
 export function ForgotPasswordScreen() {
-  const [emailAddress, setEmailAddress] = useState('');
+  const [username, setUsername] = useState('');
   const forgotPasswordRequestCreate = useForgotPasswordRequestCreate();
 
-  const isDisabled = !emailAddress;
+  const isDisabled = !username;
 
   const onSubmitPasswordReset = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      await forgotPasswordRequestCreate.execute({ emailAddress });
+      await forgotPasswordRequestCreate.execute({ username });
       toast.success('Check your email for instructions on how to reset your password!');
       redirect('/forgot-password/confirmation');
     } catch (e: any) {
@@ -28,12 +29,15 @@ export function ForgotPasswordScreen() {
 
   return (
     <GuestContainer>
-      <h1>Forgot Password</h1>
+      <Link href="/login">
+        <i className="fa fa-caret-left fa-3x" />
+      </Link>
+      <h1>reset password</h1>
       <Form disabled={isDisabled} onSubmit={onSubmitPasswordReset}>
-        <label>Email Address</label>
-        <Input type="email" value={emailAddress} onChange={e => setEmailAddress(e.currentTarget.value ?? '')} />
+        <label>Username</label>
+        <Input type="text" value={username} onChange={e => setUsername(e.currentTarget.value ?? '')} />
         <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
-          <ButtonBrand disabled={isDisabled} type="submit">Send Reset Link</ButtonBrand>
+          <ButtonBrand disabled={isDisabled} type="submit">Send Code</ButtonBrand>
         </div>
       </Form>
     </GuestContainer>

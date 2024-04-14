@@ -6,7 +6,7 @@ import { useRPStatsFetchMany } from '@imagine-cms/client';
 import { SmallUserProfileContainerMock } from '../small-user-profile-container/SmallUserProfileContainerMock';
 import { SmallUserProfileContainerLazy } from '../small-user-profile-container/SmallUserProfileContainerLazy';
 import { GridLarge } from '../grid/Grid.remix';
-import { ButtonNoBorder } from '../button/Button.remix';
+import { ButtonClear } from '../button/Button.remix';
 
 const HIGH_SCORES_PAGE_SIZE = 4;
 
@@ -68,15 +68,15 @@ export function HighScoresByRPStatsGrid({ children, orderBy }: HighScoresByRPSta
       <br />
       <GridLarge>
         {canGoDown ?
-          <ButtonNoBorder onClick={goBackOnePage}>
+          <ButtonClear onClick={goBackOnePage}>
             <i className={rpStatsFetchMany.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-left'} />
-          </ButtonNoBorder>
+          </ButtonClear>
           : <div />}
         {
           canGoUp && (
-            <ButtonNoBorder onClick={goUpOnePage}>
+            <ButtonClear onClick={goUpOnePage}>
               <i className={rpStatsFetchMany.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-right'} />
-            </ButtonNoBorder>
+            </ButtonClear>
           )
         }
       </GridLarge>

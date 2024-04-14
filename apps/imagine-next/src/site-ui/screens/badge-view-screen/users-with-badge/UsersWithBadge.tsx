@@ -5,7 +5,7 @@ import { useUserBadgeFetchMany } from '@imagine-cms/client';
 import React, { useEffect, useMemo, useState } from 'react';
 import { UsersWithBadgeProps } from './UsersWithBadge.types';
 import { GridLarge } from '../../../components/grid/Grid.remix';
-import { ButtonNoBorder } from '../../../components/button/Button.remix';
+import { ButtonClear } from '../../../components/button/Button.remix';
 import { SmallUserProfileContainerMock } from '../../../components/small-user-profile-container/SmallUserProfileContainerMock';
 import { SmallUserProfileContainerLazy } from '../../../components/small-user-profile-container/SmallUserProfileContainerLazy';
 
@@ -78,15 +78,15 @@ export function UsersWithBadge({ badgeCode }: UsersWithBadgeProps) {
       </Grid>
       <GridLarge>
         {canGoDown ?
-          <ButtonNoBorder onClick={goBackOnePage}>
+          <ButtonClear onClick={goBackOnePage}>
             <i className={fetchUsers.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-left'} />
-          </ButtonNoBorder>
+          </ButtonClear>
           : <div />}
         {
           canGoUp && (
-            <ButtonNoBorder onClick={goUpOnePage}>
+            <ButtonClear onClick={goUpOnePage}>
               <i className={fetchUsers.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-right'} />
-            </ButtonNoBorder>
+            </ButtonClear>
           )
         }
       </GridLarge>

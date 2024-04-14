@@ -1,15 +1,20 @@
 'use client'
 import React, { useContext } from 'react';
-import { configContext } from '@imagine-cms/web';
+import { configContext, sessionContext } from '@imagine-cms/web';
 import { Card } from '../../components/card/Card';
 import { ImagineLogoContainer } from './ImagineScreen.styled';
 import { YoutubeVideo } from '../../components/youtube-video/YoutubeVideo';
+import Link from 'next/link';
 
 export function ImagineScreen() {
   const { config } = useContext(configContext);
+  const { session } = useContext(sessionContext);
 
   return (
     <>
+      <Link href={session ? '/me' : '/login'}>
+        <i className="fa fa-caret-left fa-3x" />
+      </Link>
       <h1>Imagine</h1>
       <Card header="About">
         <div style={{ display: 'flex', gap: 16 }}>

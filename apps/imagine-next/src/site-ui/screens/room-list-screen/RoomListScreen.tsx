@@ -4,7 +4,7 @@ import { Card } from '../../components/card/Card';
 import { useRoomFetchMany } from '@imagine-cms/client';
 import React, { useEffect, useMemo, useState } from 'react';
 import { GridLarge } from '../../components/grid/Grid.remix';
-import { ButtonNoBorder } from '../../components/button/Button.remix';
+import { ButtonClear } from '../../components/button/Button.remix';
 import { RoomGridContainer } from '../../components/room-grid-container/RoomGridContainer';
 import { RoomGridContainerMock } from '../../components/room-grid-container/RoomGridContainerMock';
 
@@ -82,15 +82,15 @@ export function RoomListScreen() {
       </Grid>
       <GridLarge style={{ marginTop: 16 }}>
         {canGoDown ?
-          <ButtonNoBorder onClick={goBackOnePage}>
+          <ButtonClear onClick={goBackOnePage}>
             <i className={fetchRooms.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-left'} />
-          </ButtonNoBorder>
+          </ButtonClear>
           : <div />}
         {
           canGoUp && (
-            <ButtonNoBorder onClick={goUpOnePage}>
+            <ButtonClear onClick={goUpOnePage}>
               <i className={fetchRooms.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-right'} />
-            </ButtonNoBorder>
+            </ButtonClear>
           )
         }
       </GridLarge>

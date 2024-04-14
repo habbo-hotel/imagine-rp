@@ -5,7 +5,7 @@ import { SiteNav } from '../site-nav/SiteNav';
 import { SiteLogo } from '../site-logo/SiteLogo';
 import { usersOnlineContext } from '@imagine-cms/websocket';
 import { ToggleThemeButton } from '../toggle-theme-button/ToggleThemeButton';
-import { ButtonBrand, ButtonDanger, ButtonNoBorder } from '../button/Button.remix';
+import { ButtonBrand, ButtonDanger, ButtonClear } from '../button/Button.remix';
 import { GuestGuard, ScopeGuard, UserGuard, configContext } from '@imagine-cms/web';
 import { SiteHeaderActions, SiteHeaderContent, SiteHeaderElement, SiteHeaderImage, SiteHeaderNav, SiteHeaderNavigation, SiteHeaderTools, SiteHeaderWrapper } from './SiteHeader.styled';
 
@@ -28,9 +28,9 @@ export function SiteHeader() {
               </Link>
             </ScopeGuard>
             <Link href="/play">
-              <ButtonNoBorder>
+              <ButtonClear>
                 Enter {config!.siteName} - <b>{usersOnline}</b> users online
-              </ButtonNoBorder>
+              </ButtonClear>
             </Link>
           </SiteHeaderTools>
         </SiteHeaderContent>
@@ -46,14 +46,14 @@ export function SiteHeader() {
             <ToggleThemeButton />
             <UserGuard>
               <Link href="/settings">
-                <ButtonNoBorder style={{ padding: 0, width: 100 }}>
+                <ButtonClear style={{ padding: 0, width: 100 }}>
                   <i className="fa fa-cog" /> Settings
-                </ButtonNoBorder>
+                </ButtonClear>
               </Link>
               <Link href="/logout">
-                <ButtonNoBorder style={{ color: '#7C0F0F', padding: 0, width: 100 }}>
+                <ButtonClear style={{ color: '#7C0F0F', padding: 0, width: 100 }}>
                   <i className="fa fa-sign-out" /> Sign Out
-                </ButtonNoBorder>
+                </ButtonClear>
               </Link>
             </UserGuard>
             <GuestGuard redirect={false}>

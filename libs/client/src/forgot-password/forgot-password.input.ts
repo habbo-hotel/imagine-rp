@@ -1,5 +1,5 @@
 export interface ForgotPasswordRequestCreateInput {
-  emailAddress: string;
+  username: string;
 }
 
 export interface ForgotPasswordRequestRedeemInput {

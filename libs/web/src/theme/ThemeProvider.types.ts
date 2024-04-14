@@ -18,6 +18,7 @@ export interface ImagineTheme {
     red: string;
     black: string;
     brand: string;
+    brandText: string;
     s10: string;
     s20: string;
     s30: string;

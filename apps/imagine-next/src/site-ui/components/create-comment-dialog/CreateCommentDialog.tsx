@@ -4,7 +4,7 @@ import { CreateCommentDialogProps } from './CreateCommentDialog.types';
 import { Dialog } from '../dialog/Dialog';
 import { Button } from '../button/Button';
 import { Textarea } from '../textarea/Textarea';
-import { ButtonNoBorder, ButtonSuccess } from '../button/Button.remix';
+import { ButtonClear, ButtonSuccess } from '../button/Button.remix';
 import { Form } from '../form/Form';
 import { toast } from 'react-toastify';
 
@@ -45,7 +45,7 @@ export function CreateCommentDialog({ onPostComment }: CreateCommentDialogProps)
               <label>Message</label>
               <Textarea value={message} onChange={setMessage} rows={10} />
               <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'flex-end', gap: 16 }}>
-                <ButtonNoBorder type="button" onClick={onToggle}>Cancel</ButtonNoBorder>
+                <ButtonClear type="button" onClick={onToggle}>Cancel</ButtonClear>
                 <ButtonSuccess type="submit">Post</ButtonSuccess>
               </div>
             </Form>

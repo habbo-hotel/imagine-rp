@@ -6,7 +6,7 @@ import { Badge } from '../badge/Badge';
 import { GridLarge } from '../grid/Grid.remix';
 import React, { useEffect, useState } from 'react';
 import { useUserFetchMany } from '@imagine-cms/client';
-import { ButtonBrand, ButtonNoBorder } from '../button/Button.remix';
+import { ButtonBrand, ButtonClear } from '../button/Button.remix';
 import { RankListContainerProps } from './RankListContainer.types';
 import { RankListContainerHeader } from './RankListContainer.styled';
 import { SmallUserProfileContainer } from '../small-user-profile-container/SmallUserProfileContainer';
@@ -63,15 +63,15 @@ export function RankListContainer({ rank, showApplicationsButton = true }: RankL
       </Grid>
       <GridLarge>
         {canGoDown ?
-          <ButtonNoBorder onClick={goBackOnePage}>
+          <ButtonClear onClick={goBackOnePage}>
             <i className={fetchRankUsers.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-left'} />
-          </ButtonNoBorder>
+          </ButtonClear>
           : <div />}
         {
           canGoUp && (
-            <ButtonNoBorder onClick={goUpOnePage}>
+            <ButtonClear onClick={goUpOnePage}>
               <i className={fetchRankUsers.loading ? 'fa fa-spinner fa-spin' : 'fa fa-arrow-right'} />
-            </ButtonNoBorder>
+            </ButtonClear>
           )
         }
       </GridLarge>
