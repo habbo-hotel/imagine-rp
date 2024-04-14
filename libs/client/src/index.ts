@@ -161,12 +161,6 @@ export * from './gang-member/gang-member-fetch-many.query';
 export * from './gang-member/gang-member.fragment';
 export * from './gang-member/gang-member.input';
 
-// Gang Rank
-export * from './gang-rank/gang-rank-fetch-many.hook';
-export * from './gang-rank/gang-rank-fetch-many.query';
-export * from './gang-rank/gang-rank.fragment';
-export * from './gang-rank/gang-rank.input';
-
 // Group
 export * from './group/group-fetch-many.hook';
 export * from './group/group-fetch-many.query';

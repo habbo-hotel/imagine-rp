@@ -154,9 +154,7 @@ type RPStatsModel {
   corporationID: Float
   corporationRankID: Float
   gangID: Float
-  gangRankID: Float
   gang: GangModel
-  gangRank: GangRankModel
   corporation: CorporationModel
   corporationRank: CorporationRankModel
 }
@@ -488,23 +486,14 @@ type StorePackageModel {
 }
 
 type GangModel {
-  id: Float
-  userID: Float
-  name: String
-  description: String
-  badgeCode: String
+  groupID: Float
   user: UserModel
 }
 
 type CorporationModel {
-  id: Float
-  userID: Float
-  roomID: Float
-  name: String
-  description: String
-  badgeCode: String
-  user: UserModel
-  room: RoomModel
+  groupID: Float
+  tags: [String!]
+  group: UserModel
 }
 
 type CorporationRankModel {
@@ -517,19 +506,6 @@ type CorporationRankModel {
 type CorporationMemberModel {
   corporationID: Float
   corporationRankID: Float
-  userID: Float
-}
-
-type GangRankModel {
-  id: Float
-  gangID: Float
-  name: String
-  description: String
-}
-
-type GangMemberModel {
-  gangID: Float
-  gangRankID: Float
   userID: Float
 }
 
@@ -603,8 +579,6 @@ type Query {
   storePackages(filter: StorePackageFilterManyInput): [StorePackageModel!]!
   gangs(filter: GangFilterManyInput!): [GangModel!]!
   gang(filter: GangFilterOneInput!): GangModel!
-  gangRanks(filter: GangRankFilterManyInput!): [GangRankModel!]!
-  gangMembers(filter: GangMemberFilterManyInput!): [GangMemberModel!]!
   corporations(filter: CorporationFilterManyInput!): [CorporationModel!]!
   corporation(filter: CorporationFilterOneInput!): CorporationModel!
   corporationRanks(filter: CorporationRankFilterManyInput!): [CorporationRankModel!]!
@@ -915,21 +889,6 @@ input GangFilterManyInput {
 
 input GangFilterOneInput {
   id: Float!
-}
-
-input GangRankFilterManyInput {
-  ids: [Float!]
-  gangIDs: [Float!]
-  nameSearch: String
-  skip: Float
-  limit: Float
-}
-
-input GangMemberFilterManyInput {
-  gangIDs: [Float!]
-  userIDs: [Float!]
-  skip: Float
-  limit: Float
 }
 
 input CorporationFilterManyInput {
@@ -1280,12 +1239,14 @@ input GangCreateInput {
   name: String!
   description: String!
   badgeCode: String!
+  roomID: Float!
 }
 
 input GangUpdateInput {
   name: String
   description: String
   badgeCode: String
+  roomID: Float
 }
 
 input CorporationCreateInput {

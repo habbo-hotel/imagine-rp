@@ -1,18 +1,18 @@
-import {now} from 'lodash';
-import {UserModel} from './user.model';
-import {FindOptionsOrder, In, IsNull} from 'typeorm';
-import {RankModel} from '../rank/rank.model';
-import {BadRequestException} from '@nestjs/common';
-import {UserEntity} from '../database/user.entity';
-import {DEFAULT_USER_VALUES} from './user.constant';
-import {UserOnlineStatus} from '@imagine-cms/types';
-import {GetUser} from '../session/get-user.decorator';
-import {UserRepository} from '../database/user.repository';
-import {RankRepository} from '../database/rank.repository';
-import {HasSession} from '../session/has-session.decorator';
+import { now } from 'lodash';
+import { UserModel } from './user.model';
+import { FindOptionsOrder, In, IsNull } from 'typeorm';
+import { RankModel } from '../rank/rank.model';
+import { BadRequestException } from '@nestjs/common';
+import { UserEntity } from '../database/user.entity';
+import { DEFAULT_USER_VALUES } from './user.constant';
+import { UserOnlineStatus } from '@imagine-cms/types';
+import { GetUser } from '../session/get-user.decorator';
+import { UserRepository } from '../database/user.repository';
+import { RankRepository } from '../database/rank.repository';
+import { HasSession } from '../session/has-session.decorator';
 import DayJS from 'dayjs';
-import {ConfigRepository} from '../database/config.repository';
-import {BetaCodeRepository} from '../database/beta-code.repository';
+import { ConfigRepository } from '../database/config.repository';
+import { BetaCodeRepository } from '../database/beta-code.repository';
 import {
   UserCreateInput,
   UserFilterManyInput,
@@ -31,9 +31,9 @@ import {
 import {
   RPStatsRepository,
 } from '../database/rp-stats.repository';
-import {RPStatsModel} from '../rp-stats/rp-stats.model';
-import {SessionCreatedModel} from '../session/session.model';
-import {SessionService} from '../session/session.service';
+import { RPStatsModel } from '../rp-stats/rp-stats.model';
+import { SessionCreatedModel } from '../session/session.model';
+import { SessionService } from '../session/session.service';
 import { GovernmentFacilityService } from '../government/facility.service';
 import { CorporationRankRepository } from '../database/corporation-rank.repository';
 
@@ -48,16 +48,16 @@ export class UserResolver {
     private readonly sessionService: SessionService,
     private readonly corporationPositionRepo: CorporationRankRepository,
     private readonly governmentFacilityService: GovernmentFacilityService,
-  ) {}
+  ) { }
 
-  @ResolveField(() => RPStatsModel, {nullable: true})
-  async rpStats(@Parent() {id}: UserEntity): Promise<RPStatsModel> {
-    const matchingRPStats = await this.rpStatsRepo.findOneOrFail({userID: id});
+  @ResolveField(() => RPStatsModel, { nullable: true })
+  async rpStats(@Parent() { id }: UserEntity): Promise<RPStatsModel> {
+    const matchingRPStats = await this.rpStatsRepo.findOneOrFail({ userID: id });
     return RPStatsModel.fromEntity(matchingRPStats);
   }
 
   @ResolveField(() => Boolean)
-  async hasBetaCode(@Parent() {id}: UserEntity): Promise<boolean> {
+  async hasBetaCode(@Parent() { id }: UserEntity): Promise<boolean> {
     const matchingBetaCode = await this.betaCodeRepo.findOne({
       where: {
         userID: id,
@@ -66,10 +66,10 @@ export class UserResolver {
     return !!matchingBetaCode;
   }
 
-  @ResolveField(() => String, {nullable: true})
+  @ResolveField(() => String, { nullable: true })
   @HasSession()
   async email(
-    @Parent() {id, email}: UserEntity,
+    @Parent() { id, email }: UserEntity,
     @GetUser() user: UserEntity
   ): Promise<string | null> {
     const canAccess = await this.ownsResourceOrCanManageUsers(id, user);
@@ -79,10 +79,10 @@ export class UserResolver {
     return email ?? null;
   }
 
-  @ResolveField(() => String, {nullable: true})
+  @ResolveField(() => String, { nullable: true })
   @HasSession()
   async gameSSO(
-    @Parent() {id, gameSSO}: UserEntity,
+    @Parent() { id, gameSSO }: UserEntity,
     @GetUser() user: UserEntity
   ): Promise<string | null> {
     const canAccess = await this.ownsResourceOrCanManageUsers(id, user);
@@ -92,10 +92,10 @@ export class UserResolver {
     return gameSSO ?? null;
   }
 
-  @ResolveField(() => String, {nullable: true})
+  @ResolveField(() => String, { nullable: true })
   @HasSession()
   async ipLast(
-    @Parent() {id, ipLast}: UserEntity,
+    @Parent() { id, ipLast }: UserEntity,
     @GetUser() user: UserEntity
   ): Promise<string | null> {
     const canAccess = await this.ownsResourceOrCanManageUsers(id, user);
@@ -105,10 +105,10 @@ export class UserResolver {
     return ipLast;
   }
 
-  @ResolveField(() => String, {nullable: true})
+  @ResolveField(() => String, { nullable: true })
   @HasSession()
   async ipRegistered(
-    @Parent() {id, ipRegistered: ipRegisteredWith}: UserEntity,
+    @Parent() { id, ipRegistered: ipRegisteredWith }: UserEntity,
     @GetUser() user: UserEntity
   ): Promise<string | null> {
     const canAccess = await this.ownsResourceOrCanManageUsers(id, user);
@@ -118,10 +118,10 @@ export class UserResolver {
     return ipRegisteredWith;
   }
 
-  @ResolveField(() => String, {nullable: true})
+  @ResolveField(() => String, { nullable: true })
   @HasSession()
   async machineAddress(
-    @Parent() {id, machineAddress}: UserEntity,
+    @Parent() { id, machineAddress }: UserEntity,
     @GetUser() user: UserEntity
   ): Promise<string | null> {
     const canAccess = await this.ownsResourceOrCanManageUsers(id, user);
@@ -132,19 +132,19 @@ export class UserResolver {
   }
 
   @ResolveField('onlineStatus')
-  onlineStatus(@Parent() {onlineStatus}: UserEntity): string {
+  onlineStatus(@Parent() { onlineStatus }: UserEntity): string {
     return onlineStatus;
   }
 
-  @ResolveField('rank', () => RankModel, {nullable: true})
-  async getRank(@Parent() {rankID}: UserEntity): Promise<RankModel> {
-    const matchingRank = await this.rankRepo.findOneOrFail({id: rankID});
+  @ResolveField('rank', () => RankModel, { nullable: true })
+  async getRank(@Parent() { rankID }: UserEntity): Promise<RankModel> {
+    const matchingRank = await this.rankRepo.findOneOrFail({ id: rankID });
     return RankModel.fromEntity(matchingRank);
   }
 
   @Query(() => Number)
   async usersOnlineCount(): Promise<number> {
-    const onlineUsers: [{online_users: number}] = await this.userRepo
+    const onlineUsers: [{ online_users: number }] = await this.userRepo
       .getInstance()
       .query("SELECT COUNT(*) AS online_users FROM users WHERE online = '1'");
     return onlineUsers[0].online_users;
@@ -152,7 +152,7 @@ export class UserResolver {
 
   @Query(() => UserModel)
   async user(
-    @Args('filter', {nullable: true, type: () => UserFilterOneInput})
+    @Args('filter', { nullable: true, type: () => UserFilterOneInput })
     filter: UserFilterOneInput
   ): Promise<UserEntity> {
     if (!filter.id && !filter.username) {
@@ -242,17 +242,17 @@ export class UserResolver {
 
     if (config.betaCodesRequired) {
       await this.betaCodeRepo.update(
-        {id: matchingBetaCode!.id!},
-        {userID: newUser.id!}
+        { id: matchingBetaCode!.id! },
+        { userID: newUser.id! }
       );
     }
 
     const welfareCorp = await this.governmentFacilityService.getWelfareCorp();
-    const welfareCorpPosition = await this.corporationPositionRepo.findOneOrFail({ corporationID: welfareCorp.id!, orderID: 1 })
+    const welfareCorpPosition = await this.corporationPositionRepo.findOneOrFail({ groupID: welfareCorp.groupID!, orderID: 1 })
 
     await this.rpStatsRepo.create({
       userID: newUser.id!,
-      corporationID: welfareCorp.id!,
+      corporationID: welfareCorp.groupID!,
       corporationPositionID: welfareCorpPosition.id!,
     } as any);
 
@@ -272,14 +272,14 @@ export class UserResolver {
     @GetUser() session: UserEntity
   ) {
     this.ownsResource(id, session);
-    await this.userRepo.update({id}, userChanges);
+    await this.userRepo.update({ id }, userChanges);
     return true;
   }
 
   @Mutation(() => Boolean)
   async userDelete(@Args('id') id: number, @GetUser() session: UserEntity) {
     this.ownsResource(id, session);
-    await this.userRepo.delete({id});
+    await this.userRepo.delete({ id });
     return true;
   }
 

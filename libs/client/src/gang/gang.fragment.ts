@@ -1,23 +1,18 @@
 import gql from "graphql-tag";
 import { USER_FRAGMENT, UserFragment } from "../user/user.fragment";
+import { GROUP_FRAGMENT, GroupFragment } from "../group/group.fragment";
 
 export const GANG_FRAGMENT: any = gql`
-  ${USER_FRAGMENT}
+  ${GROUP_FRAGMENT}
   fragment GangFragment on GangModel {
-    id
-    name
-    description
-    userID
-    user {
-      ...UserFragment
+    groupID
+    group {
+      ...GroupFragment
     }
   }
 `
 
 export interface GangFragment {
-  id: number;
-  name: string;
-  description: string;
-  userID: number;
-  user: UserFragment;
+  groupID: number;
+  group: GroupFragment;
 }

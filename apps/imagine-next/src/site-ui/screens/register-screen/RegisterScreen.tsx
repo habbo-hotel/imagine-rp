@@ -10,6 +10,7 @@ import { UserCreateInput, UserGender, useUserCreate, useUserFetchOne } from '@im
 import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { SiteLogo } from '../../components/site-logo/SiteLogo';
 
 export function RegisterScreen() {
   const createUser = useUserCreate();
@@ -55,6 +56,7 @@ export function RegisterScreen() {
 
   return (
     <GuestGuard>
+      <SiteLogo />
       <h1>create account</h1>
       <div style={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center', height: '100%' }}>
         <Form onSubmit={onCreateUser}>

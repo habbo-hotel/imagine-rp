@@ -7,7 +7,6 @@ export const RP_STATS_FRAGMENT: any = gql`
     corporationID
     corporationRankID
     gangID
-    gangRankID
   }
 `
 

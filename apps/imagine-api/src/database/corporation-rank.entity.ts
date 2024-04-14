@@ -1,15 +1,15 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('rp_corporations_positions')
 export class CorporationRankEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({name: 'order_id'})
+  @Column({ name: 'order_id' })
   orderID!: number;
 
-  @Column({name: 'corporation_id'})
-  corporationID!: number;
+  @Column({ name: 'guild_id' })
+  groupID!: number;
 
   @Column()
   name!: string;
@@ -17,6 +17,6 @@ export class CorporationRankEntity {
   @Column()
   description!: string;
 
-  @Column({ name: 'salary'})
+  @Column({ name: 'salary' })
   salary!: number;
 }

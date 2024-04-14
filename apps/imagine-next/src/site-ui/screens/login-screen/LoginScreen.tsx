@@ -5,11 +5,9 @@ import { toast } from 'react-toastify';
 import { Form } from '../../components/form/Form';
 import { Input } from '../../components/input/Input';
 import React, { SyntheticEvent, useState } from 'react';
-import { Button } from '../../components/button/Button';
 import { GuestGuard, useSignInWithUsernameAndPassword } from '@imagine-cms/web';
 import { ButtonBrand, ButtonClear } from '../../components/button/Button.remix';
-import { Grid } from '../../components/grid/Grid';
-import { DiscordLoginButton } from '../../components/discord-login-button/DiscordLoginButton';
+import { SiteLogo } from '../../components/site-logo/SiteLogo';
 
 export function LoginScreen() {
   const [username, setUsername] = useState('');

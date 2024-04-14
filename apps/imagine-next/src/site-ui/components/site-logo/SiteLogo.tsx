@@ -1,10 +1,14 @@
 'use client'
 import React, { useContext } from 'react';
-import { configContext } from '@imagine-cms/web';
+import { sessionContext, themeContext } from '@imagine-cms/web';
+import Link from 'next/link';
 
 export function SiteLogo() {
-  const { config } = useContext(configContext);
+  const { theme } = useContext(themeContext);
+  const { session } = useContext(sessionContext);
   return (
-    <img src={config!.logoURL} loading="lazy" style={{ maxHeight: 100, objectFit: 'cover' }} />
+    <Link href={session ? '/me' : '/login'}>
+      <img src={theme === 'dark' ? 'https://i.imgur.com/vuO1asy.png' : 'https://i.imgur.com/wnhkVSm.png'} loading="lazy" style={{ maxHeight: 100, objectFit: 'cover' }} />
+    </Link>
   )
 }

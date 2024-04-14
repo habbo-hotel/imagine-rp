@@ -4,6 +4,7 @@ import { SiteContainerProps } from './SiteContainer.types';
 import { usePathname } from 'next/navigation';
 import { AdminContainer } from '../../admin-ui/components/admin-container/AdminContainer';
 import { SiteContainer as PrimarySiteContainer } from '../../site-ui/components/site-container/SiteContainer';
+import { SiteLogo } from '../../site-ui/components/site-logo/SiteLogo';
 
 export function SiteContainer({ children }: SiteContainerProps) {
   const pathname = usePathname();
@@ -13,6 +14,7 @@ export function SiteContainer({ children }: SiteContainerProps) {
   }, [pathname]);
   return (
     <Container>
+      <SiteLogo />
       {children}
     </Container>
   )

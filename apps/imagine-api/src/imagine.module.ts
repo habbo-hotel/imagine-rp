@@ -49,8 +49,6 @@ import { GangModule } from './gang/gang.module';
 import { CorporationModule } from './corporation/corporation.module';
 import { CorporationRankModule } from './corporation-rank/corporation-rank.module';
 import { CorporationMemberModule } from './corporation-member/corporation-member.module';
-import { GangRankModule } from './gang-rank/gang-rank.module';
-import { GangMemberModule } from './gang-member/gang-member.module';
 import { RPStatsModule } from './rp-stats/rp-stats.module';
 
 @Module({
@@ -125,8 +123,6 @@ import { RPStatsModule } from './rp-stats/rp-stats.module';
     StoreTransactionModule,
     StoreTransactionLogModule,
     GangModule,
-    GangRankModule,
-    GangMemberModule,
     CorporationModule,
     CorporationRankModule,
     CorporationMemberModule,
